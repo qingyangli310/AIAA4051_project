@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Environments
+.venv/
+venv/
+env/
+.conda/
+
+# IDE and OS
+.DS_Store
+.vscode/
+.idea/
+
+# Secrets
+.env
+*.pem
+*.key
+
+# Model caches and checkpoints
+.cache/
+huggingface/
+checkpoints/
+*.ckpt
+*.pt
+*.pth
+*.bin
+*.safetensors
+
+# Generated data and experiment outputs
+data/raw/
+data/processed/
+results/runs/
+logs/
+wandb/
+
+# Keep directory placeholders
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!results/runs/.gitkeep

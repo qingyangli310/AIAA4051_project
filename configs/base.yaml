@@ -1,0 +1,54 @@
+project:
+  name: AIAA4051_project6
+  seed: 42
+
+data:
+  grid_size: 6
+  coordinate_system: row_col_zero_based
+  action_step_indexing: one_based
+  goal_not_reached_step: len_plus_one
+  environment_split:
+    train: 0.70
+    dev: 0.10
+    id_test: 0.10
+    ood_test: 0.10
+  train_examples:
+    generation: 1000
+    verification: 1500
+    repair: 1500
+  dev_examples_max: 200
+  id_test_examples_max: 200
+  ood_test_examples_max: 200
+  verification_valid_invalid_ratio: [1, 1]
+  corruption_ratios:
+    action_substitution: 0.25
+    action_deletion: 0.25
+    action_insertion: 0.25
+    premature_stopping: 0.25
+
+model:
+  baseline_1_family: pending_t5_or_flan_t5
+  baseline_2_name: facebook/bart-base
+  baseline_2_revision: aadd2ab0ae0c8268c7c9693540e9904811f36177
+  max_input_length: 512
+  max_output_length: 128
+
+training:
+  learning_rate: 5.0e-5
+  per_device_train_batch_size: 8
+  per_device_eval_batch_size: 8
+  gradient_accumulation_steps: 2
+  num_train_epochs: 3
+  optimizer: adamw_torch
+  weight_decay: 0.01
+  bf16: true
+
+generation:
+  num_beams: 1
+  do_sample: false
+  temperature: 1.0
+
+experiment:
+  improvement: structured_state_tracking_verification
+  ablation: remove_state_tracking
+  repair_rounds_main_baseline: 1
