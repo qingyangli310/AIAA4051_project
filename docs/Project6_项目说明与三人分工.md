@@ -324,7 +324,7 @@ B 负责语言模型的主要训练。
 
 - 确认使用的 checkpoint；
 - 比较至少两个模型；
-- 例如 Flan-T5-small 和 BART-base；
+- 当前使用 T5-small 和 BART-base；
 - 实现路径生成模型；
 - 实现路径验证模型；
 - 让验证器输出 valid/invalid；
@@ -570,7 +570,7 @@ error_analysis.py
 
 - 三个人都能运行项目；
 - executor 能运行一个简单样例；
-- 确认使用 T5 还是 Flan-T5；
+- 确认三个人的配置均使用 `google-t5/t5-small`；
 - 确认错误步骤从 0 还是从 1 开始编号；
 - 确认 Success、Feasibility 和 Optimality 的计算方法；
 - 确认仓库分支、代码提交和审核规则。
@@ -892,22 +892,22 @@ requirements/environment
 
 | 用途 | Hugging Face 模型 | 固定 revision |
 |---|---|---|
-| Baseline 1 | `google/flan-t5-small` | `ec9123e078f63797d82dbe0812dc176c7008fc29` |
+| Baseline 1 | `google-t5/t5-small` | `df1b051c49625cf57a3d0d8d3863ed4d13564fe4` |
 | Baseline 2 | `facebook/bart-base` | `aadd2ab0ae0c8268c7c9693540e9904811f36177` |
 
-如果开发集结果或项目负责人要求使用 Flan-T5-base，则固定为：
+如果之后项目负责人要求切换为 Flan-T5-small，则固定为：
 
 | 用途 | Hugging Face 模型 | 固定 revision |
 |---|---|---|
-| 可选模型 | `google/flan-t5-base` | `7bcac572ce56db69c1ea7c8af255c5d7c9672fc2` |
+| 可选模型 | `google/flan-t5-small` | `ec9123e078f63797d82dbe0812dc176c7008fc29` |
 
 加载模型时必须显式提供 revision：
 
 ```python
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 
-MODEL_NAME = "google/flan-t5-small"
-MODEL_REVISION = "ec9123e078f63797d82dbe0812dc176c7008fc29"
+MODEL_NAME = "google-t5/t5-small"
+MODEL_REVISION = "df1b051c49625cf57a3d0d8d3863ed4d13564fe4"
 
 tokenizer = AutoTokenizer.from_pretrained(
     MODEL_NAME,
@@ -1000,7 +1000,7 @@ seed = 42
 bf16 = true
 ```
 
-以上 batch size 是 pilot 起点，不是不可修改的研究参数。如果 Flan-T5-base 或 BART-base 显存不足，可以降低 batch size，但必须通过 gradient accumulation 尽量保持相同的有效 batch size，并把变更记录到配置文件。
+以上 batch size 是 pilot 起点，不是不可修改的研究参数。如果 T5-small、未来切换的 Flan-T5-small 或 BART-base 显存不足，可以降低 batch size，但必须通过 gradient accumulation 尽量保持相同的有效 batch size，并把变更记录到配置文件。
 
 ### 15.6 统一环境检查
 

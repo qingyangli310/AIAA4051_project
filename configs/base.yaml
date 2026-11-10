@@ -27,7 +27,11 @@ data:
     premature_stopping: 0.25
 
 model:
-  baseline_1_family: pending_t5_or_flan_t5
+  baseline_1_name: google-t5/t5-small
+  baseline_1_revision: df1b051c49625cf57a3d0d8d3863ed4d13564fe4
+  baseline_1_status: active
+  future_alternative_name: google/flan-t5-small
+  future_alternative_requires_protocol_update: true
   baseline_2_name: facebook/bart-base
   baseline_2_revision: aadd2ab0ae0c8268c7c9693540e9904811f36177
   max_input_length: 512

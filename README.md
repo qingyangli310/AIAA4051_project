@@ -8,7 +8,7 @@ This repository implements a single-goal grid-navigation research pipeline:
 Generate → Verify → Repair → Execute → Evaluate
 ```
 
-The only unresolved project-level decision is whether Baseline 1 uses the original T5-small checkpoint or `google/flan-t5-small`. Formal baseline training must wait for the project manager's confirmation. Executor, data, interface, smoke-test, and pipeline work may proceed.
+Baseline 1 currently uses `google-t5/t5-small`. If the project manager later changes the decision to Flan-T5, the team will update the shared configuration and protocol in one coordinated change before running new formal experiments.
 
 ## Repository Structure
 
@@ -120,4 +120,4 @@ B: model inference smoke test
 C: mock generate-verify-repair pipeline
 ```
 
-Formal baseline training begins only after the T5 versus Flan-T5 checkpoint question is resolved.
+Baseline 1 formal experiments use `google-t5/t5-small` unless a later recorded team decision switches the project to Flan-T5.

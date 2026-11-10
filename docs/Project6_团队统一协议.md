@@ -4,16 +4,17 @@
 
 | 项目 | 内容 |
 |---|---|
-| 文档版本 | v0.2 |
+| 文档版本 | v1.0 Frozen |
 | 创建日期 | 2026-11-09 |
 | 计划冻结日期 | 2026-11-12 |
 | 适用成员 | 成员 A、成员 B、成员 C |
 | 项目范围 | PPNL 单目标网格路径生成、验证与修复 |
-| 当前状态 | 研究与工程协议已冻结，仅 T5/Flan-T5 checkpoint 家族待负责人确认 |
+| 当前状态 | 研究与工程协议已冻结；Baseline 1 暂定使用 T5-small |
+| 模型决定日期 | 2026-11-10 |
 
 本协议用于统一三个人的数据格式、模型接口、实验规则、评价指标和协作方式。协议冻结后，A、B、C 可以分别开发不同模块，但所有模块必须遵守相同接口。
 
-> 需要项目负责人确认的事项不得自行假设。特别是 T5 与 Flan-T5 checkpoint 不一致的问题，必须在正式训练前确认。
+> 当前统一使用 `google-t5/t5-small`。如果之后负责人要求改为 Flan-T5，必须先统一修改配置、协议和实验记录，再重新运行受影响的正式实验，不允许成员自行切换。
 
 ## 一、为什么现在就要统一
 
@@ -427,23 +428,30 @@ premature_stopping：25%
 
 ## 九、模型和训练协议
 
-### 9.1 唯一待外部确认的 checkpoint 家族
+### 9.1 固定 checkpoint 家族
 
-课程负责人只需确认第一个 baseline 使用普通 T5 还是 Flan-T5。团队已经固定第二个 baseline 为 BART-base：
+团队暂时固定第一个 baseline 为普通 T5-small，第二个 baseline 为 BART-base：
 
 ```text
-Baseline 1：{T5 或 Flan-T5}-small（待负责人确认）
+Baseline 1：google-t5/t5-small
 Baseline 2：facebook/bart-base
 ```
 
-课程材料的链接与模型名称存在 T5/Flan-T5 不一致。正式训练前必须由项目负责人确认准确 checkpoint。
+Baseline 1 固定为：
 
-如果负责人确认 Flan-T5，则使用：
+```text
+google-t5/t5-small
+revision=df1b051c49625cf57a3d0d8d3863ed4d13564fe4
+```
+
+如果负责人之后决定改用 Flan-T5，则统一改为：
 
 ```text
 google/flan-t5-small
 revision=ec9123e078f63797d82dbe0812dc176c7008fc29
 ```
+
+切换模型后必须更新 `configs/base.yaml`、本协议、README 和实验日志，并重新运行所有受模型影响的正式实验；旧 T5 结果不得与新 Flan-T5 结果混为同一组实验。
 
 BART-base 固定为：
 
@@ -675,7 +683,7 @@ GPU 推理时间
   "experiment_id": "exp_001",
   "environment_id": "grid_0001",
   "split": "ood_test",
-  "model": "google/flan-t5-small",
+  "model": "google-t5/t5-small",
   "seed": 42,
   "feedback_source": "executor",
   "candidate_plan": ["right", "right", "down"],
@@ -876,7 +884,7 @@ feature/c-repair-pipeline
 - [x] environment-level 数据划分已经确认；
 - [x] 固定随机种子已经确认；
 - [x] 两个 baseline 候选已经确认；
-- [ ] 精确 checkpoint 已确认或已向项目负责人提问；
+- [x] 精确 checkpoint 已暂定为 `google-t5/t5-small`；
 - [x] 三种主要比较方法已经确认；
 - [x] Success、Feasibility 和 Optimality 定义已经确认；
 - [x] Repair Success Rate 分母已经确认；
@@ -902,14 +910,14 @@ C：mock generate-verify-repair pipeline
 | B |  |  |
 | C |  |  |
 
-## 二十、唯一阻塞正式训练的外部确认事项
+## 二十、后续模型变更规则
 
-课程负责人需要确认：
+当前决定为：
 
 ```text
-Baseline 1 使用普通 T5-small，还是 google/flan-t5-small？
+Baseline 1 暂时使用 google-t5/t5-small。
 ```
 
-得到回复前，可以完成 executor、数据构造、接口实现和模型 smoke test，但不得开始正式 baseline 训练。收到回复后，记录精确模型名称和 revision，并将协议升级为 `v1.0 Frozen`。
+团队现在可以按 T5-small 开始 smoke test 和 baseline 实验。如果之后负责人改为 Flan-T5，先提交一次统一的协议与配置变更，再重新运行受影响的实验。所有结果必须记录模型名称、revision 和变更日期。
 
 Poster 时长与格式、最终提交入口和团队代码提问形式属于后续行政信息，不阻塞当前工程开发；收到课程通知后补充到项目 README 和时间线。
