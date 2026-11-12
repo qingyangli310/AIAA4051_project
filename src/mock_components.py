@@ -100,9 +100,10 @@ class MockRepairer:
         environment_id: str,
         grid: dict[str, Any],
         candidate_plan: list[str],
-        verifier_feedback: dict[str, Any],
+        feedback_source: str,
+        verifier_feedback: dict[str, Any] | None,
     ) -> dict[str, Any]:
-        del environment_id, grid, candidate_plan, verifier_feedback
+        del environment_id, grid, candidate_plan, feedback_source, verifier_feedback
         plan = ["down", "right", "down", "right"]
         return {
             "raw_output": ", ".join(plan),

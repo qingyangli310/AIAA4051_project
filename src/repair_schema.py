@@ -12,12 +12,14 @@ ERROR_TYPES = {
     "goal_not_reached",
 }
 VALID_ACTIONS = {"up", "down", "left", "right"}
+FEEDBACK_SOURCES = {"no_feedback", "self_feedback", "executor_feedback"}
 
 
 def build_repair_request(
     grid: dict[str, Any],
     candidate_plan: list[str],
     verifier_feedback: dict[str, Any],
+    feedback_source: str = "self_feedback",
 ) -> dict[str, Any]:
     """Build and validate a repair request using the shared field names."""
     required_grid_fields = {
@@ -44,12 +46,17 @@ def build_repair_request(
         raise ValueError(f"unsupported verifier reason: {reason!r}")
     if reason == "goal_not_reached" and error_step != len(candidate_plan):
         raise ValueError("goal_not_reached must use first_error_step=len(candidate_plan)")
+    if feedback_source not in FEEDBACK_SOURCES:
+        raise ValueError(f"unsupported feedback_source: {feedback_source!r}")
 
     return {
         "environment_id": grid["environment_id"],
         "grid": grid,
         "candidate_plan": list(candidate_plan),
-        "verifier_feedback": dict(verifier_feedback),
+        "feedback_source": feedback_source,
+        "verifier_feedback": (
+            None if feedback_source == "no_feedback" else dict(verifier_feedback)
+        ),
     }
 
 

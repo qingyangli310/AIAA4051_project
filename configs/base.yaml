@@ -10,23 +10,27 @@ data:
   environment_split:
     train: 0.70
     dev: 0.10
-    id_test: 0.10
-    ood_test: 0.10
+    heldout_test: 0.20
   task_coverage:
     train: [generation, verification, repair]
     dev: [generation, verification, repair]
-    id_test: [generation, verification, repair]
-    ood_test: [verification, repair]
-  test_scenarios:
-    id_test: [valid, single_error]
-    ood_test: [double_error]
+    heldout_test: [generation, verification, repair]
+  test_conditions:
+    id_single_error:
+      environment_source: heldout_test
+      scenarios: [valid, single_error]
+    ood_double_error:
+      environment_source: heldout_test
+      scenarios: [double_error]
+    pairing_key: base_sample_id
   train_examples:
     generation: 1000
     verification: 1500
     repair: 1500
   dev_examples_max: 200
-  id_test_examples_max: 200
-  ood_test_examples_max: 200
+  id_single_error_examples_max: 200
+  ood_double_error_examples_max: 200
+  include_feasible_non_optimal_valid_plans: true
   verification_valid_invalid_ratio: [1, 1]
   corruption_ratios:
     action_substitution: 0.25

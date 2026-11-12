@@ -5,7 +5,7 @@ from src.mock_components import (
     MockVerifier,
     execute_plan,
 )
-from src.pipeline import run_pipeline
+from src.pipeline import run_pipeline, run_pipeline_batch
 
 
 GRID = {
@@ -121,3 +121,43 @@ def test_unparseable_repair_counts_as_final_failure() -> None:
     )
     assert result["repair"]["parse_success"] is False
     assert result["final_result"]["success"] is False
+
+
+class CapturingRepairer:
+    def __init__(self):
+        self.request = None
+
+    def repair(self, **request):
+        self.request = request
+        plan = ["down", "right", "down", "right"]
+        return {"raw_output": ", ".join(plan), "repaired_plan": plan, "parse_success": True}
+
+
+def test_no_feedback_hides_verifier_content_from_repairer() -> None:
+    repairer = CapturingRepairer()
+    result = run_pipeline(
+        GRID,
+        MockGenerator(),
+        MockVerifier(),
+        repairer,
+        MockExecutor(),
+        feedback_source="no_feedback",
+    )
+    assert result["feedback_source"] == "no_feedback"
+    assert repairer.request["feedback_source"] == "no_feedback"
+    assert repairer.request["verifier_feedback"] is None
+
+
+def test_batch_preserves_error_and_continues() -> None:
+    broken_grid = {"environment_id": "broken"}
+    records = run_pipeline_batch(
+        [broken_grid, GRID],
+        MockGenerator(),
+        MockVerifier(),
+        MockRepairer(),
+        MockExecutor(),
+    )
+    assert records[0]["status"] == "error"
+    assert records[0]["environment_id"] == "broken"
+    assert records[1]["status"] == "ok"
+    assert records[1]["final_result"]["success"] is True

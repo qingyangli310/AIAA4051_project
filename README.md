@@ -91,7 +91,7 @@ python -m pytest -q
 当前预期结果：
 
 ```text
-8 passed
+10 passed
 ```
 
 测试覆盖：
@@ -104,7 +104,9 @@ python -m pytest -q
 - 非法动作，例如 `jump`；
 - 动作结束但没有到达终点；
 - Repair 后仍失败；
-- Repair 输出无法解析。
+- Repair 输出无法解析；
+- `no_feedback` 不向 Repairer 泄漏 verifier 内容；
+- 单样本异常被记录且不会中断批量运行。
 
 ## 示例是怎样运行的？
 
@@ -191,16 +193,19 @@ invalid_action_token
 goal_not_reached
 ```
 
-### 数据集划分
+### 环境划分与测试条件
 
-| 数据集 | 内容和用途 |
+| 环境集合或条件 | 内容和用途 |
 |---|---|
 | Train | Generation、Verification、Repair 三种任务的训练样本 |
 | Dev | 三种任务的开发样本，用于模型选择和参数调整 |
-| ID Test | 有效路径和单错误场景 |
-| OOD Test | 双错误场景，重点评价 Verification 和 Repair 的泛化 |
+| Held-out Test | 与 Train/Dev 环境互斥的保护测试环境池 |
+| ID 单错误条件 | 从 Held-out Test 派生的有效路径、可行但非最优路径和单错误样本 |
+| OOD 双错误条件 | 在同一批 Held-out Test 基础样本上独立引入两个错误 |
 
-所有划分必须按 `environment_id` 进行。同一个环境不能同时出现在不同数据集中。
+Train、Dev、Held-out Test 必须按 `environment_id` 划分且两两无交集。ID 与 OOD 不是两套环境划分，而是同一批 Held-out Test 上的配对评价条件；每对样本必须共享 `environment_id` 和 `base_sample_id`。
+
+有效样本必须同时包含最短路径和可行但非最优路径。合法绕行路径仍应判定为有效，路径质量由 Optimality 单独评价。
 
 ## 主要模块接口
 
@@ -240,12 +245,13 @@ goal_not_reached
 
 ### Repair
 
-Repair 接收网格、候选路径和验证反馈：
+Repair 接收网格、候选路径、反馈来源和可选验证反馈：
 
 ```json
 {
   "environment_id": "grid_0001",
   "grid": {
+    "environment_id": "grid_0001",
     "rows": 3,
     "cols": 3,
     "start": [0, 0],
@@ -253,6 +259,7 @@ Repair 接收网格、候选路径和验证反馈：
     "obstacles": [[0, 2]]
   },
   "candidate_plan": ["right", "right", "down"],
+  "feedback_source": "executor_feedback",
   "verifier_feedback": {
     "valid": false,
     "first_error_step": 1,
@@ -260,6 +267,8 @@ Repair 接收网格、候选路径和验证反馈：
   }
 }
 ```
+
+当 `feedback_source` 为 `no_feedback` 时，`verifier_feedback` 必须为 `null`，避免向 Repair 模型泄漏诊断信息。
 
 Repair 必须输出完整的新路径，而不是只输出局部修改：
 
@@ -382,17 +391,38 @@ feature/c-repair-pipeline
 experiment_id
 environment_id
 split
+test_condition
+base_sample_id
+source_plan_id
+corruption_type
+corruption_seed
 model
+model_revision
+config_id
+seed
 feedback_source
+raw_generation_output
 candidate_plan
+candidate_parse_success
 candidate_valid
+raw_verifier_output
+verifier_parse_success
 predicted_error_step
 predicted_reason
+ground_truth_error_step
+ground_truth_reason
+raw_repair_output
 repaired_plan
+repair_parse_success
 repair_success
 final_success
+final_error_step
+final_reason
+feasible
 predicted_length
 optimal_length
+optimality
+runtime_seconds
 ```
 
 计划比较至少三种方法：
@@ -433,6 +463,7 @@ python scripts/run_pipeline_demo.py
 - `docs/Project6_项目说明与三人分工.md`：项目背景、研究问题、完整时间线；
 - `docs/Project6_团队统一协议.md`：字段、编号、错误类型、模型和实验规则；
 - `docs/Project6_11月10日至12日任务清单.md`：第一阶段三人任务及验收要求；
+- `docs/Project6_11月13日至16日修订任务清单.md`：配对 ID/OOD、非最优有效路径和端到端 smoke test 的第二阶段任务；
 - `docs/experiment_protocol.md`：当前接口和指标摘要；
 - `configs/base.yaml`：程序读取的共享配置。
 
