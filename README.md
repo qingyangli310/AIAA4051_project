@@ -464,6 +464,7 @@ python scripts/run_pipeline_demo.py
 - `docs/Project6_团队统一协议.md`：字段、编号、错误类型、模型和实验规则；
 - `docs/Project6_11月10日至12日任务清单.md`：第一阶段三人任务及验收要求；
 - `docs/Project6_11月13日至16日修订任务清单.md`：配对 ID/OOD、非最优有效路径和端到端 smoke test 的第二阶段任务；
+- `docs/Project6_11月13日至16日按人详细时间表.md`：A、B、C 每日任务、交接、交付物与完成标准；
 - `docs/experiment_protocol.md`：当前接口和指标摘要；
 - `configs/base.yaml`：程序读取的共享配置。
 
