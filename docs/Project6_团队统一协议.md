@@ -4,12 +4,12 @@
 
 | 项目 | 内容 |
 |---|---|
-| 文档版本 | v1.0 Frozen |
+| 文档版本 | v1.2 Frozen |
 | 创建日期 | 2026-11-09 |
 | 计划冻结日期 | 2026-11-12 |
 | 适用成员 | 成员 A、成员 B、成员 C |
 | 项目范围 | PPNL 单目标网格路径生成、验证与修复 |
-| 当前状态 | 研究与工程协议已冻结；Baseline 1 暂定使用 T5-small |
+| 当前状态 | 研究与工程协议已冻结；采用 0-based 错误步骤；ID/OOD 在同一 Held-out Test 上配对；Baseline 1 暂定使用 T5-small |
 | 模型决定日期 | 2026-11-10 |
 
 本协议用于统一三个人的数据格式、模型接口、实验规则、评价指标和协作方式。协议冻结后，A、B、C 可以分别开发不同模块，但所有模块必须遵守相同接口。
@@ -146,25 +146,25 @@ right
 
 ```text
 网格坐标：0-based
-动作步骤：1-based
+动作步骤：0-based
 ```
 
 例如：
 
 ```text
 计划：right, right, down
-第一个 right：step=1
-第二个 right：step=2
-down：step=3
+第一个 right：step=0
+第二个 right：step=1
+down：step=2
 ```
 
 如果第二个动作撞到障碍物：
 
 ```text
-invalid | step=2 | reason=obstacle_collision
+invalid | step=1 | reason=obstacle_collision
 ```
 
-`goal_not_reached` 定义为动作序列执行结束后的下一检查点，即 `step=len(plan)+1`。
+`goal_not_reached` 统一定义为 `step=len(plan)`，表示全部动作执行完毕后仍未到达终点。该值是路径结束位置，不代表额外执行了一个动作。
 
 ## 六、统一错误类型
 
@@ -207,7 +207,7 @@ def execute_plan(grid, plan):
 {
   "valid": false,
   "success": false,
-  "first_error_step": 2,
+  "first_error_step": 1,
   "reason": "obstacle_collision",
   "final_position": [0, 1],
   "executed_steps": 1,
@@ -254,7 +254,7 @@ def verify_plan(grid, plan):
 ```json
 {
   "valid": false,
-  "first_error_step": 2,
+  "first_error_step": 1,
   "reason": "obstacle_collision"
 }
 ```
@@ -268,13 +268,13 @@ valid
 或者：
 
 ```text
-invalid | step=2 | reason=obstacle_collision
+invalid | step=1 | reason=obstacle_collision
 ```
 
 ### 7.4 Repair 接口
 
 ```python
-def repair_plan(grid, candidate_plan, feedback):
+def repair_plan(grid, candidate_plan, feedback_source, verifier_feedback):
     """根据网格、候选计划和反馈生成完整修复路径。"""
 ```
 
@@ -284,6 +284,7 @@ def repair_plan(grid, candidate_plan, feedback):
 {
   "environment_id": "grid_0001",
   "grid": {
+    "environment_id": "grid_0001",
     "rows": 6,
     "cols": 6,
     "start": [0, 0],
@@ -291,9 +292,10 @@ def repair_plan(grid, candidate_plan, feedback):
     "obstacles": [[0, 2], [1, 2]]
   },
   "candidate_plan": ["right", "right", "down"],
+  "feedback_source": "executor_feedback",
   "verifier_feedback": {
     "valid": false,
-    "first_error_step": 2,
+    "first_error_step": 1,
     "reason": "obstacle_collision"
   }
 }
@@ -312,6 +314,8 @@ def repair_plan(grid, candidate_plan, feedback):
 第一版统一规则：
 
 - Repair 输出完整路径；
+- `feedback_source` 只允许 `no_feedback`、`self_feedback`、`executor_feedback`；
+- `no_feedback` 条件下 `verifier_feedback=null`，禁止泄漏诊断内容；
 - 主 baseline 只允许一轮修复；
 - 修复后必须重新交给 executor 检查；
 - 无法解析的输出记为 repair failure；
@@ -335,24 +339,26 @@ executor
 
 ### 8.1 划分原则
 
-必须按照 `environment_id` 划分，而不是按照动作序列划分。
+必须按照 `environment_id` 划分环境，而不是按照动作序列划分。Train、Dev、Held-out Test 三个环境集合必须两两无交集。
 
 ```text
-train：单错误
-dev：单错误
-id_test：单错误
-ood_test：两个独立错误
+train：包含 Generation、Verification、Repair 三种任务的训练样本
+dev：包含 Generation、Verification、Repair 三种任务，用于模型选择和参数调整
+heldout_test：只用于最终评价的保护环境池
+id_single_error：从 heldout_test 派生的有效、可行但非最优和单错误条件
+ood_double_error：从同一批 heldout_test 基础样本派生的双错误条件
 ```
 
-同一环境的任何路径不得跨越 train/dev/test。
+同一环境的任何路径不得跨越 Train、Dev、Held-out Test。ID 单错误与 OOD 双错误是同一 Held-out Test 上的两个配对评价条件，不视为两个互斥环境 split。每对条件必须共享 `environment_id` 和 `base_sample_id`，从而只改变错误数量而不改变地图。
 
 统一保存：
 
 ```text
 data/manifests/train.json
 data/manifests/dev.json
-data/manifests/id_test.json
-data/manifests/ood_test.json
+data/manifests/heldout_test.json
+data/manifests/id_single_error.jsonl
+data/manifests/ood_double_error.jsonl
 ```
 
 ### 8.2 错误构造规则
@@ -368,6 +374,7 @@ data/manifests/ood_test.json
 
 ```text
 environment_id
+base_sample_id
 source_plan_id
 corruption_type
 corruption_seed
@@ -383,6 +390,9 @@ reason
 - 两个错误没有互相抵消；
 - 执行器标签经过重新计算；
 - 记录两个错误的构造位置，但评价仍以第一次执行失败为主。
+- 与对应 ID 单错误样本共享 `environment_id` 和 `base_sample_id`。
+
+有效样本必须同时包含官方最短路径和可行但非最优路径。可行但较长的路径应由 executor 判为 valid/success，并通过 Optimality 与最短路径区分，不得被当成 invalid 样本。
 
 ### 8.3 随机性
 
@@ -398,11 +408,10 @@ reason
 ```text
 train：70%
 dev：10%
-id_test：10%
-ood_test：10%
+heldout_test：20%
 ```
 
-如果官方环境数量或格式不允许精确满足比例，应使用最接近比例的整数划分，并在 manifest 中记录实际数量。同一 `environment_id` 只能属于一个 split。
+如果官方环境数量或格式不允许精确满足比例，应使用最接近比例的整数划分，并在 manifest 中记录实际数量。同一 `environment_id` 只能属于 Train、Dev、Held-out Test 中的一个集合；Held-out Test 内允许并要求同一环境同时派生配对的 ID 与 OOD 条件。
 
 训练样本总预算固定为：
 
@@ -413,7 +422,7 @@ ood_test：10%
 | Repair | 1,500 |
 | 合计 | 4,000 |
 
-开发集最多使用200个样本；ID 单错误测试集和 OOD 双错误测试集各使用200个样本。如果合格样本不足，则使用全部合格样本并记录实际数量。
+开发集最多使用200个样本；ID 单错误条件和 OOD 双错误条件各使用最多200个样本，并尽量按 `base_sample_id` 一一配对。如果合格样本不足，则使用全部合格样本并记录实际数量。
 
 Verification 数据中的 `valid` 与 `invalid` 比例固定为 `1:1`。单错误 invalid 数据的四种 corruption 类型尽量均衡：
 
@@ -682,21 +691,35 @@ GPU 推理时间
 {
   "experiment_id": "exp_001",
   "environment_id": "grid_0001",
-  "split": "ood_test",
+  "split": "heldout_test",
+  "test_condition": "ood_double_error",
+  "base_sample_id": "grid_0001_plan_0003",
+  "source_plan_id": "plan_0003",
+  "corruption_type": ["action_substitution", "action_insertion"],
+  "corruption_seed": 42,
   "model": "google-t5/t5-small",
+  "model_revision": "df1b051c49625cf57a3d0d8d3863ed4d13564fe4",
+  "config_id": "base_v1_2",
   "seed": 42,
-  "feedback_source": "executor",
+  "feedback_source": "executor_feedback",
+  "raw_generation_output": "right, right, down",
   "candidate_plan": ["right", "right", "down"],
   "candidate_valid": false,
-  "predicted_error_step": 2,
+  "raw_verifier_output": "invalid | step=1 | reason=obstacle_collision",
+  "predicted_error_step": 1,
   "predicted_reason": "obstacle_collision",
-  "ground_truth_error_step": 2,
+  "ground_truth_error_step": 1,
   "ground_truth_reason": "obstacle_collision",
+  "raw_repair_output": "down, right, down",
   "repaired_plan": ["down", "right", "down"],
   "repair_success": true,
   "final_success": true,
+  "final_error_step": null,
+  "final_reason": null,
+  "feasible": true,
   "predicted_length": 3,
   "optimal_length": 3,
+  "optimality": 1.0,
   "runtime_seconds": 0.0
 }
 ```
@@ -837,7 +860,7 @@ feature/c-repair-pipeline
 ### 17.3 C 的 Pipeline 最低完成标准
 
 - 使用 mock 组件跑通 generate-verify-repair；
-- 能切换 self 和 executor 两种反馈；
+- 能切换 `no_feedback`、`self_feedback` 和 `executor_feedback` 三种条件；
 - Repair 输入输出符合统一 schema；
 - 修复结果重新交给 executor 检查；
 - 保存完整中间结果；
@@ -868,6 +891,12 @@ feature/c-repair-pipeline
 ```
 
 不得只修改某一种方法以提高其测试表现。
+
+本次冻结变更记录：
+
+| 日期 | 修改内容 | 修改原因 | 影响范围 | 需要重跑 |
+|---|---|---|---|---|
+| 2026-11-12 | 将互斥的 `id_test`/`ood_test` 环境改为同一 Held-out Test 上配对的 ID/OOD 条件；加入 `base_sample_id`；明确非最优有效路径；统一 Optimality 公式；补充结果追踪字段 | 控制地图变量、满足正式有效样本要求并消除文档冲突 | 数据划分、数据构造、评价、结果记录、端到端 pipeline | 尚未生成正式数据或正式结果，无需重跑；后续工作必须按 v1.2 执行 |
 
 ## 十九、11月12日会议确认清单
 

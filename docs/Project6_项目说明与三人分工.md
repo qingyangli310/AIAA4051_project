@@ -86,7 +86,7 @@ valid
 无效路径输出：
 
 ```text
-invalid | step=2 | reason=obstacle_collision
+invalid | step=1 | reason=obstacle_collision
 ```
 
 需要识别的主要错误包括：
@@ -113,7 +113,7 @@ invalid | step=2 | reason=obstacle_collision
 right, right, down
 
 验证反馈：
-invalid | step=2 | reason=obstacle_collision
+invalid | step=1 | reason=obstacle_collision
 ```
 
 修复模型重新输出一条路径：
@@ -506,7 +506,7 @@ error_analysis.py
 - 直接生成、模型自验证修复、执行器反馈修复三种方法；
 - 一个改进方法；
 - 一个消融实验；
-- ID 单错误测试和 OOD 双错误测试；
+- 同一批 Held-out Test 环境上按 `base_sample_id` 配对的 ID 单错误与 OOD 双错误测试；
 - 完整指标、错误分析和至少两个详细案例；
 - 可运行代码、README、实验配置和结果；
 - Poster；
@@ -577,36 +577,45 @@ error_analysis.py
 
 ### 11月13日—11月16日：完成数据管线
 
-**阶段目标：** 得到可靠且可复现的训练集、开发集和测试集。
+**阶段目标：** 得到可靠且可复现的 Train、Dev、Held-out Test 环境划分，以及在同一 Held-out Test 上配对的 ID 单错误与 OOD 双错误条件。
 
 成员 A：
 
 - 完成 executor；
-- 完成 environment-level 数据划分；
-- 生成正确路径和单错误样本；
-- 生成双错误 OOD 测试样本；
+- 完成 Train/Dev/Held-out Test 的 environment-level 数据划分；
+- 生成最短路径、可行但非最优路径和单错误样本；
+- 在同一批 Held-out Test 基础样本上生成配对的 ID 单错误与 OOD 双错误条件；
+- 保存 `environment_id`、`base_sample_id`、`source_plan_id`、corruption 位置、类型和 seed；
 - 使用 executor 自动核验全部标签。
 
 成员 B：
 
 - 建立 generation 和 verification 数据格式；
 - 跑通小规模训练；
-- 测试模型输出解析程序。
+- 测试模型输出解析程序及解析失败处理；
+- 记录 tokenizer 截断、checkpoint revision、配置和随机种子；
+- 取得项目负责人对普通 T5-small 与 Flan-T5 选择的书面确认。
 
 成员 C：
 
 - 建立 repair 数据格式；
 - 实现基础评价指标；
+- 冻结 `optimality = optimal_length / predicted_length`，且只对成功路径计算；
 - 检查不同错误类型的数据数量；
-- 用模拟模型输出跑通端到端管线原型。
+- 跑通 `no_feedback`、`self_feedback`、`executor_feedback` 三个条件；
+- 对解析失败和单样本异常做隔离，确保批量运行不中断；
+- 使用真实或明确标记的 mock 输出完成 20～50 条端到端 smoke test。
 
 **11月16日会议验收：**
 
-- train/dev/test 没有环境重叠；
-- 单错误和双错误数据可以重复生成；
+- Train/Dev/Held-out Test 环境两两无交集；
+- ID/OOD 使用相同的 Held-out Test `environment_id` 集合并由 `base_sample_id` 配对；
+- 数据同时包含最短有效路径和可行但非最优有效路径；
+- 单错误和双错误数据可以重复生成，且双错误没有抵消或完全退化；
 - executor 单元测试全部通过；
 - 完成至少 20～50 条样本的端到端 smoke test；
-- 输出数据规模和错误类型统计表。
+- 输出数据规模、错误类型统计表、标签核验报告、至少一个成功案例和一个失败案例；
+- Mock 与真实模型结果明确区分，全部结果可追溯到配置、模型 revision 和原始样本。
 
 ### 11月17日—11月19日：完成两个 baseline
 
@@ -677,9 +686,9 @@ error_analysis.py
 建议使用结构化状态跟踪验证：
 
 ```text
-step=0 position=(0,0)
-step=1 action=right position=(0,1) status=ok
-step=2 action=down position=(1,1) status=obstacle_collision
+initial position=(0,0)
+step=0 action=right position=(0,1) status=ok
+step=1 action=down position=(1,1) status=obstacle_collision
 ```
 
 成员 A：
