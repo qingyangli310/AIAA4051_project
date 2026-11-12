@@ -4,12 +4,12 @@
 
 | 项目 | 内容 |
 |---|---|
-| 文档版本 | v1.0 Frozen |
+| 文档版本 | v1.1 Frozen |
 | 创建日期 | 2026-11-09 |
 | 计划冻结日期 | 2026-11-12 |
 | 适用成员 | 成员 A、成员 B、成员 C |
 | 项目范围 | PPNL 单目标网格路径生成、验证与修复 |
-| 当前状态 | 研究与工程协议已冻结；Baseline 1 暂定使用 T5-small |
+| 当前状态 | 研究与工程协议已冻结；2026-11-12 起采用 0-based 错误步骤；Baseline 1 暂定使用 T5-small |
 | 模型决定日期 | 2026-11-10 |
 
 本协议用于统一三个人的数据格式、模型接口、实验规则、评价指标和协作方式。协议冻结后，A、B、C 可以分别开发不同模块，但所有模块必须遵守相同接口。
@@ -146,25 +146,25 @@ right
 
 ```text
 网格坐标：0-based
-动作步骤：1-based
+动作步骤：0-based
 ```
 
 例如：
 
 ```text
 计划：right, right, down
-第一个 right：step=1
-第二个 right：step=2
-down：step=3
+第一个 right：step=0
+第二个 right：step=1
+down：step=2
 ```
 
 如果第二个动作撞到障碍物：
 
 ```text
-invalid | step=2 | reason=obstacle_collision
+invalid | step=1 | reason=obstacle_collision
 ```
 
-`goal_not_reached` 定义为动作序列执行结束后的下一检查点，即 `step=len(plan)+1`。
+`goal_not_reached` 统一定义为 `step=len(plan)`，表示全部动作执行完毕后仍未到达终点。该值是路径结束位置，不代表额外执行了一个动作。
 
 ## 六、统一错误类型
 
@@ -207,7 +207,7 @@ def execute_plan(grid, plan):
 {
   "valid": false,
   "success": false,
-  "first_error_step": 2,
+  "first_error_step": 1,
   "reason": "obstacle_collision",
   "final_position": [0, 1],
   "executed_steps": 1,
@@ -254,7 +254,7 @@ def verify_plan(grid, plan):
 ```json
 {
   "valid": false,
-  "first_error_step": 2,
+  "first_error_step": 1,
   "reason": "obstacle_collision"
 }
 ```
@@ -268,7 +268,7 @@ valid
 或者：
 
 ```text
-invalid | step=2 | reason=obstacle_collision
+invalid | step=1 | reason=obstacle_collision
 ```
 
 ### 7.4 Repair 接口
@@ -293,7 +293,7 @@ def repair_plan(grid, candidate_plan, feedback):
   "candidate_plan": ["right", "right", "down"],
   "verifier_feedback": {
     "valid": false,
-    "first_error_step": 2,
+    "first_error_step": 1,
     "reason": "obstacle_collision"
   }
 }
@@ -335,13 +335,13 @@ executor
 
 ### 8.1 划分原则
 
-必须按照 `environment_id` 划分，而不是按照动作序列划分。
+必须按照 `environment_id` 划分，而不是按照动作序列划分。任何环境都不得跨越 train、dev、id_test 或 ood_test。
 
 ```text
-train：单错误
-dev：单错误
-id_test：单错误
-ood_test：两个独立错误
+train：包含 Generation、Verification、Repair 三种任务的训练样本
+dev：包含 Generation、Verification、Repair 三种任务，用于模型选择和参数调整
+id_test：测试有效路径及单错误场景下的表现
+ood_test：重点测试双错误场景下 Verification 和 Repair 的泛化能力
 ```
 
 同一环境的任何路径不得跨越 train/dev/test。

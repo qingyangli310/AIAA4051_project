@@ -86,7 +86,7 @@ valid
 无效路径输出：
 
 ```text
-invalid | step=2 | reason=obstacle_collision
+invalid | step=1 | reason=obstacle_collision
 ```
 
 需要识别的主要错误包括：
@@ -113,7 +113,7 @@ invalid | step=2 | reason=obstacle_collision
 right, right, down
 
 验证反馈：
-invalid | step=2 | reason=obstacle_collision
+invalid | step=1 | reason=obstacle_collision
 ```
 
 修复模型重新输出一条路径：
@@ -677,9 +677,9 @@ error_analysis.py
 建议使用结构化状态跟踪验证：
 
 ```text
-step=0 position=(0,0)
-step=1 action=right position=(0,1) status=ok
-step=2 action=down position=(1,1) status=obstacle_collision
+initial position=(0,0)
+step=0 action=right position=(0,1) status=ok
+step=1 action=down position=(1,1) status=obstacle_collision
 ```
 
 成员 A：

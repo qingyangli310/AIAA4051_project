@@ -120,4 +120,14 @@ B: model inference smoke test
 C: mock generate-verify-repair pipeline
 ```
 
+Run the member-C integration demo:
+
+```bash
+python scripts/run_pipeline_demo.py
+python -m pytest tests/test_pipeline_smoke.py
+```
+
+The frozen interface uses 0-based action error steps. A `goal_not_reached`
+failure uses `first_error_step = len(plan)`.
+
 Baseline 1 formal experiments use `google-t5/t5-small` unless a later recorded team decision switches the project to Flan-T5.

@@ -5,13 +5,21 @@ project:
 data:
   grid_size: 6
   coordinate_system: row_col_zero_based
-  action_step_indexing: one_based
-  goal_not_reached_step: len_plus_one
+  action_step_indexing: zero_based
+  goal_not_reached_step: len_plan
   environment_split:
     train: 0.70
     dev: 0.10
     id_test: 0.10
     ood_test: 0.10
+  task_coverage:
+    train: [generation, verification, repair]
+    dev: [generation, verification, repair]
+    id_test: [generation, verification, repair]
+    ood_test: [verification, repair]
+  test_scenarios:
+    id_test: [valid, single_error]
+    ood_test: [double_error]
   train_examples:
     generation: 1000
     verification: 1500
