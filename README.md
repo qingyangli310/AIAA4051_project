@@ -429,6 +429,7 @@ python scripts/run_pipeline_demo.py
 
 ## 详细文档
 
+- `docs/成员C_11月10日至12日工作说明.md`：成员 C 两天内完成的代码、协议、测试和 CUDA 验证记录；
 - `docs/Project6_项目说明与三人分工.md`：项目背景、研究问题、完整时间线；
 - `docs/Project6_团队统一协议.md`：字段、编号、错误类型、模型和实验规则；
 - `docs/Project6_11月10日至12日任务清单.md`：第一阶段三人任务及验收要求；
