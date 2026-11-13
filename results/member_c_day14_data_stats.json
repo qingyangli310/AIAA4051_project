@@ -1,0 +1,22 @@
+{
+  "source": "data/samples/legacy_a4_pilot/{train,dev}.jsonl",
+  "status": "pilot_only",
+  "train": {
+    "source_repair_rows": 4,
+    "generated_repair_rows": 8,
+    "environments": 2,
+    "no_feedback_rows": 4,
+    "executor_feedback_rows": 4
+  },
+  "dev": {
+    "source_repair_rows": 4,
+    "generated_repair_rows": 8,
+    "environments": 2,
+    "no_feedback_rows": 4,
+    "executor_feedback_rows": 4
+  },
+  "target_leakage_violations": 0,
+  "schema_failures": 0,
+  "missing_upstream_corruption_seed_rows": 16,
+  "note": "Regenerate from A's final 6x6 Train/Dev export when stable seed and pairing fields are available."
+}
