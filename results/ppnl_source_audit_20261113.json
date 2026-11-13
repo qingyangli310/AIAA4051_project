@@ -1,0 +1,2631 @@
+{
+  "files": [
+    {
+      "file": "1_train_set_6x6_samples.json",
+      "exists": true,
+      "parse_success": true,
+      "records": 16032,
+      "missing_required_fields": 0,
+      "conversion_issues": 43,
+      "converted": 15989,
+      "sha256": "b20a44269cff617abd5132d3ad209f72fb0ce92f78b4eaefc5aa8a92fac093e2"
+    },
+    {
+      "file": "1dev_set_6x6_samples.json",
+      "exists": true,
+      "parse_success": true,
+      "records": 2004,
+      "missing_required_fields": 0,
+      "conversion_issues": 5,
+      "converted": 1999,
+      "sha256": "aad6f181c4eff903c1f262ae009f2c3ac2d0f787abae4765c51976fd1ee8c574"
+    },
+    {
+      "file": "1_goals_test_seen_6x6_samples.json",
+      "exists": true,
+      "parse_success": true,
+      "records": 2004,
+      "missing_required_fields": 0,
+      "conversion_issues": 3,
+      "converted": 2001,
+      "sha256": "ebdc305d207b0fda3d147b76ddd93fdecdb879dd5bd6acfad90bd242c15a2507"
+    },
+    {
+      "file": "1goals_unseen_6x6_samples.json",
+      "exists": true,
+      "parse_success": true,
+      "records": 5040,
+      "missing_required_fields": 0,
+      "conversion_issues": 13,
+      "converted": 5027,
+      "sha256": "ee841e3adb907116471989331f0e4cffed16038c46592491abdd7bafd34d432e"
+    },
+    {
+      "file": "1_goals_test_unseen_5x5_samples.json",
+      "exists": true,
+      "parse_success": true,
+      "records": 3750,
+      "missing_required_fields": 0,
+      "conversion_issues": 61,
+      "converted": 3689,
+      "sha256": "f34edfe112d248087ae76366c4f4e56cc0e0d31729d0bd981b6c8656344b32cd"
+    },
+    {
+      "file": "1_goals_test_unseen_7x7_samples.json",
+      "exists": true,
+      "parse_success": true,
+      "records": 3750,
+      "missing_required_fields": 0,
+      "conversion_issues": 0,
+      "converted": 3750,
+      "sha256": "db358fd01da87004c2d62551e44cfcb506cb00e88aba29815ebc0fd1c288eb58"
+    },
+    {
+      "file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "exists": true,
+      "parse_success": true,
+      "records": 4500,
+      "missing_required_fields": 0,
+      "conversion_issues": 386,
+      "converted": 4114,
+      "sha256": "8825fee0599751b4da946b9b6a75808bd9aeff8a5595e8db9e833ee38828b16d"
+    }
+  ],
+  "issues": [
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 1061,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 1063,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 1065,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 1068,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 1073,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 1074,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 1592,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 1832,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 1834,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 1843,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 2126,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 2519,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 2887,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 2896,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 2969,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 3379,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 3623,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 3748,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 4219,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 4220,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 4291,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 4927,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 4929,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 5765,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 5767,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 5781,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 6857,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 6861,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 7129,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 7136,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 7145,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 7764,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 7774,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 7775,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 9577,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 9582,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 9587,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 9595,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 10011,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 10022,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 11271,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 11276,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_train_set_6x6_samples.json",
+      "source_index": 11846,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1dev_set_6x6_samples.json",
+      "source_index": 133,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1dev_set_6x6_samples.json",
+      "source_index": 230,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1dev_set_6x6_samples.json",
+      "source_index": 266,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1dev_set_6x6_samples.json",
+      "source_index": 362,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1dev_set_6x6_samples.json",
+      "source_index": 450,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_seen_6x6_samples.json",
+      "source_index": 228,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_seen_6x6_samples.json",
+      "source_index": 534,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_seen_6x6_samples.json",
+      "source_index": 720,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1goals_unseen_6x6_samples.json",
+      "source_index": 791,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1goals_unseen_6x6_samples.json",
+      "source_index": 795,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1goals_unseen_6x6_samples.json",
+      "source_index": 802,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1goals_unseen_6x6_samples.json",
+      "source_index": 1250,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1goals_unseen_6x6_samples.json",
+      "source_index": 1664,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1goals_unseen_6x6_samples.json",
+      "source_index": 1670,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1goals_unseen_6x6_samples.json",
+      "source_index": 1677,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1goals_unseen_6x6_samples.json",
+      "source_index": 2342,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1goals_unseen_6x6_samples.json",
+      "source_index": 2347,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1goals_unseen_6x6_samples.json",
+      "source_index": 2349,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1goals_unseen_6x6_samples.json",
+      "source_index": 2351,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1goals_unseen_6x6_samples.json",
+      "source_index": 2353,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1goals_unseen_6x6_samples.json",
+      "source_index": 2366,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 757,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 764,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 766,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 779,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 930,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 931,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 932,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 944,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 945,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 947,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 950,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 951,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 953,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 955,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 956,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 957,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 996,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 1001,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 1005,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 1006,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 1010,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 1013,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 1017,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 1018,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 1080,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 1086,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 1087,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 1102,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 1232,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 1244,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 1245,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 1254,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 1293,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 1299,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 1300,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 1301,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 1304,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 1306,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 1308,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 1311,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 1314,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 1318,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 1711,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 1722,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 1734,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 1738,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 2052,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 2059,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 2064,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 2070,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 2072,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 2076,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 2082,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 2089,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 2093,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 2097,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 2098,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 2099,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 2585,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 2591,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_5x5_samples.json",
+      "source_index": 2600,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 48,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 151,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 154,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 158,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 161,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 163,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 165,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 166,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 170,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 245,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 259,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 378,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 379,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 382,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 544,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 706,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 781,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 798,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 802,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1123,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1135,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1252,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1504,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1505,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1509,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1510,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1514,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1517,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1518,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1520,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1523,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1526,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1598,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1601,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1609,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1614,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1615,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1619,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1661,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1665,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1673,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1733,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1774,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1779,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1780,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1830,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1831,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1835,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1837,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1839,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1840,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1843,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1856,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1894,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1911,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1913,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1922,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1923,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1925,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1927,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1931,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1932,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1935,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1936,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1942,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1944,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 1946,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2085,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2095,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2104,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2106,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2109,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2115,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2116,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2117,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2118,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2121,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2127,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2128,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2165,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2167,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2170,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2172,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2173,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2183,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2189,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2293,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2298,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2350,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2353,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2357,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2361,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2362,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2366,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2367,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2369,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2615,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2629,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2630,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2801,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2817,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2866,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2867,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2878,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2902,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2904,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2911,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2912,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2922,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2924,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2927,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2930,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2938,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2940,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2941,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2942,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2943,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2945,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2946,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2947,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2948,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2949,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2952,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2953,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2956,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2957,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2958,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2959,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2960,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2961,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2963,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2965,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2966,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 2969,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3000,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3002,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3003,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3004,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3005,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3007,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3008,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3011,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3013,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3014,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3015,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3016,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3019,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3020,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3027,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3064,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3065,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3077,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3079,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3086,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3087,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3100,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3115,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3155,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3160,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3175,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3178,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3180,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3185,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3189,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3193,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3194,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3199,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3206,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3208,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3209,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3228,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3248,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3251,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3257,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3263,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3264,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3307,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3313,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3314,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3316,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3324,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3332,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3333,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3334,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3338,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3339,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3340,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3341,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3342,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3343,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3344,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3345,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3346,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3348,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3349,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3350,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3351,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3352,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3354,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3355,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3356,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3357,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3359,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3384,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3389,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3452,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3454,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3455,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3460,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3462,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3463,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3464,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3465,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3466,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3467,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3470,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3471,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3472,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3473,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3477,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3479,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3488,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3492,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3496,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3502,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3508,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3510,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3512,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3514,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3515,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3516,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3517,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3519,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3521,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3524,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3525,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3530,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3534,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3535,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3536,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3538,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3539,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3541,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3545,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3554,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3567,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3603,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3605,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3606,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3608,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3619,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3621,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3623,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3624,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3626,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3627,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3630,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3631,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3633,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3635,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3636,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3638,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3639,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3640,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3641,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3644,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3648,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3651,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3652,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3656,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3666,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3669,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3670,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3673,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3674,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3678,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3679,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3682,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3685,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3687,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3690,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3700,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3717,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3761,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3764,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3791,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3800,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3815,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3816,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3819,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3823,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3836,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3837,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3839,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3961,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3964,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3965,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3967,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3971,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3972,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3975,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3978,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3982,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3983,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3984,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3985,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3986,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3988,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3994,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 3995,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4000,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4014,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4070,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4077,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4078,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4082,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4083,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4086,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4087,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4089,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4090,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4091,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4092,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4093,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4095,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4098,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4099,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4100,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4101,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4103,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4106,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4107,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4109,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4110,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4114,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4121,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4130,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4132,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4138,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4149,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4157,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4159,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4160,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4176,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4187,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4193,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4202,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4211,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4216,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4217,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4220,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4221,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4222,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4225,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4227,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4250,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4293,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4296,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4298,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4307,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4308,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4309,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4322,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4329,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4330,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4332,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4336,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4337,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4339,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4358,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4360,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4362,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4367,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4371,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4372,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4380,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4389,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4392,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4393,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4394,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4395,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4400,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4402,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4451,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4458,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    },
+    {
+      "source_file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+      "source_index": 4460,
+      "error": "unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues"
+    }
+  ]
+}

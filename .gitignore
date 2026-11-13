@@ -33,7 +33,7 @@ checkpoints/
 *.safetensors
 
 # Generated data and experiment outputs
-data/raw/
+data/raw/*
 data/processed/
 results/runs/
 logs/
@@ -43,3 +43,6 @@ wandb/
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 !results/runs/.gitkeep
+
+# A module source documentation (no raw PPNL records)
+!data/raw/README.md

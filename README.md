@@ -469,3 +469,53 @@ python scripts/run_pipeline_demo.py
 - `configs/base.yaml`：程序读取的共享配置。
 
 如果 README 与冻结协议出现冲突，以最新版本的 `docs/Project6_团队统一协议.md` 和 `configs/base.yaml` 为准。
+
+## Member A — November 13 integration
+
+A's real executor and strict PPNL loader are available; the existing C mock
+pipeline and its modules are unchanged. Seven official files were audited:
+37,080 records, no required-field omissions, 36,569 executable records and 511
+explicit `Goal not reachable` conversion issues. See
+[data provenance](data/raw/README.md) and
+[audit results](results/ppnl_source_audit_20261113.json).
+
+```python
+from src.data.load_ppnl import load_ppnl
+from src.executor.executor import execute_plan, Executor
+
+loaded = load_ppnl("ppnl_source/ppnl-spatial-temporal-reasoning/single_goal/1_train_set_6x6_samples.json")
+# Inspect loaded['issues']; never treat records alone as a silently cleaned dataset.
+row = loaded['records'][0]
+result = execute_plan(row, row['plan'])
+# Pass Executor() to run_pipeline(..., executor=Executor()).
+```
+
+Public grids use `rows`, `cols`, `[row, col]` coordinates; legacy `grid_size` is
+also accepted. Error steps are 0-based; goal failure uses `len(plan)`. `valid`
+means feasible movement, so `goal_not_reached` has valid=true, success=false;
+consumers should use success/reason to decide completion. Only lowercase
+up/down/left/right are canonical, with whitespace/case normalization per v1.2.
+Seven real examples with original action text, source file/index and executor
+results are in `data/samples/ppnl_integration_20261113.jsonl`.
+
+```bash
+python -m pytest -q
+python -m pytest tests/test_executor.py -v
+python -m pytest tests/test_load_ppnl.py -v
+python -m pytest tests/test_project6_data.py -v
+```
+
+Use the pinned project environment (pytest 8.4.2). On CPU machines an isolated
+option is `uv run --python 3.12 --with pytest==8.4.2 python -m pytest -q`.
+`PPNL_DATA_DIR` can point to the official single_goal directory for the full
+loader integration test; it is explicitly skipped if the source is absent.
+
+A-4's 96 historical rows are preserved byte-for-byte under
+`data/samples/legacy_a4_pilot/`. `src/data/project6_data.py`, its dependency
+helpers, compatibility executor import, and A-4 tests are ported for regression
+coverage. Only the obsolete reference-evaluator normalization assertion was
+removed from the migrated test; all A-4 generation/repair/provenance assertions
+remain. These legacy utilities **are not formal v1.2 data**: they used seed 17,
+5x5 toy grids and disjoint ID/OOD cohorts. The historical CLI requires explicit
+`--legacy-a4`. Formal 70/10/20 environment splitting (seed 42) and paired
+heldout ID/OOD data are November 14-15 work and were not run today.

@@ -1,0 +1,81 @@
+{
+  "seed": 17,
+  "splits": {
+    "train": {
+      "samples": 12,
+      "environments": 2,
+      "task_distribution": {
+        "Generation": 4,
+        "Verification": 4,
+        "Repair": 4
+      },
+      "error_distribution": {
+        "none": 8,
+        "goal_not_reached": 4
+      },
+      "corruption_distribution": {
+        "premature_stopping": 1,
+        "action_deletion": 3
+      }
+    },
+    "dev": {
+      "samples": 12,
+      "environments": 2,
+      "task_distribution": {
+        "Generation": 4,
+        "Verification": 4,
+        "Repair": 4
+      },
+      "error_distribution": {
+        "none": 8,
+        "goal_not_reached": 4
+      },
+      "corruption_distribution": {
+        "premature_stopping": 1,
+        "action_deletion": 3
+      }
+    },
+    "id_test": {
+      "samples": 36,
+      "environments": 2,
+      "task_distribution": {
+        "Verification": 16,
+        "Repair": 16,
+        "Generation": 4
+      },
+      "error_distribution": {
+        "goal_not_reached": 30,
+        "out_of_bounds": 2,
+        "none": 4
+      },
+      "corruption_distribution": {
+        "premature_stopping": 10,
+        "action_insertion": 6,
+        "action_substitution": 8,
+        "action_deletion": 8
+      }
+    },
+    "ood_test": {
+      "samples": 36,
+      "environments": 2,
+      "task_distribution": {
+        "Verification": 16,
+        "Repair": 16,
+        "Generation": 4
+      },
+      "error_distribution": {
+        "goal_not_reached": 30,
+        "none": 4,
+        "out_of_bounds": 2
+      },
+      "corruption_distribution": {
+        "premature_stopping": 14,
+        "action_deletion": 14,
+        "action_insertion": 24,
+        "action_substitution": 12
+      }
+    }
+  },
+  "goal_not_reached_step_convention": "len(plan) (0-based)",
+  "split_definition": "train/dev include Generation, Verification, Repair; id_test includes valid paths and single-error cases; ood_test emphasizes double-error cases"
+}
