@@ -1,22 +1,25 @@
 {
-  "source": "data/samples/legacy_a4_pilot/{train,dev}.jsonl",
-  "status": "pilot_only",
+  "source": "data/samples/nov14_pilot/single_error_{train,dev}.jsonl",
+  "status": "nov14_6x6_pilot_complete",
   "train": {
-    "source_repair_rows": 4,
-    "generated_repair_rows": 8,
-    "environments": 2,
-    "no_feedback_rows": 4,
-    "executor_feedback_rows": 4
+    "source_repair_rows": 800,
+    "generated_repair_rows": 1600,
+    "environments": 200,
+    "base_samples": 200,
+    "no_feedback_rows": 800,
+    "executor_feedback_rows": 800
   },
   "dev": {
-    "source_repair_rows": 4,
-    "generated_repair_rows": 8,
-    "environments": 2,
-    "no_feedback_rows": 4,
-    "executor_feedback_rows": 4
+    "source_repair_rows": 80,
+    "generated_repair_rows": 160,
+    "environments": 20,
+    "base_samples": 20,
+    "no_feedback_rows": 80,
+    "executor_feedback_rows": 80
   },
   "target_leakage_violations": 0,
   "schema_failures": 0,
-  "missing_upstream_corruption_seed_rows": 16,
-  "note": "Regenerate from A's final 6x6 Train/Dev export when stable seed and pairing fields are available."
+  "missing_upstream_corruption_seed_rows": 0,
+  "grid_size": "6x6",
+  "upstream_commit": "c938305"
 }

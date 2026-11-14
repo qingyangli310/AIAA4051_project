@@ -15,7 +15,7 @@ GRID_FIELDS = ("environment_id", "rows", "cols", "start", "goal", "obstacles")
 
 def normalize_grid(record: dict[str, Any]) -> dict[str, Any]:
     """Return the frozen grid schema from either a task record or a raw grid."""
-    candidate = record.get("input", {}).get("grid", record)
+    candidate = record.get("input", {}).get("grid", record.get("grid", record))
     grid = deepcopy(candidate)
     if "rows" not in grid or "cols" not in grid:
         size = grid.get("grid_size", grid.get("size"))
@@ -34,6 +34,7 @@ def build_repair_examples(
     records: Iterable[dict[str, Any]],
     *,
     feedback_sources: Sequence[str] = DEFAULT_FEEDBACK_SOURCES,
+    default_split: str | None = None,
 ) -> list[dict[str, Any]]:
     """Build supervised Repair rows without placing the target in model input.
 
@@ -54,7 +55,11 @@ def build_repair_examples(
         grid = normalize_grid(record)
         source_input = record.get("input", {})
         candidate_plan = source_input.get(
-            "corrupted_plan", source_input.get("candidate_plan", record.get("candidate_plan"))
+            "corrupted_plan",
+            source_input.get(
+                "candidate_plan",
+                record.get("corrupted_plan", record.get("candidate_plan")),
+            ),
         )
         if not isinstance(candidate_plan, list):
             raise ValueError("Repair source row requires a list-valued corrupted_plan")
@@ -87,7 +92,7 @@ def build_repair_examples(
             example = {
                 "example_id": f"{source_id}__{feedback_source}",
                 "task": "Repair",
-                "split": record.get("split"),
+                "split": record.get("split", default_split),
                 "environment_id": grid["environment_id"],
                 "base_sample_id": record.get("base_sample_id", source_id),
                 "source_plan_id": record.get("source_plan_id", source_id),
@@ -109,7 +114,10 @@ def build_repair_examples(
 def _repair_target(record: dict[str, Any]) -> list[str]:
     output = record.get("output", {})
     target = output.get(
-        "repaired_plan", record.get("repair_target", record.get("source_plan"))
+        "repaired_plan",
+        record.get(
+            "repair_target", record.get("source_plan", record.get("original_plan"))
+        ),
     )
     if not isinstance(target, list):
         raise ValueError("Repair source row requires a list-valued repair target")

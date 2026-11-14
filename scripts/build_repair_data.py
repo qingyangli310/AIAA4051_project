@@ -31,9 +31,19 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path, help="A Train/Dev JSONL file")
     parser.add_argument("output", type=Path, help="Repair JSONL destination")
+    parser.add_argument("--split", choices=("train", "dev"))
     args = parser.parse_args()
 
-    examples = build_repair_examples(read_jsonl(args.input))
+    split = args.split
+    if split is None:
+        if "train" in args.input.name:
+            split = "train"
+        elif "dev" in args.input.name:
+            split = "dev"
+        else:
+            raise ValueError("pass --split when it cannot be inferred from the filename")
+
+    examples = build_repair_examples(read_jsonl(args.input), default_split=split)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with args.output.open("w", encoding="utf-8") as handle:
         for example in examples:

@@ -29,17 +29,17 @@ python -m pytest -q tests/test_pipeline_smoke.py
   End-to-End Success Rate without adding third-party dependencies.
 - Empty eligible sets return `None`, preventing a misleading zero from being
   reported as a measured score.
-- The pilot conversion produced 8 Train and 8 Dev Repair rows; the inspectable
-  summary is `results/member_c_day14_data_stats.json`.
+- The 6x6 November 14 conversion produced 1,600 Train and 160 Dev Repair rows;
+  the inspectable summary is `results/member_c_day14_data_stats.json`.
 
 Build the small Train/Dev Repair data:
 
 ```bash
 python scripts/build_repair_data.py \
-  data/samples/legacy_a4_pilot/train.jsonl \
+  data/samples/nov14_pilot/single_error_train.jsonl \
   data/samples/member_c_day14/train_repair.jsonl
 python scripts/build_repair_data.py \
-  data/samples/legacy_a4_pilot/dev.jsonl \
+  data/samples/nov14_pilot/single_error_dev.jsonl \
   data/samples/member_c_day14/dev_repair.jsonl
 python -m pytest -q tests/test_repair_dataset.py tests/test_evaluation_metrics.py
 ```
@@ -49,18 +49,16 @@ python -m pytest -q tests/test_repair_dataset.py tests/test_evaluation_metrics.p
 - A: Repair construction accepts `grid_size` or `rows`/`cols`, but emits only
   the frozen `rows`/`cols` schema. A's executor `valid=True, success=False` for
   `goal_not_reached` is normalized to Verification-task `valid=False`.
-- A: the current legacy pilot mutation rows do not contain `corruption_seed`;
-  generated provenance therefore records it as `null`. The next data export
-  should provide the fixed seed required by the frozen protocol.
+- A: the November 14 6x6 pilot contains stable `base_sample_id`,
+  `source_plan_id`, and `corruption_seed`; all are preserved in C's output.
 - B: provide `self_feedback` as `valid`, `first_error_step`, and `reason`.
   Parser failures must remain explicit and must not be replaced with executor
   feedback.
 - B: `first_error_step` is zero-based and `goal_not_reached` must use
   `len(candidate_plan)`.
 
-## Remaining external inputs
+## Remaining external input
 
-The implementation is complete against the current A pilot data. A full
-November 14 dataset can only be regenerated after A publishes the final
-6x6 Train/Dev split with stable `base_sample_id`, `source_plan_id`, and
-`corruption_seed` fields.
+B's real `self_feedback` is not a November 14 blocker. The schema is ready and
+will generate that condition once B supplies actual verifier predictions for
+the November 15 integration run.

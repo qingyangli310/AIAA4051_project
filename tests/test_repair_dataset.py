@@ -83,3 +83,44 @@ def test_rejects_missing_repair_target() -> None:
     source["output"] = {}
     with pytest.raises(ValueError, match="repair target"):
         build_repair_examples([source])
+
+
+def test_accepts_member_a_nov14_single_error_schema() -> None:
+    source = {
+        "environment_id": "env_a",
+        "base_sample_id": "base_a",
+        "source_plan_id": "base_a:shortest",
+        "grid": {
+            "environment_id": "env_a",
+            "rows": 6,
+            "cols": 6,
+            "start": [1, 4],
+            "goal": [2, 1],
+            "obstacles": [[5, 3]],
+        },
+        "corruption_type": "action_deletion",
+        "corruption_position": 3,
+        "corruption_seed": 1195427521,
+        "original_plan": ["down", "left", "left", "left"],
+        "corrupted_plan": ["down", "left", "left"],
+        "executor_label": {
+            "valid": True,
+            "success": False,
+            "first_error_step": 3,
+            "reason": "goal_not_reached",
+        },
+    }
+
+    examples = build_repair_examples([source], default_split="train")
+    assert len(examples) == 2
+    assert examples[0]["split"] == "train"
+    assert examples[0]["base_sample_id"] == "base_a"
+    assert examples[0]["source_plan_id"] == "base_a:shortest"
+    assert examples[0]["input"]["candidate_plan"] == ["down", "left", "left"]
+    assert examples[0]["output"]["repaired_plan"] == [
+        "down",
+        "left",
+        "left",
+        "left",
+    ]
+    assert examples[0]["provenance"]["corruption_seed"] == 1195427521
