@@ -23,6 +23,12 @@ def test_unreachable_explicit_issue(tmp_path):
     p=tmp_path/'x.json';p.write_text(json.dumps([{**ROW,'agent_as_a_point':'Goal not reachable'}]))
     d=load_ppnl(p);assert not d['records'] and 'unreachable_source' in d['issues'][0]['error']
 
+def test_environment_identity_ignores_start_goal_plan(tmp_path):
+    a={**ROW,'world':[[2,0,3],[0,0,0]],'solution_coordinates':[[0,0],[0,1],[0,2]],'agent_as_a_point':'right right'}
+    b={**ROW,'world':[[3,0,2],[0,0,0]],'solution_coordinates':[[0,2],[0,1],[0,0]],'agent_as_a_point':'left left'}
+    x=convert_record(a,'a.json',0);y=convert_record(b,'b.json',0)
+    assert x['environment_id']==y['environment_id']
+
 def test_actual_official_files():
     root=Path(os.environ.get('PPNL_DATA_DIR','../ppnl_official/ppnl-spatial-temporal-reasoning/single_goal'))
     if not root.exists():pytest.skip('set PPNL_DATA_DIR to official single_goal directory')

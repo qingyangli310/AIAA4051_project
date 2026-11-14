@@ -42,3 +42,9 @@ executable conversion was checked against the Executor and official coordinates.
 or fabricated paths; formal inclusion/exclusion policy needs team confirmation.
 The seven integration examples are only converted, traceable samples for API
 integration, not a training/dev/test split or extension experiment.
+
+Final November 13 decision (recorded on Nov 14): all 511 unreachable records are
+listed with source file/index in `data/manifests/excluded_manifest.json` and are
+excluded from normal training and primary-test data. The standard 6x6 files
+contain 64 of these rows; the other three audited files contain 447. No raw
+official dataset file is copied into this repository.

@@ -1,0 +1,51 @@
+{
+  "seed": 42,
+  "source_commit": "5fd0376fc50ae9860bc986085165ebac5675fd44",
+  "main_files": [
+    "1_train_set_6x6_samples.json",
+    "1dev_set_6x6_samples.json",
+    "1_goals_test_seen_6x6_samples.json",
+    "1goals_unseen_6x6_samples.json"
+  ],
+  "main_records": 25016,
+  "unique_environments": 817,
+  "environment_counts": {
+    "train": 572,
+    "dev": 82,
+    "heldout_test": 163
+  },
+  "actual_environment_ratios": {
+    "train": 0.7001223990208079,
+    "dev": 0.1003671970624235,
+    "heldout_test": 0.19951040391676866
+  },
+  "split_samples": {
+    "train": 17510,
+    "dev": 2517,
+    "heldout_test": 4989
+  },
+  "excluded_total_all_seven": 511,
+  "excluded_main_four": 64,
+  "official_not_shortest": 0,
+  "nonoptimal_available": 25016,
+  "pilot_counts": {
+    "train": 200,
+    "dev": 20,
+    "heldout_test": 163
+  },
+  "single_error_counts": {
+    "train": {
+      "action_substitution": 200,
+      "action_deletion": 200,
+      "action_insertion": 200,
+      "premature_stopping": 200
+    },
+    "dev": {
+      "action_substitution": 20,
+      "action_deletion": 20,
+      "action_insertion": 20,
+      "premature_stopping": 20
+    }
+  },
+  "ood_double_error_generated": false
+}

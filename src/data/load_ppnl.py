@@ -1,10 +1,10 @@
 """Strict, traceable PPNL single-goal loader. Never guesses malformed data."""
 from __future__ import annotations
-import hashlib
 import json
 from pathlib import Path
 from typing import Any
 from src.executor.executor import execute_plan
+from src.data.environment import environment_id
 
 FILES = (
     '1_train_set_6x6_samples.json', '1dev_set_6x6_samples.json',
@@ -37,8 +37,7 @@ def convert_record(record: dict[str, Any], source_file: str, source_index: int) 
         raise PPNLFormatError('unreachable_source: no action plan; conversion stopped pending team policy, source retained in issues')
     plan=raw.strip().lower().split()
     obstacles=sorted(markers[1])
-    key=json.dumps({'rows':rows,'cols':cols,'obstacles':obstacles},sort_keys=True,separators=(',',':'))
-    grid={'environment_id':'ppnl_'+hashlib.sha256(key.encode()).hexdigest(), 'rows':rows,'cols':cols,
+    grid={'environment_id':environment_id(rows,cols,obstacles), 'rows':rows,'cols':cols,
           'start':markers[2][0],'goal':markers[3][0],'obstacles':obstacles}
     result=execute_plan(grid,plan)
     if not result['success']: raise PPNLFormatError(f'official plan failed executor: {result["reason"]} step={result["first_error_step"]}')
