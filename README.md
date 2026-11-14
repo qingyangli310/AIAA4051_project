@@ -1,5 +1,9 @@
 # AIAA4051 Project 6：语言模型网格路径规划
 
+> 成员 B 的11月13日接口交付见 [member_b_day13_delivery.md](docs/member_b_day13_delivery.md)：
+> Generation/Verification模板与解析器、8条样例、v3模拟输出往返8/8结果。
+> 本分支未完成固定模型配置或真实pipeline接入；新增测试待复核，详见交付说明。
+
 本项目研究一个简单但重要的问题：
 
 > 当语言模型生成了一条错误路径，明确告诉它“第几步错了、为什么错了”，能否帮助它把路径修好？

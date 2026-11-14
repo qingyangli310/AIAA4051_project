@@ -1,0 +1,3 @@
+# Keep B's audit fixture byte-stable across Windows/Linux checkouts.
+data/samples/member_A_executor_integration_samples_20261113.jsonl text eol=lf
+results/day13/** text eol=lf
