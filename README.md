@@ -519,3 +519,27 @@ remain. These legacy utilities **are not formal v1.2 data**: they used seed 17,
 5x5 toy grids and disjoint ID/OOD cohorts. The historical CLI requires explicit
 `--legacy-a4`. Formal 70/10/20 environment splitting (seed 42) and paired
 heldout ID/OOD data are November 14-15 work and were not run today.
+
+### November 14 environment split and single-error pilot
+
+The standard six-by-six build is deterministic (`seed=42`) and checks the pinned
+PPNL commit and SHA-256 hashes before writing. It writes converted data under the
+ignored `data/processed/nov14/`, split manifests under `data/manifests/`, and a
+small shared pilot under `data/samples/nov14_pilot/`. The 511 unreachable rows
+are indexed in `data/manifests/excluded_manifest.json`; no double-error OOD data
+is generated on November 14.
+
+```bash
+uv run --python 3.12 python -m src.data.build_nov14_dataset \
+  --source ../ppnl_official/ppnl-spatial-temporal-reasoning/single_goal \
+  --processed data/processed/nov14 \
+  --pilot data/samples/nov14_pilot --seed 42
+uv run --python 3.12 --with pytest==8.4.2 python -m pytest -q
+```
+
+This build assigns 817 unique map layouts to Train/Dev/Held-out at 70/10/20 by
+environment. The current source contains 25,016 convertible standard-six-by-six
+records. Pilot size is capped by availability at 200 train, 20 dev and 163
+held-out base records; it includes four single-error examples per train/dev base.
+See [the November 14 handoff](docs/MEMBER_A_20261114_HANDOFF.md) for counts and
+validation details.
