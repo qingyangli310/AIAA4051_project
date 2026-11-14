@@ -752,13 +752,13 @@ GPU 推理时间
 | 操作系统 | Ubuntu 22.04 LTS 64-bit |
 | Python | 3.11.9 |
 | PyTorch | 2.9.1 |
-| CUDA wheel | CUDA 12.6，即 `cu126` |
+| CUDA wheel | CUDA 12.8，即 `cu128` |
 | Transformers | 4.57.6 |
 | Accelerate | 1.12.0 |
 | Datasets | 4.4.2 |
 | SentencePiece | 0.2.1 |
 | GPU | 1 × NVIDIA RTX 4090 24 GB |
-| NVIDIA Driver | Linux 建议不低于 560.28.03 |
+| NVIDIA Driver | Linux 建议不低于 570.26；学校 HPC 镜像须实际验证 |
 | 默认精度 | BF16；不支持时使用 FP32 |
 
 统一保存：
@@ -775,7 +775,7 @@ configs/base.yaml
 
 ```bash
 python -m pip install torch==2.9.1 \
-  --index-url https://download.pytorch.org/whl/cu126
+  --index-url https://download.pytorch.org/whl/cu128
 ```
 
 安装其余依赖：
@@ -785,7 +785,12 @@ python -m pip install -r requirements-project6.txt
 python check_environment.py
 ```
 
-11月12日后不主动升级依赖。必须升级时，由三人共同确认并重新运行所有受影响实验。
+11月12日后不主动升级依赖。2026 年 11 月 14 日因学校 HPC 镜像仓提供
+PyTorch 2.9.1 的 CUDA 12.8 构建，团队将冻结 wheel 从 `cu126` 同步为
+`cu128`。环境验收必须记录 `torch.__version__`、`torch.version.cuda`、
+`torch.cuda.is_available()`、GPU 型号、镜像名称与 tag；不得仅根据
+`nvidia-smi` 顶部的 CUDA 版本判断 PyTorch runtime。后续再次升级时，
+仍须由三人共同确认并重新运行所有受影响实验。
 
 ## 十六、仓库和 Git 规则
 

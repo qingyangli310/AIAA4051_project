@@ -12,7 +12,7 @@ import transformers
 EXPECTED_PYTHON = (3, 11)
 EXPECTED_TORCH = "2.9.1"
 EXPECTED_TRANSFORMERS = "4.57.6"
-EXPECTED_CUDA = "12.6"
+EXPECTED_CUDA = "12.8"
 
 
 def main() -> int:

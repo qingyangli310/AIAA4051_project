@@ -289,7 +289,7 @@ Mock 演示只需要 Python 和 pytest。运行模型训练或正式实验时，
 ```text
 Python 3.11.9
 PyTorch 2.9.1
-PyTorch CUDA wheel cu126
+PyTorch CUDA wheel cu128
 Transformers 4.57.6
 Seed 42
 ```
@@ -302,11 +302,14 @@ conda activate project6
 
 python -m pip install --upgrade pip
 python -m pip install torch==2.9.1 \
-  --index-url https://download.pytorch.org/whl/cu126
+  --index-url https://download.pytorch.org/whl/cu128
 python -m pip install -r requirements-project6.txt
 ```
 
 必须先安装固定版本的 PyTorch，再安装 `requirements-project6.txt`，避免 `accelerate` 自动选择其他 Torch 版本。
+CUDA wheel 于 2026 年 11 月 14 日同步为学校 HPC 镜像仓提供的 `cu128`；
+正式实验以 `torch.__version__` 和 `torch.version.cuda` 的实际输出为准，不以
+`nvidia-smi` 显示的驱动支持上限代替 PyTorch runtime 版本。
 
 检查环境：
 

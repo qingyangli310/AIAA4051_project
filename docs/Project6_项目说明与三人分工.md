@@ -882,14 +882,14 @@ requirements/environment
 | 操作系统 | Ubuntu 22.04 LTS 64-bit |
 | Python | 3.11.9 |
 | PyTorch | 2.9.1 |
-| PyTorch CUDA wheel | CUDA 12.6，即 `cu126` |
+| PyTorch CUDA wheel | CUDA 12.8，即 `cu128` |
 | Transformers | 4.57.6 |
 | Accelerate | 1.12.0 |
 | Datasets | 4.4.2 |
 | SentencePiece | 0.2.1 |
 | Hugging Face Hub | 0.36.0 |
 | GPU | 1 × NVIDIA RTX 4090 24 GB |
-| NVIDIA Driver | Linux 建议不低于 560.28.03 |
+| NVIDIA Driver | Linux 建议不低于 570.26；学校 HPC 镜像须实际验证 |
 | 随机种子 | 42 |
 | 默认精度 | BF16；不支持时使用 FP32 |
 
@@ -941,11 +941,11 @@ conda activate project6
 python -m pip install --upgrade pip
 ```
 
-单独安装官方 CUDA 12.6 版 PyTorch：
+单独安装官方 CUDA 12.8 版 PyTorch：
 
 ```bash
 python -m pip install torch==2.9.1 \
-  --index-url https://download.pytorch.org/whl/cu126
+  --index-url https://download.pytorch.org/whl/cu128
 ```
 
 再安装项目其余依赖：
@@ -955,6 +955,11 @@ python -m pip install -r requirements-project6.txt
 ```
 
 PyTorch wheel 已经包含对应 CUDA runtime，通常不需要每个人另外安装完整 CUDA Toolkit；GPU 机器必须安装兼容的 NVIDIA Driver。
+
+2026 年 11 月 14 日，团队为匹配学校 HPC 镜像仓，将 PyTorch 2.9.1 的
+CUDA wheel 从 `cu126` 同步为 `cu128`。验收环境时必须保存
+`torch.__version__` 和 `torch.version.cuda`，不能只依据 `nvidia-smi`
+报告的驱动兼容版本。
 
 ### 15.4 固定 requirements
 
