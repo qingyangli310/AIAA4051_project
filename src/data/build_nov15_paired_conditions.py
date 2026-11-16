@@ -27,73 +27,115 @@ def _stable_int(seed: int, base_id: str, salt: str = "") -> int:
     return int(digest[:16], 16)
 
 
-def _substitution_candidates(plan: list[str]):
-    for pos, old in enumerate(plan):
-        for replacement in ACTIONS:
-            if replacement == old:
-                continue
-            candidate = list(plan)
-            candidate[pos] = replacement
-            yield pos, replacement, candidate
+def _apply_operation(plan: list[str], operation: dict[str, Any]) -> list[str]:
+    result = list(plan)
+    kind, pos = operation["corruption_type"], operation["position"]
+    if kind == "action_substitution":
+        result[pos] = operation["replacement_action"]
+    elif kind == "action_deletion":
+        result.pop(pos)
+    elif kind == "action_insertion":
+        result.insert(pos, operation["inserted_action"])
+    elif kind == "premature_stopping":
+        result = result[:pos]
+    else:
+        raise ValueError(f"unknown corruption type: {kind}")
+    return result
 
 
-def find_double_substitution(grid: dict[str, Any], plan: list[str], seed: int) -> dict[str, Any] | None:
-    """Find two independently failing substitutions with visible, reached effects."""
+def _operation_candidates(grid: dict[str, Any], plan: list[str], seed: int) -> list[dict[str, Any]]:
     candidates = []
-    for pos, replacement, candidate in _substitution_candidates(plan):
-        label = execute_plan(grid, candidate)
-        if not label["success"] and label["valid"] and label["executed_steps"] == len(candidate):
-            candidates.append((pos, replacement, candidate, label))
+    for pos in range(len(plan) + 1):
+        for kind in ERROR_KINDS:
+            if kind in ("action_substitution", "action_deletion", "premature_stopping") and pos >= len(plan):
+                continue
+            choices = ACTIONS if kind in ("action_substitution", "action_insertion") else (None,)
+            for action in choices:
+                if kind == "action_substitution" and action == plan[pos]:
+                    continue
+                operation = {"corruption_type": kind, "position": pos}
+                if kind == "action_substitution":
+                    operation["replacement_action"] = action
+                    operation["logical_position"] = f"token:{pos}"
+                elif kind == "action_deletion":
+                    operation["logical_position"] = f"token:{pos}"
+                elif kind == "action_insertion":
+                    operation["inserted_action"] = action
+                    operation["logical_position"] = f"gap:{pos}"
+                else:
+                    operation["logical_position"] = f"stop:{pos}"
+                independent = _apply_operation(plan, operation)
+                label = execute_plan(grid, independent)
+                if label["valid"] and not label["success"] and label["reason"] == "goal_not_reached":
+                    operation["independent_plan"] = independent
+                    operation["independent_executor_label"] = label
+                    operation["seed"] = _stable_int(seed, grid["environment_id"],
+                                                       f"{operation['logical_position']}:{kind}:{action}")
+                    candidates.append(operation)
+    return candidates
+
+
+def find_double_corruption(grid: dict[str, Any], plan: list[str], seed: int) -> dict[str, Any] | None:
+    """Find two independently failing edits with visible, reached effects."""
+    candidates = _operation_candidates(grid, plan, seed)
     rng = random.Random(seed)
     rng.shuffle(candidates)
+    pairs = []
     for idx, first in enumerate(candidates):
-        p1, a1, independent1, label1 = first
-        for p2, a2, independent2, label2 in candidates[idx + 1 :]:
-            if p1 == p2:
+        for second in candidates[idx + 1 :]:
+            if first["position"] == second["position"]:
                 continue
+            # Search different corruption types first; same-type pairs remain
+            # a deterministic fallback as allowed by the project task.
+            pairs.append((first, second))
+    pairs.sort(key=lambda pair: pair[0]["corruption_type"] == pair[1]["corruption_type"])
+    for first, second in pairs:
+            # Higher original positions are edited first so lower positions
+            # retain their original indexes. A stop boundary must be after the
+            # other edit, otherwise it would remove that edit from the plan.
+            if "premature_stopping" in (first["corruption_type"], second["corruption_type"]):
+                stop = first if first["corruption_type"] == "premature_stopping" else second
+                other = second if stop is first else first
+                if other["position"] >= stop["position"]:
+                    continue
+            ordered = sorted((first, second), key=lambda op: op["position"], reverse=True)
             combined = list(plan)
-            combined[p1] = a1
-            combined[p2] = a2
+            provenance = []
+            for op_index, operation in enumerate(ordered, start=1):
+                before = list(combined)
+                combined = _apply_operation(combined, operation)
+                provenance.append({
+                    "operation_id": f"mutation_{op_index}",
+                    "corruption_type": operation["corruption_type"],
+                    "logical_position": operation["logical_position"],
+                    "position": operation["position"],
+                    "seed": operation["seed"],
+                    "replacement_action": operation.get("replacement_action"),
+                    "inserted_action": operation.get("inserted_action"),
+                    "before_plan": before,
+                    "after_plan": list(combined),
+                    "independent_plan": list(operation["independent_plan"]),
+                    "independent_executor_label": operation["independent_executor_label"],
+                })
             label = execute_plan(grid, combined)
             # Requiring a valid, fully executed non-goal plan proves both action
             # positions were reached rather than hidden by Executor early-stop.
             if label["success"] or not label["valid"] or label["executed_steps"] != len(combined):
                 continue
-            trace_original = execute_plan(grid, plan)["trace"]
-            trace_first = execute_plan(grid, independent1)["trace"]
-            trace_second = execute_plan(grid, independent2)["trace"]
-            trace_combined = label["trace"]
-            # Each changed token must alter its immediate resulting position;
-            # the second must also differ from replaying only mutation one.
-            if trace_combined[p1 + 1] == trace_original[p1 + 1]:
+            visible = True
+            for operation in (first, second):
+                other = second if operation is first else first
+                without_this = execute_plan(grid, _apply_operation(plan, other))
+                # The combined trace must differ from replay with this mutation
+                # removed; this catches a later edit that is overwritten or inert.
+                if label["trace"] == without_this["trace"] and label["final_position"] == without_this["final_position"]:
+                    visible = False
+                    break
+            if not visible:
                 continue
-            if trace_combined[p2 + 1] == trace_first[p2 + 1]:
+            if [op["after_plan"] for op in provenance][-1] != combined:
                 continue
-            if trace_second[p2 + 1] == trace_original[p2 + 1]:
-                continue
-            ops = []
-            sequential = list(plan)
-            for op_index, (pos, action) in enumerate(((p1, a1), (p2, a2)), start=1):
-                before = list(sequential)
-                sequential[pos] = action
-                independent = list(plan)
-                independent[pos] = action
-                ops.append({
-                    "operation_id": f"mutation_{op_index}",
-                    "corruption_type": "action_substitution",
-                    "logical_position": f"token:{pos}",
-                    "position": pos,
-                    "seed": _stable_int(seed, grid["environment_id"], f"{pos}:{action}:{op_index}"),
-                    "original_action": plan[pos],
-                    "replacement_action": action,
-                    "before_plan": before,
-                    "after_plan": list(sequential),
-                    "independent_plan": independent,
-                    "independent_executor_label": execute_plan(grid, independent),
-                })
-            if sequential != combined:
-                continue
-            return {"plan": combined, "operations": ops, "executor_label": label}
+            return {"plan": combined, "operations": provenance, "executor_label": label}
     return None
 
 
@@ -154,10 +196,10 @@ def build(input_path: Path, output_dir: Path, manifests_dir: Path, seed: int = S
     for row in rows:
         grid = _grid(row)
         source_plan = list(row["shortest_plan"])
-        found = find_double_substitution(grid, source_plan, _stable_int(seed, row["base_sample_id"], "ood-search"))
+        found = find_double_corruption(grid, source_plan, _stable_int(seed, row["base_sample_id"], "ood-search"))
         if found is None:
             exceptions.append({"base_sample_id": row["base_sample_id"], "environment_id": row["environment_id"],
-                               "reason": "no_distinct_reached_non_cancelling_double_substitution_found"})
+                               "reason": "no_qualifying_distinct_double_corruption_found"})
             continue
         ood_ready.append((row, found))
 
