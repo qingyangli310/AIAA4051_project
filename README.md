@@ -26,9 +26,19 @@ Evaluate：统计成功率、修复成功率和路径质量
 
 | 模块 | 负责人 | 当前状态 |
 |---|---|---|
-| 数据、确定性执行器、数据划分 | A | 待接入真实模块 |
+| 数据、确定性执行器、数据划分 | A | v1 冻结：`project6-6x6-seed42-20261116`；Python 3.12 全量审计通过 |
 | 路径生成、模型验证器 | B | 待接入真实模块 |
 | Repair 接口、端到端管线、评价框架 | C | Mock 原型已完成并通过测试 |
+
+成员 A 的 6×6 seed-42 数据已冻结，包含 Train/Dev/Held-out 划分、配对 ID/OOD 条件和 PPNL 来源校验。原始 PPNL 文件未纳入仓库。审计和真实 Executor 演示命令：
+
+```bash
+UV_CACHE_DIR=/tmp/uv-cache-p6 uv run --offline --python 3.12 scripts/audit_frozen_data.py
+UV_CACHE_DIR=/tmp/uv-cache-p6 uv run --offline --python 3.12 scripts/demo_executor_and_leakage.py
+UV_CACHE_DIR=/tmp/uv-cache-p6 uv run --offline --python 3.12 --with pytest==8.4.2 python -m pytest -q
+```
+
+语义兼容说明：A Executor 把 `goal_not_reached` 表示为“没有违反移动规则但未到目标”，即 `valid=true, success=false`。C 当前 Mock Verifier 将同一结果表示为 `valid=false`，用于它的 Verify/Repair 控制流。两者含义不同；调用方应同时检查 `success` 和 `reason`，不要把这两个 `valid` 字段当成同一标签。`tests/test_executor_compatibility.py` 固定了现有差异，C 模块保持原样。
 
 成员 C 当前已经完成：
 
