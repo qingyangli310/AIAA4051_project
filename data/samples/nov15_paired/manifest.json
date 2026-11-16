@@ -1,0 +1,30 @@
+{
+  "seed": 42,
+  "source_file": "data/samples/nov14_pilot/heldout_test.jsonl",
+  "base_sample_count": 163,
+  "eligible_pair_count": 137,
+  "id_count": 137,
+  "ood_count": 137,
+  "exception_count": 26,
+  "id_error_distribution": {
+    "action_deletion": 35,
+    "action_insertion": 34,
+    "action_substitution": 34,
+    "premature_stopping": 34
+  },
+  "ood_error_combination_distribution": {
+    "action_substitution+action_substitution": 137
+  },
+  "train_environment_count": 572,
+  "dev_environment_count": 82,
+  "heldout_environment_count": 163,
+  "paired_environment_count": 137,
+  "environment_leakage": false,
+  "double_corruption_criteria": {
+    "two_independent_single_failures": true,
+    "distinct_logical_positions": true,
+    "sequential_replay_exact": true,
+    "combined_executor_reaches_both": true,
+    "combined_success_false": true
+  }
+}
