@@ -1,0 +1,166 @@
+{
+  "freeze_id": "project6-6x6-seed42-20261116",
+  "freeze_date": "2026-11-16",
+  "seed": 42,
+  "ppnl": {
+    "repository_url": "https://github.com/MohamedAghzal/llms-as-path-planners.git",
+    "commit": "5fd0376fc50ae9860bc986085165ebac5675fd44",
+    "files": [
+      {
+        "file": "1_train_set_6x6_samples.json",
+        "records": 16032,
+        "converted": 15989,
+        "unreachable_excluded": 43,
+        "sha256": "b20a44269cff617abd5132d3ad209f72fb0ce92f78b4eaefc5aa8a92fac093e2",
+        "json_parse_success": true,
+        "required_fields_missing": 0
+      },
+      {
+        "file": "1dev_set_6x6_samples.json",
+        "records": 2004,
+        "converted": 1999,
+        "unreachable_excluded": 5,
+        "sha256": "aad6f181c4eff903c1f262ae009f2c3ac2d0f787abae4765c51976fd1ee8c574",
+        "json_parse_success": true,
+        "required_fields_missing": 0
+      },
+      {
+        "file": "1_goals_test_seen_6x6_samples.json",
+        "records": 2004,
+        "converted": 2001,
+        "unreachable_excluded": 3,
+        "sha256": "ebdc305d207b0fda3d147b76ddd93fdecdb879dd5bd6acfad90bd242c15a2507",
+        "json_parse_success": true,
+        "required_fields_missing": 0
+      },
+      {
+        "file": "1goals_unseen_6x6_samples.json",
+        "records": 5040,
+        "converted": 5027,
+        "unreachable_excluded": 13,
+        "sha256": "ee841e3adb907116471989331f0e4cffed16038c46592491abdd7bafd34d432e",
+        "json_parse_success": true,
+        "required_fields_missing": 0
+      },
+      {
+        "file": "1_goals_test_unseen_5x5_samples.json",
+        "records": 3750,
+        "converted": 3689,
+        "unreachable_excluded": 61,
+        "sha256": "f34edfe112d248087ae76366c4f4e56cc0e0d31729d0bd981b6c8656344b32cd",
+        "json_parse_success": true,
+        "required_fields_missing": 0
+      },
+      {
+        "file": "1_goals_test_unseen_7x7_samples.json",
+        "records": 3750,
+        "converted": 3750,
+        "unreachable_excluded": 0,
+        "sha256": "db358fd01da87004c2d62551e44cfcb506cb00e88aba29815ebc0fd1c288eb58",
+        "json_parse_success": true,
+        "required_fields_missing": 0
+      },
+      {
+        "file": "1_goals_test_unseen_6x6more_obstacles_samples.json",
+        "records": 4500,
+        "converted": 4114,
+        "unreachable_excluded": 386,
+        "sha256": "8825fee0599751b4da946b9b6a75808bd9aeff8a5595e8db9e833ee38828b16d",
+        "json_parse_success": true,
+        "required_fields_missing": 0
+      }
+    ],
+    "raw_records": 37080,
+    "converted_records": 36569,
+    "excluded_unreachable": 511
+  },
+  "splits": {
+    "train": {
+      "environment_count": 572,
+      "sample_count": 17510
+    },
+    "dev": {
+      "environment_count": 82,
+      "sample_count": 2517
+    },
+    "heldout_test": {
+      "environment_count": 163,
+      "sample_count": 4989
+    }
+  },
+  "split_ratios": {
+    "train": 0.7001223990208079,
+    "dev": 0.1003671970624235,
+    "heldout_test": 0.19951040391676866
+  },
+  "paired_conditions": {
+    "id_count": 162,
+    "ood_count": 162,
+    "pair_count": 162,
+    "exception_count": 1,
+    "id_error_distribution": {
+      "action_deletion": 41,
+      "action_insertion": 40,
+      "action_substitution": 41,
+      "premature_stopping": 40
+    },
+    "ood_combination_distribution": {
+      "action_deletion+action_insertion": 13,
+      "action_deletion+action_substitution": 10,
+      "action_insertion+action_deletion": 25,
+      "action_insertion+action_insertion": 1,
+      "action_insertion+action_substitution": 57,
+      "action_substitution+action_deletion": 4,
+      "action_substitution+action_insertion": 21,
+      "premature_stopping+action_deletion": 5,
+      "premature_stopping+action_insertion": 16,
+      "premature_stopping+action_substitution": 10
+    },
+    "paired_environment_sets_equal": true,
+    "no_train_dev_environment_overlap": true,
+    "executor_labels_rechecked": 324,
+    "ood_independent_replays": 324,
+    "ood_sequential_replays": 162,
+    "ood_combined_full_execution_and_unmasked": 162
+  },
+  "excluded_samples": {
+    "count": 511,
+    "manifest": "data/manifests/excluded_manifest.json"
+  },
+  "derived_file_sha256": {
+    "data/processed/nov14/train.jsonl": "765e66a975faffedc28893f23eb50dd5b7d1c68e4ee5f27ec08dcb3d842cdd4c",
+    "data/processed/nov14/dev.jsonl": "7c3f490b65e21b005fdde4b2d70c1d74dd1db655b065d505c5ce1be28db2f20f",
+    "data/processed/nov14/heldout_test.jsonl": "2f5c39dbd97ef4a1f6b043ad7ccb8e6c884bf80c374b99bf5e6dc001a02cdc89",
+    "data/manifests/train.json": "01ddffcc595c686a4005e80fc3f96eec612c23c18d547a9570005026ac924dc6",
+    "data/manifests/dev.json": "626d2c07ae8de4e08e3be28d1194c73f72f1ad7b54eb42ca7aad5aaed2f2c12d",
+    "data/manifests/heldout_test.json": "3d681fe11745e10b9883c10d735951418a4c60d634f7c9259b9af6a3154cae63",
+    "data/manifests/excluded_manifest.json": "ebc37c75d5563cf612d2ffca3b807a70e227bcd1be5150a87b425613c2fbc799",
+    "data/samples/nov14_pilot/train.jsonl": "61e580a62f7c49d99623bcfb76e5214ee416f0b4da3f4130b89aed8b5f06e280",
+    "data/samples/nov14_pilot/dev.jsonl": "47dd572cb02c2049d43a28428cda07f320b18730a4f6e2faef7737bf0f3b5bc9",
+    "data/samples/nov14_pilot/heldout_test.jsonl": "a6e7d567906edd895d9f4fd25dacd9689a9567376ac7057b9f782f9d47a5b397",
+    "data/samples/nov14_pilot/single_error_train.jsonl": "fa4533ec2c11dfbe35020d5ba9a59dd701690255b1c2e28c394acbc98d1bdda6",
+    "data/samples/nov14_pilot/single_error_dev.jsonl": "fc22855454b4c15b2dee4395a5391e98f6c663543805fa0bce3dca3bfd076571",
+    "data/samples/nov14_pilot/manifest.json": "3bea452b4cebe08d8757174e138579449dd4226bf6bb4c3c52129ff31c793048",
+    "data/samples/legacy_a4_pilot/train.jsonl": "f0c2f072e4ffc59cf01fb58e5fc1e66e3dcdc0875d9bbd4a9c5af32d0bf25df0",
+    "data/samples/legacy_a4_pilot/dev.jsonl": "2db1f283b88dd496f7a84a946853222ac5c4392151d83d1c328934e442205ba9",
+    "data/samples/legacy_a4_pilot/id_test.jsonl": "ed99168bd88d7bc457662349b321bec88ce11bb62285d5b2cb90feb3d36ad61e",
+    "data/samples/legacy_a4_pilot/ood_test.jsonl": "306c43fb654f6044933e6516779336111a31c823e70af638ade2ead50eafb285",
+    "data/samples/legacy_a4_pilot/manifest.json": "46935a8ac787a3ba3c173dfb4a94fa5f82200dc72c94cc420f2d22a888c46129",
+    "data/samples/ppnl_integration_20261113.jsonl": "6c8406c9c63f563fd22c139cd53c8f001abbbd0abd3791979e7c4189723172dc",
+    "data/samples/nov15_paired/id_single_error.jsonl": "d034609408394693780a827cfe00fd00ee22d4ee027298cca3daceab31b89dfc",
+    "data/samples/nov15_paired/ood_double_error.jsonl": "36d7aa62a7460a77a62419c84a15d1536fa39d48f5e9d26341aca3db66249dfc",
+    "data/samples/nov15_paired/pair_manifest.jsonl": "d0540bca8fff67d3e81a262ddbb056fcef91c26eddde4f7bc0bd1b8bbca3be89",
+    "data/samples/nov15_paired/manifest.json": "ef8beb2c24488412e9e6db0a1ebc5c83d6962f7b761dc85f3c5701079b998d46",
+    "data/samples/nov15_paired/exceptions.jsonl": "c449e8dd5365a0fcf2cf3aa7a377131696d810af2c1198ff36733abd26b6f004",
+    "data/manifests/id_single_error.jsonl": "d034609408394693780a827cfe00fd00ee22d4ee027298cca3daceab31b89dfc",
+    "data/manifests/ood_double_error.jsonl": "36d7aa62a7460a77a62419c84a15d1536fa39d48f5e9d26341aca3db66249dfc"
+  },
+  "code_version": {
+    "data_generation_commit": "c2a223f310fb053e1583dc26c069f2a429445427",
+    "freeze_audit_script": "scripts/audit_frozen_data.py"
+  },
+  "reproduction_commands": [
+    "UV_CACHE_DIR=/tmp/uv-cache-p6 uv run --offline --python 3.12 scripts/audit_frozen_data.py",
+    "UV_CACHE_DIR=/tmp/uv-cache-p6 uv run --offline --python 3.12 scripts/demo_executor_and_leakage.py"
+  ]
+}
