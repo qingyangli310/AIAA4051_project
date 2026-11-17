@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 
 from src.models.output_parser import parse_plan, parse_verification
-from src.models.prompts import build_repair_prompt
+from src.models.prompts import build_generation_prompt, build_repair_prompt
 from src.part1.baselines import shortest_path
 from src.part1.data import build_part1_datasets
 from src.part1.evaluate import score_predictions
@@ -39,6 +39,12 @@ def test_no_feedback_prompt_hides_executor_diagnosis():
     assert "goal_not_reached" not in prompt
 
 
+def test_generation_prompt_contains_spatial_map_and_relative_goal():
+    prompt = build_generation_prompt(GRID)
+    assert "delta_row=+2, delta_col=+2" in prompt
+    assert "S . .\n. # .\n. . G" in prompt
+
+
 def test_part1_data_is_reproducible_and_respects_budgets(tmp_path):
     first = build_part1_datasets(ROOT, tmp_path / "first", 42)
     second = build_part1_datasets(ROOT, tmp_path / "second", 42)
@@ -47,6 +53,12 @@ def test_part1_data_is_reproducible_and_respects_budgets(tmp_path):
     assert first["dev_total"] == 200
     assert first["counts"]["verification_id_test"] == 200
     assert all(value == 0 for value in first["environment_intersections"].values())
+    assert first["generation_train_first_action_counts"] == {
+        "up": 250,
+        "down": 250,
+        "left": 250,
+        "right": 250,
+    }
 
 
 def test_generation_scoring_detects_output_collapse():

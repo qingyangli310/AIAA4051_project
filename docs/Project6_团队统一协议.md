@@ -505,10 +505,12 @@ GPU 型号
 seed: 42
 max_input_length: 512
 max_output_length: 128
-learning_rate: 5.0e-5
-per_device_train_batch_size: 8
-per_device_eval_batch_size: 8
-gradient_accumulation_steps: 2
+generation_learning_rate: 2.0e-4
+generation_per_device_train_batch_size: 4
+generation_gradient_accumulation_steps: 1
+verification_repair_learning_rate: 5.0e-5
+verification_repair_per_device_train_batch_size: 8
+verification_repair_gradient_accumulation_steps: 2
 num_train_epochs: 3
 optimizer: adamw_torch
 weight_decay: 0.01
@@ -518,7 +520,7 @@ do_sample: false
 temperature: 1.0
 ```
 
-如果 Flan-T5-base 或 BART-base 在 pilot 中显存不足，可以降低单设备 batch size，但应增加 `gradient_accumulation_steps`，尽量保持有效 batch size 为16。任何调整必须同时记录在配置和实验日志中。
+Generation 的 task-specific 配置来自固定输出诊断：在不增加 epoch 和样本呈现次数的情况下增加 optimizer updates。训练集按首动作 `up/down/left/right` 各 250 条平衡，并使用 ASCII grid 与相对目标位移。Verification 和 Repair 保留原有效 batch size 16。任何调整必须同时记录在配置和实验日志中。
 
 ### 9.5 改进方法和消融
 

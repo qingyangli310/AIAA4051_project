@@ -108,15 +108,27 @@ def main() -> int:
     parser.add_argument("--data-dir", type=Path, default=ROOT / "data/part1")
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--epochs", type=int, default=3)
-    parser.add_argument("--learning-rate", type=float, default=5e-5)
-    parser.add_argument("--batch-size", type=int, default=8)
-    parser.add_argument("--gradient-accumulation", type=int, default=2)
+    parser.add_argument("--learning-rate", type=float)
+    parser.add_argument("--batch-size", type=int)
+    parser.add_argument("--gradient-accumulation", type=int)
+    parser.add_argument("--diagnostic-train-examples", type=int)
     parser.add_argument("--max-input-length", type=int, default=512)
     parser.add_argument("--max-output-length", type=int, default=128)
     parser.add_argument("--allow-cpu", action="store_true")
     args = parser.parse_args()
-    if not 1 <= args.epochs <= 3:
+    diagnostic = args.diagnostic_train_examples is not None
+    if not diagnostic and not 1 <= args.epochs <= 3:
         raise ValueError("formal Part 1 runs allow one to three epochs")
+    if diagnostic and not 2 <= args.diagnostic_train_examples <= 100:
+        raise ValueError("diagnostic overfit probes require 2 to 100 examples")
+    if diagnostic and not 1 <= args.epochs <= 100:
+        raise ValueError("diagnostic overfit probes allow one to 100 epochs")
+    if args.learning_rate is None:
+        args.learning_rate = 2e-4 if args.task == "generation" else 5e-5
+    if args.batch_size is None:
+        args.batch_size = 4 if args.task == "generation" else 8
+    if args.gradient_accumulation is None:
+        args.gradient_accumulation = 1 if args.task == "generation" else 2
     if args.output.exists():
         raise FileExistsError(f"refusing to overwrite {args.output}")
 
@@ -138,6 +150,9 @@ def main() -> int:
     train_path = args.data_dir / f"{args.task}_train.jsonl"
     dev_path = args.data_dir / f"{args.task}_dev.jsonl"
     train_rows, dev_rows = read_jsonl(train_path), read_jsonl(dev_path)
+    if diagnostic:
+        train_rows = train_rows[: args.diagnostic_train_examples]
+        dev_rows = list(train_rows)
     checkpoint_name, revision = MODELS[args.model]
     set_seed(42)
     tokenizer = AutoTokenizer.from_pretrained(checkpoint_name, revision=revision)
@@ -232,7 +247,8 @@ def main() -> int:
         encoding="utf-8",
     )
     report = {
-        "formal_part1_run": True,
+        "formal_part1_run": not diagnostic,
+        "diagnostic_overfit_probe": diagnostic,
         "task": args.task,
         "model_key": args.model,
         "model_name": checkpoint_name,

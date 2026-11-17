@@ -18,6 +18,7 @@ from src.models.prompts import (
 
 
 GRID_FIELDS = ("environment_id", "rows", "cols", "start", "goal", "obstacles")
+PLAN_ACTIONS = ("up", "down", "left", "right")
 
 
 def read_jsonl(path: Path) -> list[dict[str, Any]]:
@@ -101,6 +102,28 @@ def take_diverse(rows: list[dict[str, Any]], count: int, seed: int) -> list[dict
         if not progressed:
             break
     return selected
+
+
+def take_balanced_generation(
+    rows: list[dict[str, Any]], count: int, seed: int
+) -> list[dict[str, Any]]:
+    """Balance canonical first actions while preserving environment diversity."""
+    if count % len(PLAN_ACTIONS):
+        raise ValueError("balanced Generation count must be divisible by four")
+    per_action = count // len(PLAN_ACTIONS)
+    selected = []
+    for offset, action in enumerate(PLAN_ACTIONS):
+        pool = [
+            row
+            for row in rows
+            if row.get("shortest_plan") and row["shortest_plan"][0] == action
+        ]
+        if len(pool) < per_action:
+            raise ValueError(
+                f"only {len(pool)} Generation rows begin with {action}; need {per_action}"
+            )
+        selected.extend(take_diverse(pool, per_action, seed + offset))
+    return _shuffle(selected, seed + len(PLAN_ACTIONS))
 
 
 def generation_row(row: dict[str, Any], split: str) -> dict[str, Any]:
@@ -254,7 +277,7 @@ def build_part1_datasets(root: Path, output: Path, seed: int = 42) -> dict[str, 
 
     generation_train = [
         generation_row(row, "train")
-        for row in take_diverse(train_base, 1000, seed)
+        for row in take_balanced_generation(train_base, 1000, seed)
     ]
     generation_dev = [generation_row(row, "dev") for row in take_diverse(dev_base, 20, seed)]
 
@@ -359,6 +382,10 @@ def build_part1_datasets(root: Path, output: Path, seed: int = 42) -> dict[str, 
             "train_dev": len(train_envs & dev_envs),
             "train_test": len(train_envs & test_envs),
             "dev_test": len(dev_envs & test_envs),
+        },
+        "generation_train_first_action_counts": {
+            action: sum(row["target_plan"][0] == action for row in generation_train)
+            for action in PLAN_ACTIONS
         },
         "sha256": hashes,
     }

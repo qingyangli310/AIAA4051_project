@@ -6,11 +6,11 @@ Part 1 requires a correct single-goal Executor and candidate constructor,
 direct Generation and Verification or Repair baselines, and a matched
 comparison of at least two encoder-decoder models on the same 6 by 6 ID data.
 
-The repository now contains the complete CPU-side implementation, frozen data,
-symbolic reference acceptance, model training, checkpoint reload, prediction,
-diagnostics, evaluation and development-only model selection workflow.  The
-remaining operation is to execute `run_part1_hpc.sbatch` in the frozen GPU
-environment.  No language-model result is claimed until that run completes.
+The repository contains the complete data, symbolic reference acceptance, model
+training, checkpoint reload, diagnostics, evaluation and development-only model
+selection workflow. Protocol v2 adds an explicit ASCII grid and relative goal
+offset to every prompt and balances the Generation training set to 250 examples
+per first action. These changes address the observed output-prior collapse.
 
 ## Frozen data budget
 
@@ -24,6 +24,12 @@ environment.  No language-model result is claimed until that run completes.
 All sets use seed 42.  Train, Dev and Held-out Test environment intersections
 are zero.  The manifest records every file count and SHA-256 value in
 `data/part1/manifest.json`.
+
+Generation uses the task-specific post-diagnostic defaults: learning rate
+`2e-4`, per-device batch size 4 and no gradient accumulation. This yields about
+750 updates over three epochs without increasing the number of sample
+presentations. Verification and Repair retain learning rate `5e-5`, batch size
+8 and gradient accumulation 2.
 
 ## Baseline protocol
 
@@ -71,6 +77,18 @@ python scripts/build_part1_data.py
 python scripts/run_part1_symbolic.py
 python -m pytest -q
 ```
+
+Before a formal Generation rerun, verify learnability on 32 examples:
+
+```bash
+python scripts/train_part1.py \
+  --task generation --model bart-base \
+  --diagnostic-train-examples 32 --epochs 30 \
+  --output outputs/overfit_bart_32
+```
+
+This diagnostic is marked `formal_part1_run=false` and must not be reported as
+a formal baseline.
 
 Formal HPC run:
 

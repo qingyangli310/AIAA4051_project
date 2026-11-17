@@ -1,5 +1,5 @@
 {
-  "protocol_version": "project6-part1-v1",
+  "protocol_version": "project6-part1-v2",
   "seed": 42,
   "counts": {
     "generation_train": 1000,
@@ -24,17 +24,23 @@
     "train_test": 0,
     "dev_test": 0
   },
+  "generation_train_first_action_counts": {
+    "up": 250,
+    "down": 250,
+    "left": 250,
+    "right": 250
+  },
   "sha256": {
-    "generation_train.jsonl": "2754ccd11dd505cd2be1b8baa33c06b694228858b2cd4565ec92f296fa5ebe46",
-    "generation_dev.jsonl": "394e4ae948ee5624f895f1a52819ff18cecf5218eb006be73a472124137cca4e",
-    "verification_train.jsonl": "6a22c65c9eb8b93839200fa3dff604c7222f828a4a4ed2c1c586ed4f5205049b",
-    "verification_dev.jsonl": "89f6befb4d1b3d371e13dacb58099345597695cc50900c89126030eaae32d977",
-    "repair_train.jsonl": "8fab191e6f1d47e7b6f267e77e2b7aa2df5f26d6a070caf3e7ce1a576312d3ea",
-    "repair_dev.jsonl": "06b18bd5fe3847e48c5462ba5d9cbac6d9c7c30d99a1e87a969227108d17984f",
-    "generation_id_test.jsonl": "92dc3d133723c2f1cae1e9cd844d3f4856aeffe3ccbdf3768df499e660f7ec0b",
-    "verification_id_test.jsonl": "f4d63fc888e1faac5958da2fbf10fd52919cc5d746b0c5da6d74782c01e3db90",
-    "verification_ood_test.jsonl": "ca819e6d42396bf6e939c6f08b0b664982e5d0eadffe50924f3cc6adc4b0264b",
-    "repair_id_test.jsonl": "71e38b312af7785b11e219ab80de9f83e52a578ca909bd34462544a9561a9897",
-    "repair_ood_test.jsonl": "2f677b6fcdfdff19a3576d7bc18a84a0485fb0b8e3dbc89def090cabd4105478"
+    "generation_train.jsonl": "7a686983bc2e2608b0e9e2e1b511d93d735b79df70b7e3ed38ed977f9823a756",
+    "generation_dev.jsonl": "f522ded188b1761ced47d79edfca8fbe8d94643b1d7def3c60b2d02db88ad2f0",
+    "verification_train.jsonl": "316991e699ad290f3ccb5021ba5671090728a0864656b0a06c477b279dd9485f",
+    "verification_dev.jsonl": "1d50b783489483f0266bc51beb9b1761d6fb0af49ddc46f3b64ff93950c53980",
+    "repair_train.jsonl": "c146668767971999b0ad592cbaa48179bd52c136b8ec1667a7534b68952560dd",
+    "repair_dev.jsonl": "42cc82b55523bfc2a39a5bd4b178af3c8f7a6a119698caf1e025320fed4721d9",
+    "generation_id_test.jsonl": "295145cf0c082b8e34cefde5d3b272cdcfefbc3335ee6380e326c183f0176f72",
+    "verification_id_test.jsonl": "b53f4545855381ec816b640e2bb3b09589105323cb3b70a4520542420a5e3d1a",
+    "verification_ood_test.jsonl": "4e7ac87c0e27d258f3f54e42386af9491ca58d01ba5a7bf5228c98083ebf631b",
+    "repair_id_test.jsonl": "283bde1bc2cdb1005f32a1929607e1f7051ff56fc61e9d0dabeab0d26e6734c8",
+    "repair_ood_test.jsonl": "3c44fc60da1c8fae58294e958d5dcb1abde81a307196d9dae537720ab38d068d"
   }
 }

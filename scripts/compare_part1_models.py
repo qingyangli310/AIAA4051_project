@@ -31,7 +31,14 @@ def main() -> int:
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     reports = [read_report(path) for path in args.reports]
-    matched = ("train_sha256", "dev_sha256", "epochs", "batch_size", "gradient_accumulation")
+    matched = (
+        "train_sha256",
+        "dev_sha256",
+        "epochs",
+        "learning_rate",
+        "batch_size",
+        "gradient_accumulation",
+    )
     for field in matched:
         if reports[0][field] != reports[1][field]:
             raise ValueError(f"unmatched model budgets: {field}")

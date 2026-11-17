@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import Any
 
 
-PROTOCOL_VERSION = "project6-part1-v1"
+PROTOCOL_VERSION = "project6-part1-v2"
 
 
 def validate_grid(grid: dict[str, Any]) -> None:
@@ -30,13 +30,41 @@ def validate_grid(grid: dict[str, Any]) -> None:
         raise ValueError("start and goal cannot be obstacles")
 
 
+def render_ascii_grid(grid: dict[str, Any]) -> str:
+    """Render the spatial state explicitly for text-to-text models."""
+    validate_grid(grid)
+    start = tuple(grid["start"])
+    goal = tuple(grid["goal"])
+    obstacles = {tuple(cell) for cell in grid["obstacles"]}
+    lines = []
+    for row in range(grid["rows"]):
+        cells = []
+        for col in range(grid["cols"]):
+            position = (row, col)
+            if position == start:
+                cells.append("S")
+            elif position == goal:
+                cells.append("G")
+            elif position in obstacles:
+                cells.append("#")
+            else:
+                cells.append(".")
+        lines.append(" ".join(cells))
+    return "\n".join(lines)
+
+
 def grid_text(grid: dict[str, Any]) -> str:
     validate_grid(grid)
+    delta_row = grid["goal"][0] - grid["start"][0]
+    delta_col = grid["goal"][1] - grid["start"][1]
     return (
         f"Grid size: {grid['rows']} rows and {grid['cols']} columns.\n"
         f"Start: {tuple(grid['start'])}.\n"
         f"Goal: {tuple(grid['goal'])}.\n"
+        f"Goal relative to start: delta_row={delta_row:+d}, delta_col={delta_col:+d}.\n"
         f"Obstacles: {[tuple(cell) for cell in grid['obstacles']]}.\n"
+        "Grid map (S=start, G=goal, #=obstacle, .=free):\n"
+        f"{render_ascii_grid(grid)}\n"
         "Actions: up decreases row; down increases row; left decreases column; "
         "right increases column.\n"
     )

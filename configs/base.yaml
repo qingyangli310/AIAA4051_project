@@ -3,6 +3,7 @@ project:
   seed: 42
 
 data:
+  part1_protocol_version: project6-part1-v2
   grid_size: 6
   coordinate_system: row_col_zero_based
   action_step_indexing: zero_based
@@ -50,10 +51,17 @@ model:
   max_output_length: 128
 
 training:
-  learning_rate: 5.0e-5
-  per_device_train_batch_size: 8
-  per_device_eval_batch_size: 8
-  gradient_accumulation_steps: 2
+  task_defaults:
+    generation:
+      learning_rate: 2.0e-4
+      per_device_train_batch_size: 4
+      per_device_eval_batch_size: 4
+      gradient_accumulation_steps: 1
+    verification_repair:
+      learning_rate: 5.0e-5
+      per_device_train_batch_size: 8
+      per_device_eval_batch_size: 8
+      gradient_accumulation_steps: 2
   num_train_epochs: 3
   optimizer: adamw_torch
   weight_decay: 0.01
