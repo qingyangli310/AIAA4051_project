@@ -1,0 +1,288 @@
+{
+  "kind": "symbolic_reference_acceptance_not_language_model_results",
+  "all_checks_passed": true,
+  "results": {
+    "generation_id": {
+      "task": "generation",
+      "examples": 162,
+      "parse_rate": 1.0,
+      "exact_match_rate": 1.0,
+      "unique_predictions": 107,
+      "most_common_predictions": [
+        [
+          "right",
+          10
+        ],
+        [
+          "left, left",
+          5
+        ],
+        [
+          "left",
+          5
+        ],
+        [
+          "down",
+          5
+        ],
+        [
+          "up, up, left, left",
+          5
+        ]
+      ],
+      "most_common_share": 0.06172839506172839,
+      "metrics": {
+        "examples": 162,
+        "success_rate": 1.0,
+        "feasibility": 1.0,
+        "verification_macro_f1": null,
+        "first_error_accuracy": null,
+        "repair_success_rate": null,
+        "end_to_end_success_rate": 1.0,
+        "mean_optimality": 1.0,
+        "counts": {
+          "success": [
+            162,
+            162
+          ],
+          "feasible": [
+            162,
+            162
+          ],
+          "repair_success": [
+            0,
+            0
+          ],
+          "optimality_scored": 162,
+          "verification_scored": 0
+        }
+      }
+    },
+    "verification_id": {
+      "task": "verification",
+      "examples": 200,
+      "parse_rate": 1.0,
+      "exact_match_rate": 1.0,
+      "error_reason_accuracy": 1.0,
+      "unique_predictions": 20,
+      "most_common_predictions": [
+        [
+          "valid",
+          100
+        ],
+        [
+          "invalid | step=3 | reason=goal_not_reached",
+          15
+        ],
+        [
+          "invalid | step=0 | reason=goal_not_reached",
+          11
+        ],
+        [
+          "invalid | step=2 | reason=goal_not_reached",
+          10
+        ],
+        [
+          "invalid | step=6 | reason=goal_not_reached",
+          8
+        ]
+      ],
+      "most_common_share": 0.5,
+      "metrics": {
+        "examples": 200,
+        "success_rate": 0.0,
+        "feasibility": 1.0,
+        "verification_macro_f1": 1.0,
+        "first_error_accuracy": 1.0,
+        "repair_success_rate": null,
+        "end_to_end_success_rate": 0.0,
+        "mean_optimality": null,
+        "counts": {
+          "success": [
+            0,
+            200
+          ],
+          "feasible": [
+            200,
+            200
+          ],
+          "repair_success": [
+            0,
+            0
+          ],
+          "optimality_scored": 0,
+          "verification_scored": 200
+        }
+      }
+    },
+    "verification_ood": {
+      "task": "verification",
+      "examples": 162,
+      "parse_rate": 1.0,
+      "exact_match_rate": 1.0,
+      "error_reason_accuracy": 1.0,
+      "unique_predictions": 11,
+      "most_common_predictions": [
+        [
+          "invalid | step=2 | reason=goal_not_reached",
+          36
+        ],
+        [
+          "invalid | step=4 | reason=goal_not_reached",
+          26
+        ],
+        [
+          "invalid | step=6 | reason=goal_not_reached",
+          22
+        ],
+        [
+          "invalid | step=3 | reason=goal_not_reached",
+          21
+        ],
+        [
+          "invalid | step=5 | reason=goal_not_reached",
+          19
+        ]
+      ],
+      "most_common_share": 0.2222222222222222,
+      "metrics": {
+        "examples": 162,
+        "success_rate": 0.0,
+        "feasibility": 1.0,
+        "verification_macro_f1": 0.5,
+        "first_error_accuracy": 1.0,
+        "repair_success_rate": null,
+        "end_to_end_success_rate": 0.0,
+        "mean_optimality": null,
+        "counts": {
+          "success": [
+            0,
+            162
+          ],
+          "feasible": [
+            162,
+            162
+          ],
+          "repair_success": [
+            0,
+            0
+          ],
+          "optimality_scored": 0,
+          "verification_scored": 162
+        }
+      }
+    },
+    "repair_id": {
+      "task": "repair",
+      "examples": 162,
+      "parse_rate": 1.0,
+      "exact_match_rate": 1.0,
+      "unique_predictions": 107,
+      "most_common_predictions": [
+        [
+          "right",
+          10
+        ],
+        [
+          "left, left",
+          5
+        ],
+        [
+          "left",
+          5
+        ],
+        [
+          "down",
+          5
+        ],
+        [
+          "up, up, left, left",
+          5
+        ]
+      ],
+      "most_common_share": 0.06172839506172839,
+      "metrics": {
+        "examples": 162,
+        "success_rate": 1.0,
+        "feasibility": 1.0,
+        "verification_macro_f1": null,
+        "first_error_accuracy": null,
+        "repair_success_rate": 1.0,
+        "end_to_end_success_rate": 1.0,
+        "mean_optimality": 1.0,
+        "counts": {
+          "success": [
+            162,
+            162
+          ],
+          "feasible": [
+            162,
+            162
+          ],
+          "repair_success": [
+            162,
+            162
+          ],
+          "optimality_scored": 162,
+          "verification_scored": 0
+        }
+      }
+    },
+    "repair_ood": {
+      "task": "repair",
+      "examples": 162,
+      "parse_rate": 1.0,
+      "exact_match_rate": 1.0,
+      "unique_predictions": 107,
+      "most_common_predictions": [
+        [
+          "right",
+          10
+        ],
+        [
+          "left, left",
+          5
+        ],
+        [
+          "left",
+          5
+        ],
+        [
+          "down",
+          5
+        ],
+        [
+          "up, up, left, left",
+          5
+        ]
+      ],
+      "most_common_share": 0.06172839506172839,
+      "metrics": {
+        "examples": 162,
+        "success_rate": 1.0,
+        "feasibility": 1.0,
+        "verification_macro_f1": null,
+        "first_error_accuracy": null,
+        "repair_success_rate": 1.0,
+        "end_to_end_success_rate": 1.0,
+        "mean_optimality": 1.0,
+        "counts": {
+          "success": [
+            162,
+            162
+          ],
+          "feasible": [
+            162,
+            162
+          ],
+          "repair_success": [
+            162,
+            162
+          ],
+          "optimality_scored": 162,
+          "verification_scored": 0
+        }
+      }
+    }
+  }
+}

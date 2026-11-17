@@ -341,6 +341,22 @@ Executor、C 的 pipeline 和指标实现参与实际运行。不得把 smoke te
 
 CPU 机器可以运行 Mock 管线、执行器、数据构造和单元测试。正式模型比较必须在同一台 GPU 机器和同一套冻结环境中完成。
 
+## Part 1 完整复现入口
+
+Part 1 的 4,000 条训练预算、200 条 Dev 预算、ID/OOD 测试文件、符号参考
+验收、T5-small/BART-base 公平训练、checkpoint 重载、坍缩诊断、Dev-only
+主模型选择与正式评价已经统一到以下入口：
+
+```bash
+python scripts/build_part1_data.py
+python scripts/run_part1_symbolic.py
+python -m pytest -q
+sbatch run_part1_hpc.sbatch
+```
+
+完整协议和验收条件见 `docs/PART1_IMPLEMENTATION_AND_RUNBOOK.md`。符号 BFS
+结果只用于检查算法和接口，不得作为语言模型实验成绩。
+
 ## 仓库结构
 
 ```text
