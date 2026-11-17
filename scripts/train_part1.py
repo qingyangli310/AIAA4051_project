@@ -149,12 +149,17 @@ def main() -> int:
         raise ValueError("diagnostic overfit probes require 2 to 100 examples")
     if diagnostic and not 1 <= args.epochs <= 100:
         raise ValueError("diagnostic overfit probes allow one to 100 epochs")
+    # The three Part 1 datasets are deliberately small.  A large effective
+    # batch (8 * 2) left Verification and Repair with only 282 optimiser
+    # updates and produced majority-like predictions despite balanced labels.
+    # Use the same update-dense defaults that pass the Generation conditioning
+    # probe; callers can still override every value on the command line.
     if args.learning_rate is None:
-        args.learning_rate = 2e-4 if args.task == "generation" else 5e-5
+        args.learning_rate = 2e-4
     if args.batch_size is None:
-        args.batch_size = 4 if args.task == "generation" else 8
+        args.batch_size = 4
     if args.gradient_accumulation is None:
-        args.gradient_accumulation = 1 if args.task == "generation" else 2
+        args.gradient_accumulation = 1
     if args.output.exists():
         raise FileExistsError(f"refusing to overwrite {args.output}")
 
