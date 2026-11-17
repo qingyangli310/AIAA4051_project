@@ -6,6 +6,7 @@ from src.models.prompts import build_generation_prompt, build_repair_prompt
 from src.part1.baselines import shortest_path
 from src.part1.data import build_part1_datasets
 from src.part1.evaluate import score_predictions
+from scripts.train_part1 import diagnostic_rows
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -43,6 +44,12 @@ def test_generation_prompt_contains_spatial_map_and_relative_goal():
     prompt = build_generation_prompt(GRID)
     assert "delta_row=+2, delta_col=+2" in prompt
     assert "S . .\n. # .\n. . G" in prompt
+
+
+def test_overfit_probe_is_first_action_balanced():
+    rows = [json.loads(line) for line in (ROOT / "data/part1/generation_train.jsonl").read_text().splitlines()]
+    selected = diagnostic_rows(rows, 4)
+    assert [row["target_plan"] for row in selected] == [["up"], ["down"], ["left"], ["right"]]
 
 
 def test_part1_data_is_reproducible_and_respects_budgets(tmp_path):

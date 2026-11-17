@@ -31,6 +31,11 @@ Generation uses the task-specific post-diagnostic defaults: learning rate
 presentations. Verification and Repair retain learning rate `5e-5`, batch size
 8 and gradient accumulation 2.
 
+Decoding explicitly sets `no_repeat_ngram_size=0` and `early_stopping=false`.
+This is required because BART's inherited summarization-oriented generation
+configuration otherwise blocks repeated action trigrams such as
+`up, up, up, up`, which are valid and common paths.
+
 ## Baseline protocol
 
 The current repository protocol explicitly uses `google-t5/t5-small` and

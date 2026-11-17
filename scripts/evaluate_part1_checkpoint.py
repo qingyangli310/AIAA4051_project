@@ -53,6 +53,8 @@ def main() -> int:
                 max_new_tokens=args.max_output_length,
                 do_sample=False,
                 num_beams=1,
+                no_repeat_ngram_size=0,
+                early_stopping=False,
             )[0]
         raw = tokenizer.decode(token_ids, skip_special_tokens=True)
         raw_outputs.append(raw)
@@ -79,7 +81,12 @@ def main() -> int:
         "examples": len(rows),
         "inference_seconds": elapsed,
         "scoring": score_predictions(args.task, rows, raw_outputs),
-        "decoding": {"do_sample": False, "num_beams": 1},
+        "decoding": {
+            "do_sample": False,
+            "num_beams": 1,
+            "no_repeat_ngram_size": 0,
+            "early_stopping": False,
+        },
     }
     (args.output / "evaluation.json").write_text(
         json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"

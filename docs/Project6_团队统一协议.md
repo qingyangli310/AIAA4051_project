@@ -517,6 +517,8 @@ weight_decay: 0.01
 bf16: true
 generation_num_beams: 1
 do_sample: false
+no_repeat_ngram_size: 0
+early_stopping: false
 temperature: 1.0
 ```
 

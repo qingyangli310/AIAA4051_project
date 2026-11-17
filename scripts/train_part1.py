@@ -29,6 +29,32 @@ MODELS = {
         "aadd2ab0ae0c8268c7c9693540e9904811f36177",
     ),
 }
+PLAN_ACTIONS = ("up", "down", "left", "right")
+
+
+def diagnostic_rows(rows: list[dict[str, Any]], count: int) -> list[dict[str, Any]]:
+    """Choose an action-balanced, easy-to-hard set for an overfit probe."""
+    groups = {
+        action: sorted(
+            (row for row in rows if row["target_plan"][0] == action),
+            key=lambda row: (len(row["target_plan"]), row["example_id"]),
+        )
+        for action in PLAN_ACTIONS
+    }
+    selected = []
+    index = 0
+    while len(selected) < count:
+        progressed = False
+        for action in PLAN_ACTIONS:
+            if index < len(groups[action]):
+                selected.append(groups[action][index])
+                progressed = True
+                if len(selected) == count:
+                    break
+        if not progressed:
+            raise ValueError(f"could not select {count} diagnostic rows")
+        index += 1
+    return selected
 
 
 def parameter_signature(model: Any) -> dict[str, float]:
@@ -151,7 +177,7 @@ def main() -> int:
     dev_path = args.data_dir / f"{args.task}_dev.jsonl"
     train_rows, dev_rows = read_jsonl(train_path), read_jsonl(dev_path)
     if diagnostic:
-        train_rows = train_rows[: args.diagnostic_train_examples]
+        train_rows = diagnostic_rows(train_rows, args.diagnostic_train_examples)
         dev_rows = list(train_rows)
     checkpoint_name, revision = MODELS[args.model]
     set_seed(42)
@@ -229,6 +255,8 @@ def main() -> int:
                 max_new_tokens=args.max_output_length,
                 do_sample=False,
                 num_beams=1,
+                no_repeat_ngram_size=0,
+                early_stopping=False,
             )[0]
         raw = tokenizer.decode(tokens, skip_special_tokens=True)
         raw_outputs.append(raw)
@@ -275,7 +303,12 @@ def main() -> int:
         "dev_metrics": dev_metrics,
         "conditioning_probe": probe,
         "dev_scoring": scoring,
-        "decoding": {"do_sample": False, "num_beams": 1},
+        "decoding": {
+            "do_sample": False,
+            "num_beams": 1,
+            "no_repeat_ngram_size": 0,
+            "early_stopping": False,
+        },
     }
     (args.output / "run_report.json").write_text(
         json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
