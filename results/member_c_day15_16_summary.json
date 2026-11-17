@@ -1,0 +1,435 @@
+{
+  "stage": "member_c_20261115_16_acceptance",
+  "input_kind": "A frozen ID single-error condition",
+  "sample_count_per_branch": 40,
+  "total_pipeline_runs": 120,
+  "all_model_outputs_mock": true,
+  "real_components": [
+    "A frozen data",
+    "A canonical Executor",
+    "C metrics"
+  ],
+  "unavailable_components": [
+    "B November 15 Generator checkpoint/predictions",
+    "B November 15 Verifier checkpoint/predictions",
+    "trained Repair checkpoint"
+  ],
+  "error_type_counts": {
+    "action_deletion": 10,
+    "action_insertion": 10,
+    "action_substitution": 10,
+    "premature_stopping": 10
+  },
+  "branches": {
+    "no_feedback": {
+      "run_kind": "deterministic_mock",
+      "metrics": {
+        "examples": 40,
+        "success_rate": 0.0,
+        "feasibility": 0.675,
+        "verification_macro_f1": 0.5,
+        "first_error_accuracy": 1.0,
+        "repair_success_rate": 0.0,
+        "end_to_end_success_rate": 0.0,
+        "mean_optimality": null,
+        "counts": {
+          "success": [
+            0,
+            40
+          ],
+          "feasible": [
+            27,
+            40
+          ],
+          "repair_success": [
+            0,
+            40
+          ],
+          "optimality_scored": 0,
+          "verification_scored": 40
+        }
+      },
+      "batch_errors": 0
+    },
+    "self_feedback": {
+      "run_kind": "deterministic_mock",
+      "metrics": {
+        "examples": 40,
+        "success_rate": 0.9,
+        "feasibility": 1.0,
+        "verification_macro_f1": 0.5,
+        "first_error_accuracy": 1.0,
+        "repair_success_rate": 0.9,
+        "end_to_end_success_rate": 0.9,
+        "mean_optimality": 1.0,
+        "counts": {
+          "success": [
+            36,
+            40
+          ],
+          "feasible": [
+            40,
+            40
+          ],
+          "repair_success": [
+            36,
+            40
+          ],
+          "optimality_scored": 36,
+          "verification_scored": 40
+        }
+      },
+      "batch_errors": 0
+    },
+    "executor_feedback": {
+      "run_kind": "deterministic_mock",
+      "metrics": {
+        "examples": 40,
+        "success_rate": 0.9,
+        "feasibility": 1.0,
+        "verification_macro_f1": 0.5,
+        "first_error_accuracy": 1.0,
+        "repair_success_rate": 0.9,
+        "end_to_end_success_rate": 0.9,
+        "mean_optimality": 1.0,
+        "counts": {
+          "success": [
+            36,
+            40
+          ],
+          "feasible": [
+            40,
+            40
+          ],
+          "repair_success": [
+            36,
+            40
+          ],
+          "optimality_scored": 36,
+          "verification_scored": 40
+        }
+      },
+      "batch_errors": 0
+    }
+  },
+  "metrics_by_error_type": {
+    "no_feedback": {
+      "action_deletion": {
+        "examples": 10,
+        "success_rate": 0.0,
+        "feasibility": 0.6,
+        "verification_macro_f1": 0.5,
+        "first_error_accuracy": 1.0,
+        "repair_success_rate": 0.0,
+        "end_to_end_success_rate": 0.0,
+        "mean_optimality": null,
+        "counts": {
+          "success": [
+            0,
+            10
+          ],
+          "feasible": [
+            6,
+            10
+          ],
+          "repair_success": [
+            0,
+            10
+          ],
+          "optimality_scored": 0,
+          "verification_scored": 10
+        }
+      },
+      "action_insertion": {
+        "examples": 10,
+        "success_rate": 0.0,
+        "feasibility": 0.4,
+        "verification_macro_f1": 0.5,
+        "first_error_accuracy": 1.0,
+        "repair_success_rate": 0.0,
+        "end_to_end_success_rate": 0.0,
+        "mean_optimality": null,
+        "counts": {
+          "success": [
+            0,
+            10
+          ],
+          "feasible": [
+            4,
+            10
+          ],
+          "repair_success": [
+            0,
+            10
+          ],
+          "optimality_scored": 0,
+          "verification_scored": 10
+        }
+      },
+      "action_substitution": {
+        "examples": 10,
+        "success_rate": 0.0,
+        "feasibility": 0.7,
+        "verification_macro_f1": 0.5,
+        "first_error_accuracy": 1.0,
+        "repair_success_rate": 0.0,
+        "end_to_end_success_rate": 0.0,
+        "mean_optimality": null,
+        "counts": {
+          "success": [
+            0,
+            10
+          ],
+          "feasible": [
+            7,
+            10
+          ],
+          "repair_success": [
+            0,
+            10
+          ],
+          "optimality_scored": 0,
+          "verification_scored": 10
+        }
+      },
+      "premature_stopping": {
+        "examples": 10,
+        "success_rate": 0.0,
+        "feasibility": 1.0,
+        "verification_macro_f1": 0.5,
+        "first_error_accuracy": 1.0,
+        "repair_success_rate": 0.0,
+        "end_to_end_success_rate": 0.0,
+        "mean_optimality": null,
+        "counts": {
+          "success": [
+            0,
+            10
+          ],
+          "feasible": [
+            10,
+            10
+          ],
+          "repair_success": [
+            0,
+            10
+          ],
+          "optimality_scored": 0,
+          "verification_scored": 10
+        }
+      }
+    },
+    "self_feedback": {
+      "action_deletion": {
+        "examples": 10,
+        "success_rate": 0.9,
+        "feasibility": 1.0,
+        "verification_macro_f1": 0.5,
+        "first_error_accuracy": 1.0,
+        "repair_success_rate": 0.9,
+        "end_to_end_success_rate": 0.9,
+        "mean_optimality": 1.0,
+        "counts": {
+          "success": [
+            9,
+            10
+          ],
+          "feasible": [
+            10,
+            10
+          ],
+          "repair_success": [
+            9,
+            10
+          ],
+          "optimality_scored": 9,
+          "verification_scored": 10
+        }
+      },
+      "action_insertion": {
+        "examples": 10,
+        "success_rate": 0.9,
+        "feasibility": 1.0,
+        "verification_macro_f1": 0.5,
+        "first_error_accuracy": 1.0,
+        "repair_success_rate": 0.9,
+        "end_to_end_success_rate": 0.9,
+        "mean_optimality": 1.0,
+        "counts": {
+          "success": [
+            9,
+            10
+          ],
+          "feasible": [
+            10,
+            10
+          ],
+          "repair_success": [
+            9,
+            10
+          ],
+          "optimality_scored": 9,
+          "verification_scored": 10
+        }
+      },
+      "action_substitution": {
+        "examples": 10,
+        "success_rate": 0.9,
+        "feasibility": 1.0,
+        "verification_macro_f1": 0.5,
+        "first_error_accuracy": 1.0,
+        "repair_success_rate": 0.9,
+        "end_to_end_success_rate": 0.9,
+        "mean_optimality": 1.0,
+        "counts": {
+          "success": [
+            9,
+            10
+          ],
+          "feasible": [
+            10,
+            10
+          ],
+          "repair_success": [
+            9,
+            10
+          ],
+          "optimality_scored": 9,
+          "verification_scored": 10
+        }
+      },
+      "premature_stopping": {
+        "examples": 10,
+        "success_rate": 0.9,
+        "feasibility": 1.0,
+        "verification_macro_f1": 0.5,
+        "first_error_accuracy": 1.0,
+        "repair_success_rate": 0.9,
+        "end_to_end_success_rate": 0.9,
+        "mean_optimality": 1.0,
+        "counts": {
+          "success": [
+            9,
+            10
+          ],
+          "feasible": [
+            10,
+            10
+          ],
+          "repair_success": [
+            9,
+            10
+          ],
+          "optimality_scored": 9,
+          "verification_scored": 10
+        }
+      }
+    },
+    "executor_feedback": {
+      "action_deletion": {
+        "examples": 10,
+        "success_rate": 0.9,
+        "feasibility": 1.0,
+        "verification_macro_f1": 0.5,
+        "first_error_accuracy": 1.0,
+        "repair_success_rate": 0.9,
+        "end_to_end_success_rate": 0.9,
+        "mean_optimality": 1.0,
+        "counts": {
+          "success": [
+            9,
+            10
+          ],
+          "feasible": [
+            10,
+            10
+          ],
+          "repair_success": [
+            9,
+            10
+          ],
+          "optimality_scored": 9,
+          "verification_scored": 10
+        }
+      },
+      "action_insertion": {
+        "examples": 10,
+        "success_rate": 0.9,
+        "feasibility": 1.0,
+        "verification_macro_f1": 0.5,
+        "first_error_accuracy": 1.0,
+        "repair_success_rate": 0.9,
+        "end_to_end_success_rate": 0.9,
+        "mean_optimality": 1.0,
+        "counts": {
+          "success": [
+            9,
+            10
+          ],
+          "feasible": [
+            10,
+            10
+          ],
+          "repair_success": [
+            9,
+            10
+          ],
+          "optimality_scored": 9,
+          "verification_scored": 10
+        }
+      },
+      "action_substitution": {
+        "examples": 10,
+        "success_rate": 0.9,
+        "feasibility": 1.0,
+        "verification_macro_f1": 0.5,
+        "first_error_accuracy": 1.0,
+        "repair_success_rate": 0.9,
+        "end_to_end_success_rate": 0.9,
+        "mean_optimality": 1.0,
+        "counts": {
+          "success": [
+            9,
+            10
+          ],
+          "feasible": [
+            10,
+            10
+          ],
+          "repair_success": [
+            9,
+            10
+          ],
+          "optimality_scored": 9,
+          "verification_scored": 10
+        }
+      },
+      "premature_stopping": {
+        "examples": 10,
+        "success_rate": 0.9,
+        "feasibility": 1.0,
+        "verification_macro_f1": 0.5,
+        "first_error_accuracy": 1.0,
+        "repair_success_rate": 0.9,
+        "end_to_end_success_rate": 0.9,
+        "mean_optimality": 1.0,
+        "counts": {
+          "success": [
+            9,
+            10
+          ],
+          "feasible": [
+            10,
+            10
+          ],
+          "repair_success": [
+            9,
+            10
+          ],
+          "optimality_scored": 9,
+          "verification_scored": 10
+        }
+      }
+    }
+  }
+}

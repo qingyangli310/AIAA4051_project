@@ -327,6 +327,18 @@ CUDA wheel 于 2026 年 11 月 14 日同步为学校 HPC 镜像仓提供的 `cu1
 python scripts/check_environment.py
 ```
 
+成员 C 的 11 月 15–16 日阶段验收（40 条样本、三分支）可运行：
+
+```bash
+python scripts/run_c_day15_16_smoke.py
+python -m pytest -q
+```
+
+由于 B 的 11 月 15 日 checkpoint/预测和真实 Repair checkpoint 尚未提供，
+所有模型式输出均在日志中明确标为 deterministic mock；A 的冻结数据、真实
+Executor、C 的 pipeline 和指标实现参与实际运行。不得把 smoke test 数值当作
+模型效果。
+
 CPU 机器可以运行 Mock 管线、执行器、数据构造和单元测试。正式模型比较必须在同一台 GPU 机器和同一套冻结环境中完成。
 
 ## 仓库结构
