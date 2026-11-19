@@ -141,6 +141,8 @@ def main() -> int:
     parser.add_argument("--max-input-length", type=int, default=512)
     parser.add_argument("--max-output-length", type=int, default=128)
     parser.add_argument("--allow-cpu", action="store_true")
+    parser.add_argument("--not-formal", action="store_true")
+    parser.add_argument("--experiment-label")
     args = parser.parse_args()
     diagnostic = args.diagnostic_train_examples is not None
     if not diagnostic and not 1 <= args.epochs <= 3:
@@ -280,8 +282,9 @@ def main() -> int:
         encoding="utf-8",
     )
     report = {
-        "formal_part1_run": not diagnostic,
+        "formal_part1_run": not diagnostic and not args.not_formal,
         "diagnostic_overfit_probe": diagnostic,
+        "experiment_label": args.experiment_label,
         "task": args.task,
         "model_key": args.model,
         "model_name": checkpoint_name,

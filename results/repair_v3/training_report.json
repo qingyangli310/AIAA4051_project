@@ -1,0 +1,125 @@
+{
+  "formal_part1_run": false,
+  "diagnostic_overfit_probe": false,
+  "experiment_label": "generation_like_trace_hardonly_repair_v3",
+  "task": "repair",
+  "model_key": "t5-small",
+  "model_name": "google-t5/t5-small",
+  "model_revision": "df1b051c49625cf57a3d0d8d3863ed4d13564fe4",
+  "checkpoint": "results/t5_repair_generation_like_trace_hardonly_v3/checkpoint-final",
+  "seed": 42,
+  "train_count": 1500,
+  "dev_count": 90,
+  "epochs": 3,
+  "completed_steps": 1125,
+  "learning_rate": 0.0002,
+  "batch_size": 4,
+  "gradient_accumulation": 1,
+  "device": "cuda",
+  "bf16": true,
+  "train_seconds": 127.75476526096463,
+  "train_sha256": "c5cc428a0dbc35a6a0ffa2674a0a73134f1669786a081d3b016807bc15404960",
+  "dev_sha256": "a78624ca78ac98c643aae123cde865f1d6de9263b3447f25ee09501d2845df6a",
+  "train_lengths": {
+    "max_input_tokens": 292,
+    "max_target_tokens": 57
+  },
+  "dev_lengths": {
+    "max_input_tokens": 290,
+    "max_target_tokens": 43
+  },
+  "parameter_signature_before": {
+    "parameter": "shared.weight",
+    "sum": 2013293.5,
+    "norm": 94027.84375
+  },
+  "parameter_signature_after": {
+    "parameter": "shared.weight",
+    "sum": 2009279.125,
+    "norm": 93856.53125
+  },
+  "train_metrics": {
+    "train_runtime": 127.593,
+    "train_samples_per_second": 35.268,
+    "train_steps_per_second": 8.817,
+    "total_flos": 333205171077120.0,
+    "train_loss": 0.28411637697286074,
+    "epoch": 3.0
+  },
+  "dev_metrics": {
+    "eval_loss": 0.12785008549690247,
+    "eval_runtime": 0.6643,
+    "eval_samples_per_second": 135.491,
+    "eval_steps_per_second": 34.625,
+    "epoch": 3.0
+  },
+  "conditioning_probe": {
+    "matched_loss": 0.13324096105578873,
+    "mismatched_loss": 2.4665342446830536,
+    "mismatched_minus_matched": 2.333293283627265,
+    "matched_better_count": 87,
+    "examples": 90
+  },
+  "dev_scoring": {
+    "task": "repair",
+    "examples": 90,
+    "parse_rate": 0.0,
+    "exact_match_rate": 0.2222222222222222,
+    "unique_predictions": 50,
+    "most_common_predictions": [
+      [
+        "Trace: (5,3) up (4,3) up (3,3) up (2,3)",
+        4
+      ],
+      [
+        "Trace: (4,0) up (3,0) up (2,0) right (2,1) right (2,2) right (2,3)",
+        4
+      ],
+      [
+        "Trace: (0,1) left (0,0) down (1,0) down (2,0) right (2,1)",
+        4
+      ],
+      [
+        "Trace: (4,3) left (4,2) down (5,2) left (5,1) left (5,0)",
+        4
+      ],
+      [
+        "Trace: (3,3) up (2,3) up (1,3) up (0,3)",
+        4
+      ]
+    ],
+    "most_common_share": 0.044444444444444446,
+    "metrics": {
+      "examples": 90,
+      "success_rate": 0.0,
+      "feasibility": 0.0,
+      "verification_macro_f1": null,
+      "first_error_accuracy": null,
+      "repair_success_rate": 0.0,
+      "end_to_end_success_rate": 0.0,
+      "mean_optimality": null,
+      "counts": {
+        "success": [
+          0,
+          90
+        ],
+        "feasible": [
+          0,
+          90
+        ],
+        "repair_success": [
+          0,
+          90
+        ],
+        "optimality_scored": 0,
+        "verification_scored": 0
+      }
+    }
+  },
+  "decoding": {
+    "do_sample": false,
+    "num_beams": 1,
+    "no_repeat_ngram_size": 0,
+    "early_stopping": false
+  }
+}

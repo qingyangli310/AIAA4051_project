@@ -1,0 +1,27 @@
+{
+  "seed": 42,
+  "output_format": "trace_only",
+  "hard_target": "global_shortest",
+  "structured_feedback": false,
+  "original_per_feedback": 0,
+  "train_count": 1500,
+  "dev_count": 90,
+  "original_repair_rows": 0,
+  "generation_like_rows": 1500,
+  "generation_like_unique_candidates": 750,
+  "generation_like_unique_environments": 571,
+  "feedback_sources": {
+    "executor_feedback": 750,
+    "no_feedback": 750
+  },
+  "hard_failure_reasons": {
+    "obstacle_collision": 750
+  },
+  "train_sha256": "c5cc428a0dbc35a6a0ffa2674a0a73134f1669786a081d3b016807bc15404960",
+  "dev_sha256": "a78624ca78ac98c643aae123cde865f1d6de9263b3447f25ee09501d2845df6a",
+  "notes": [
+    "Hard candidates use Train environments only.",
+    "The frozen Repair Dev file is copied unchanged.",
+    "Generation v9 Dev predictions are not read by this builder."
+  ]
+}

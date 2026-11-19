@@ -7,6 +7,7 @@ from typing import Any
 
 
 VALID_ACTIONS = {"up", "down", "left", "right"}
+ACTION_DELTAS = {"up": (-1, 0), "down": (1, 0), "left": (0, -1), "right": (0, 1)}
 ERROR_TYPES = {
     "obstacle_collision",
     "out_of_bounds",
@@ -14,6 +15,10 @@ ERROR_TYPES = {
     "goal_not_reached",
 }
 PLAN_WRAPPER_CHARS = frozenset("[]{}()\"'`")
+TRACE_COORD = r"\(([0-9]+),([0-9]+)\)"
+TRACE_PATTERN = re.compile(
+    TRACE_COORD + r"(?: (?:up|down|left|right) " + TRACE_COORD + r")+"
+)
 
 
 def parse_plan(raw_output: Any) -> dict[str, Any]:
@@ -33,6 +38,32 @@ def parse_plan(raw_output: Any) -> dict[str, Any]:
     ):
         return result
     result.update(plan=tokens, parse_success=True)
+    return result
+
+
+def parse_trace(raw_output: Any, grid: dict[str, Any]) -> dict[str, Any]:
+    """Parse one coordinate/action Trace and verify its internal transitions."""
+    result = {"raw_output": raw_output, "plan": [], "parse_success": False}
+    if not isinstance(raw_output, str):
+        return result
+    match = re.fullmatch(r"Trace:\s*(.*?)", raw_output.strip(), flags=re.DOTALL)
+    if match is None or TRACE_PATTERN.fullmatch(match.group(1)) is None:
+        return result
+    body = match.group(1)
+    positions = [
+        [int(row), int(col)] for row, col in re.findall(TRACE_COORD, body)
+    ]
+    actions = re.findall(r"\b(up|down|left|right)\b", body)
+    consistent = all(
+        [
+            positions[index][0] + ACTION_DELTAS[action][0],
+            positions[index][1] + ACTION_DELTAS[action][1],
+        ]
+        == positions[index + 1]
+        for index, action in enumerate(actions)
+    )
+    if consistent and positions[0] == grid["start"]:
+        result.update(plan=actions, parse_success=True, trace_positions=positions)
     return result
 
 

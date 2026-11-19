@@ -1,0 +1,71 @@
+{
+  "task": "repair",
+  "checkpoint": "results/t5_repair_generation_like_trace_hardonly_v3/checkpoint-final",
+  "data": "data/repair_generation_like_trace_hardonly_v3/repair_dev.jsonl",
+  "data_sha256": "a78624ca78ac98c643aae123cde865f1d6de9263b3447f25ee09501d2845df6a",
+  "device": "cuda",
+  "examples": 90,
+  "inference_seconds": 21.80570955760777,
+  "scoring": {
+    "task": "repair",
+    "examples": 90,
+    "parse_rate": 0.7888888888888889,
+    "exact_match_rate": 0.2222222222222222,
+    "unique_predictions": 50,
+    "most_common_predictions": [
+      [
+        "Trace: (5,3) up (4,3) up (3,3) up (2,3)",
+        4
+      ],
+      [
+        "Trace: (4,0) up (3,0) up (2,0) right (2,1) right (2,2) right (2,3)",
+        4
+      ],
+      [
+        "Trace: (0,1) left (0,0) down (1,0) down (2,0) right (2,1)",
+        4
+      ],
+      [
+        "Trace: (4,3) left (4,2) down (5,2) left (5,1) left (5,0)",
+        4
+      ],
+      [
+        "Trace: (3,3) up (2,3) up (1,3) up (0,3)",
+        4
+      ]
+    ],
+    "most_common_share": 0.044444444444444446,
+    "metrics": {
+      "examples": 90,
+      "success_rate": 0.6,
+      "feasibility": 0.6111111111111112,
+      "verification_macro_f1": null,
+      "first_error_accuracy": null,
+      "repair_success_rate": 0.6,
+      "end_to_end_success_rate": 0.6,
+      "mean_optimality": 0.9010288065843622,
+      "counts": {
+        "success": [
+          54,
+          90
+        ],
+        "feasible": [
+          55,
+          90
+        ],
+        "repair_success": [
+          54,
+          90
+        ],
+        "optimality_scored": 54,
+        "verification_scored": 0
+      }
+    }
+  },
+  "decoding": {
+    "do_sample": false,
+    "num_beams": 1,
+    "no_repeat_ngram_size": 0,
+    "early_stopping": false
+  }
+}

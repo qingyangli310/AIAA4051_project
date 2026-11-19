@@ -7,7 +7,7 @@ from typing import Any, Sequence
 
 from src.evaluation.metrics import evaluate_records
 from src.executor.executor import execute_plan
-from src.models.output_parser import parse_plan, parse_verification
+from src.models.output_parser import parse_plan, parse_trace, parse_verification
 
 
 def _collapse(raw_outputs: Sequence[str]) -> dict[str, Any]:
@@ -30,7 +30,11 @@ def score_plan_task(
     flattened = []
     exact = parsed_count = 0
     for row, raw in zip(rows, raw_outputs):
-        parsed = parse_plan(raw)
+        parsed = (
+            parse_trace(raw, row["grid"])
+            if row.get("output_format") == "trace_only"
+            else parse_plan(raw)
+        )
         parsed_count += int(parsed["parse_success"])
         exact += int(raw.strip().lower() == row["target_text"].strip().lower())
         result = execute_plan(row["grid"], parsed["plan"]) if parsed["parse_success"] else {

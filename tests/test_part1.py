@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from src.models.output_parser import parse_plan, parse_verification
+from src.models.output_parser import parse_plan, parse_trace, parse_verification
 from src.models.prompts import build_generation_prompt, build_repair_prompt
 from src.part1.baselines import shortest_path
 from src.part1.data import build_part1_datasets
@@ -32,6 +32,24 @@ def test_strict_plan_and_verification_parsers():
     invalid = parse_verification("invalid | step=2 | reason=goal_not_reached", 2)
     assert invalid["parse_success"] and invalid["valid"] is False
     assert parse_verification("invalid | step=1 | reason=goal_not_reached", 2)["parse_success"] is False
+
+
+def test_trace_parser_and_scoring_execute_actions():
+    raw = "Trace: (0,0) down (1,0) down (2,0) right (2,1) right (2,2)"
+    parsed = parse_trace(raw, GRID)
+    assert parsed["parse_success"] is True
+    assert parsed["plan"] == ["down", "down", "right", "right"]
+    inconsistent = "Trace: (0,0) down (2,0)"
+    assert parse_trace(inconsistent, GRID)["parse_success"] is False
+    row = {
+        "grid": GRID,
+        "target_text": raw,
+        "target_plan": ["down", "down", "right", "right"],
+        "output_format": "trace_only",
+    }
+    report = score_predictions("repair", [row], [raw])
+    assert report["parse_rate"] == 1.0
+    assert report["metrics"]["repair_success_rate"] == 1.0
 
 
 def test_no_feedback_prompt_hides_executor_diagnosis():
