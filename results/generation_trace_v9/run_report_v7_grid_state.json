@@ -1,0 +1,374 @@
+{
+  "status": "complete",
+  "task": "generation_state_experiment",
+  "mode": "grid_state",
+  "model": "google/flan-t5-base",
+  "model_assets": {
+    "repo_id": "google/flan-t5-base",
+    "revision": "7bcac572ce56db69c1ea7c8af255c5d7c9672fc2",
+    "files": {
+      "config.json": {
+        "size": 1404,
+        "sha256": "7c1853dbfa0e4aac093eb109a358b6ab25fe86b7c15185a91322f0ed26f0f940",
+        "blob_id": "d41e16cd4cd58621695da4f94132f516d07251af"
+      },
+      "generation_config.json": {
+        "size": 147,
+        "sha256": "f5a1c7e2be8092018d8835128987edf0111637dd98e90599cc80310fef75d95a",
+        "blob_id": "d52815623b46b7db1c4b957b5a83a8ad30b0146a"
+      },
+      "model.safetensors": {
+        "size": 990345061,
+        "sha256": "1dfb70afdcedceb9f9fae2f9b68e004ad934361fb35b9b2bd50b45ea90790fc8",
+        "blob_id": "5f4b7eaf24feac8ff769fc571938563ee0da692a"
+      },
+      "special_tokens_map.json": {
+        "size": 2201,
+        "sha256": "5c87151ef0f72a99d1f766a4c418bd2a1f90aaa30a8e22fe5eca9641daebb64f",
+        "blob_id": "2c19eb6e3b583f52d34b903b5978d3d30b6b7682"
+      },
+      "spiece.model": {
+        "size": 791656,
+        "sha256": "d60acb128cf7b7f2536e8f38a5b18a05535c9e14c7a355904270e15b0945ea86",
+        "blob_id": "4e28ff6ebdf584f5372d9de68867399142435d9a"
+      },
+      "tokenizer.json": {
+        "size": 2424064,
+        "sha256": "fe2ebbbbde2985be723e0ce18217853e4020c5e9d35bd07be2c27ab9d3ead57a",
+        "blob_id": "fc669fbad1a6a82119ca3e1fa75db33ee22ca47d"
+      },
+      "tokenizer_config.json": {
+        "size": 2537,
+        "sha256": "4c55124402e4ce48c7125d04b9af152a125eda9e7c80829f8f99f2ec69f3f68d",
+        "blob_id": "e3685b0cb5c8909cf3e7d72ffc16ca94c861bdfb"
+      }
+    }
+  },
+  "seed": 42,
+  "train_count": 2000,
+  "dev_count": 100,
+  "train_monitor_count": 200,
+  "learning_rate": 0.0003,
+  "batch_size": 8,
+  "gradient_accumulation_steps": 1,
+  "scheduler": "constant",
+  "warmup_ratio": 0,
+  "optimizer": "adamw_torch",
+  "weight_decay": 0.01,
+  "epochs_limit": 3,
+  "bf16": true,
+  "preparation": {
+    "size": 2000,
+    "seed": 42,
+    "provenance": {
+      "original_train_sha256": "8349119d8ef3b4373213315db39781854e23cb9c0b86fee92cc6b2b97241e822",
+      "original_dev_sha256": "8e5d260c12f3fddf84611603826435bd4f082ddb83f6f202640c762ad1ef8e3e",
+      "original_heldout_manifest_sha256": "cde265ab3b089da8cb87e2b068a88d2ae4ba3fc1b7d3156acc02325a4cc05b6b",
+      "freeze_id": "project6-6x6-seed42-20261116",
+      "data_commit": "441afc0db0aef48c96a34289f675c2a24678b204",
+      "pool_sha256": "765e66a975faffedc28893f23eb50dd5b7d1c68e4ee5f27ec08dcb3d842cdd4c",
+      "freeze_manifest_sha256": "e568269a28bf2809558f5d1cc7897a98b932d62bd656e67185243c32e0a416c9",
+      "reference_1000_dir": "data/processed/gen_compare_1000",
+      "original_1000_preserved": true,
+      "reference_1000_input_sha256": "7722cead98ad26a5a198d4e951a62b2141bc0c17b0b7004dc8c870c2fbeff2dc",
+      "added_train_examples": 1000
+    },
+    "train": {
+      "count": 2000,
+      "environments": 572,
+      "unique_inputs": 2000,
+      "unique_targets": 458,
+      "first_actions": {
+        "down": 711,
+        "up": 800,
+        "right": 225,
+        "left": 264
+      },
+      "path_lengths": {
+        "4": 336,
+        "5": 297,
+        "6": 257,
+        "2": 316,
+        "3": 332,
+        "1": 201,
+        "8": 65,
+        "7": 151,
+        "9": 29,
+        "10": 13,
+        "11": 2,
+        "12": 1
+      },
+      "obstacle_counts": {
+        "1": 95,
+        "5": 484,
+        "4": 470,
+        "3": 509,
+        "2": 442
+      }
+    },
+    "dev": {
+      "count": 20,
+      "environments": 20,
+      "unique_inputs": 20,
+      "unique_targets": 20,
+      "first_actions": {
+        "down": 9,
+        "right": 1,
+        "up": 9,
+        "left": 1
+      },
+      "path_lengths": {
+        "4": 4,
+        "6": 2,
+        "2": 3,
+        "3": 3,
+        "5": 4,
+        "8": 1,
+        "7": 2,
+        "1": 1
+      },
+      "obstacle_counts": {
+        "1": 2,
+        "5": 14,
+        "4": 4
+      }
+    },
+    "selection": "original 200 in original order, then environment-balanced selection without replacement",
+    "dev_unchanged": true,
+    "monitor_train_count": 200,
+    "train_model_input_sha256": "04ac217cfc0f8454e75197f4d20ba12b32afe8a18a7e5293f861f51537f58605",
+    "monitor_model_input_sha256": "566005f9c1ba1f242a3dc2a9b89a8d9d2a943b47483a4b5ed8be08230e52a479",
+    "dev_model_input_sha256": "b06f62e445a2131461139e87799c0cdb102ba7bb69ea911cb5157e521ab93ef4",
+    "file_sha256": {
+      "generation_train.jsonl": "c8f32ec34114b867dbceb9c43eeff1bfcf5bdf8e0376e665f3381a6d23affd25",
+      "generation_dev.jsonl": "6ff132ff14df160415ddd695a68d331033babef8c04886c9d01062731ed92550",
+      "monitor_train.jsonl": "15bfc4f25637b7bb8e9867a221791deca8e6348d221b3de7c12c2a1602ca47e6",
+      "heldout_environment_ids.json": "25747eda4c0723c6e6df96b29a306718dc170f045e845171e5f28367b6ae5817"
+    },
+    "cpu_preparation_seconds": 1.1396572629455477
+  },
+  "expanded_dev": {
+    "task": "generation",
+    "seed": 42,
+    "freeze_id": "project6-6x6-seed42-20261116",
+    "freeze_sha256": "e568269a28bf2809558f5d1cc7897a98b932d62bd656e67185243c32e0a416c9",
+    "source_files": {
+      "data/processed/nov14/dev.jsonl": "7c3f490b65e21b005fdde4b2d70c1d74dd1db655b065d505c5ce1be28db2f20f"
+    },
+    "original_data_dir": "data/processed/gen_compare_2000",
+    "original_summary_sha256": "af6b7e48c5697809fce0a94ded4910e2bbffc34a049171ae24d6e0e6134e1f00",
+    "original_dev_preserved": true,
+    "original_count": 20,
+    "added_count": 80,
+    "old_dev_input_sha256": "b06f62e445a2131461139e87799c0cdb102ba7bb69ea911cb5157e521ab93ef4",
+    "statistics": {
+      "count": 100,
+      "environments": 82,
+      "unique_inputs": 100,
+      "unique_targets": 80,
+      "first_actions": {
+        "down": 27,
+        "right": 23,
+        "up": 27,
+        "left": 23
+      },
+      "path_lengths": {
+        "4": 14,
+        "6": 14,
+        "2": 19,
+        "3": 12,
+        "5": 16,
+        "8": 8,
+        "7": 5,
+        "1": 10,
+        "9": 2
+      },
+      "obstacle_counts": {
+        "1": 2,
+        "5": 24,
+        "4": 27,
+        "3": 23,
+        "2": 24
+      }
+    },
+    "dev_allocation": {
+      "generation": 100,
+      "verification": 50,
+      "repair_reserved": 50
+    },
+    "repair_note": "C must separately freeze Repair50; this script does not change C files or erase previous Dev use",
+    "selection": "fixed seed42; no model predictions used; preserve old20; generation prioritizes environments then length/turn/first-action strata; verification uses category quotas",
+    "new_examples_note": "New rows are not necessarily new environments; Verification adds candidates on the same pilot Dev environments",
+    "file_sha256": {
+      "generation_dev.jsonl": "945c64a759e7c35883611bc4841ae41a66b0b89fd690032c12cf86f47cecf88a",
+      "dev_environment_ids.json": "b9b0935c54a1b8699493098c47ae2bb9f13018587af4cfbc841b317571be02a6"
+    },
+    "cpu_preparation_seconds": 0.626993949059397
+  },
+  "cpu_representation_seconds": 0.22972230054438114,
+  "train_lengths": {
+    "max_input_tokens": 297,
+    "max_target_tokens": 83
+  },
+  "dev_lengths": {
+    "max_input_tokens": 296,
+    "max_target_tokens": 68
+  },
+  "transformed_train_sha256": "c626d259ef8d1f8310d0f9b73d5e007666a69b73e4810731770aa04257832550",
+  "transformed_dev_sha256": "89f0d55fc087ebeb07cf8532f111dcce88e80a50eea0ba7332cfe61fd5c945ce",
+  "code_sha256": {
+    "train_state.py": "0572eabf3c28b25576d23ad9edd380749841fc334dcf61b8dcc1255806cf6d8e",
+    "state_format.py": "10df274a4d377b2bf9453a9cb45ccbf349b778cdd4c27de5d24ff4c01b88c1eb"
+  },
+  "torch": "2.9.1+cu128",
+  "transformers": "4.57.6",
+  "gpu": "NVIDIA H100 80GB HBM3",
+  "decoding": {
+    "num_beams": 1,
+    "do_sample": false,
+    "max_new_tokens": 512
+  },
+  "checkpoint_selection": "Dev action exact match, then lower Dev loss. Proxy only; official A success pending.",
+  "evaluation_note": "No executor selection, action correction, or true intermediate states at inference. Export all raw outputs to A. State diagnostics do not check obstacle feasibility.",
+  "token_budget_note": "grid_state produces longer targets and uses max_new_tokens512; grid_actions128. Same examples/epochs, different token and GPU budgets.",
+  "training_and_monitor_seconds": 331.56006843969226,
+  "peak_memory_bytes": 7842347520,
+  "completed_steps": 750,
+  "completed_epochs": 3.0,
+  "best_metrics": {
+    "epoch": 3.0,
+    "step": 750,
+    "dev_loss": 0.06455759704113007,
+    "train_monitor": {
+      "count": 200,
+      "action_parse_rate": 1.0,
+      "action_exact_match_rate": 0.635,
+      "unique_action_predictions": 95,
+      "hit_generation_limit_count": 0,
+      "most_common_outputs": [
+        [
+          "Trace: (1,5) down (2,5) down (3,5) left (3,4) left (3,3) left (3,2) left (3,1) Actions: down, down, left, left, left, left",
+          3
+        ],
+        [
+          "Trace: (0,0) down (1,0) down (2,0) right (2,1) Actions: down, down, right",
+          3
+        ],
+        [
+          "Trace: (5,1) right (5,2) right (5,3) Actions: right, right",
+          2
+        ]
+      ],
+      "official_success_rate": null,
+      "note": "Reference equality is a proxy: alternative valid paths can mismatch. A executor evaluation pending.",
+      "trace_parse_success_rate": 1.0,
+      "trace_actions_agree_rate": 0.895,
+      "trace_transition_consistent_rate": 1.0,
+      "trace_start_matches_rate": 1.0,
+      "trace_end_matches_goal_rate": 0.995,
+      "joint_trace_consistency_rate": 0.89,
+      "inference_seconds": 57.7176699321717
+    },
+    "dev": {
+      "count": 100,
+      "action_parse_rate": 1.0,
+      "action_exact_match_rate": 0.47,
+      "unique_action_predictions": 58,
+      "hit_generation_limit_count": 0,
+      "most_common_outputs": [
+        [
+          "Trace: (5,0) up (4,0) up (3,0) up (2,0) right (2,1) right (2,2) right (2,3) right (2,4) right (2,5) Actions: up, up, up, right, right, right, right, right",
+          2
+        ],
+        [
+          "Trace: (0,4) down (1,4) down (2,4) down (3,4) down (4,4) down (5,4) Actions: down, down, down, down",
+          2
+        ],
+        [
+          "Trace: (0,0) down (1,0) down (2,0) down (3,0) down (4,0) Actions: down, down, down, down",
+          2
+        ]
+      ],
+      "official_success_rate": null,
+      "note": "Reference equality is a proxy: alternative valid paths can mismatch. A executor evaluation pending.",
+      "trace_parse_success_rate": 1.0,
+      "trace_actions_agree_rate": 0.89,
+      "trace_transition_consistent_rate": 1.0,
+      "trace_start_matches_rate": 1.0,
+      "trace_end_matches_goal_rate": 1.0,
+      "joint_trace_consistency_rate": 0.89,
+      "inference_seconds": 29.099058205261827
+    }
+  },
+  "final_metrics": {
+    "train_monitor": {
+      "count": 200,
+      "action_parse_rate": 1.0,
+      "action_exact_match_rate": 0.635,
+      "unique_action_predictions": 95,
+      "hit_generation_limit_count": 0,
+      "most_common_outputs": [
+        [
+          "Trace: (1,5) down (2,5) down (3,5) left (3,4) left (3,3) left (3,2) left (3,1) Actions: down, down, left, left, left, left",
+          3
+        ],
+        [
+          "Trace: (0,0) down (1,0) down (2,0) right (2,1) Actions: down, down, right",
+          3
+        ],
+        [
+          "Trace: (5,1) right (5,2) right (5,3) Actions: right, right",
+          2
+        ]
+      ],
+      "official_success_rate": null,
+      "note": "Reference equality is a proxy: alternative valid paths can mismatch. A executor evaluation pending.",
+      "trace_parse_success_rate": 1.0,
+      "trace_actions_agree_rate": 0.895,
+      "trace_transition_consistent_rate": 1.0,
+      "trace_start_matches_rate": 1.0,
+      "trace_end_matches_goal_rate": 0.995,
+      "joint_trace_consistency_rate": 0.89,
+      "inference_seconds": 58.23030689544976
+    },
+    "dev": {
+      "count": 100,
+      "action_parse_rate": 1.0,
+      "action_exact_match_rate": 0.47,
+      "unique_action_predictions": 58,
+      "hit_generation_limit_count": 0,
+      "most_common_outputs": [
+        [
+          "Trace: (5,0) up (4,0) up (3,0) up (2,0) right (2,1) right (2,2) right (2,3) right (2,4) right (2,5) Actions: up, up, up, right, right, right, right, right",
+          2
+        ],
+        [
+          "Trace: (0,4) down (1,4) down (2,4) down (3,4) down (4,4) down (5,4) Actions: down, down, down, down",
+          2
+        ],
+        [
+          "Trace: (0,0) down (1,0) down (2,0) down (3,0) down (4,0) Actions: down, down, down, down",
+          2
+        ]
+      ],
+      "official_success_rate": null,
+      "note": "Reference equality is a proxy: alternative valid paths can mismatch. A executor evaluation pending.",
+      "trace_parse_success_rate": 1.0,
+      "trace_actions_agree_rate": 0.89,
+      "trace_transition_consistent_rate": 1.0,
+      "trace_start_matches_rate": 1.0,
+      "trace_end_matches_goal_rate": 1.0,
+      "joint_trace_consistency_rate": 0.89,
+      "inference_seconds": 29.438799273222685
+    }
+  },
+  "full_train_evaluation": "Not requested; fixed original monitor200 evaluated instead.",
+  "checkpoint": "outputs/state_v7_grid_state_851069/checkpoint-final",
+  "final_predictions_checkpoint": "checkpoint-final",
+  "dev_selected_checkpoint": "outputs/state_v7_grid_state_851069/epoch_03/checkpoint",
+  "save_reload_check": {
+    "sample_id": "base_efe211b8c0fef75a3d996da5f4dbaea4d8e6cc7764c93f9bfd8aeac589bb7e10",
+    "generation_ids_equal": true
+  },
+  "official_executor_evaluation_pending": true
+}
