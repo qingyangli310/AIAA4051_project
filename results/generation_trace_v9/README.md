@@ -1,9 +1,9 @@
 # Generation Trace-only v9 result record
 
-This directory archives the locally downloaded outputs of the member B
-Generation experiment on 2026-11-19. The source run's `run_report.json` was not
-available among the downloaded files. The code and frozen data identifiers are
-recorded separately; no model weights or environment files are committed.
+This directory archives the member B Generation experiment outputs from
+2026-11-19. The completed v9 `run_report.json` is included. The best epoch 3
+checkpoint and exact transformed model inputs/targets are archived under
+`artifacts/generation_trace_v9/`; only its model weight uses Git LFS.
 
 ## Data and method
 
@@ -20,7 +20,7 @@ recorded separately; no model weights or environment files are committed.
   constant learning rate 3e-4, one GPU and BF16. The attached training log
   records 750 steps and 3 completed epochs.
 
-SHA-256 of the downloaded transformed data files (not committed here):
+SHA-256 of the transformed data files in `artifacts/generation_trace_v9/data/`:
 
 ```text
 Train2000  8b2758f62818575c524031dca6754e2300eb1accaf71abbffddf5e0dbd014e9a
@@ -65,6 +65,8 @@ diagnostic successes. The one-sample save/reload check passed.
   paired Dev100 predictions for the comparison above.
 - `run_report_v7_grid_state.json`, `run_report_v8_hard.json`: source run
   metadata for the previous methods.
+- `run_report.json`: completed v9 run metadata, including the selected epoch 3
+  checkpoint and code/data provenance.
 
 The next evaluation step is to replay the v9 `plan` values through member A's
 official executor and then report ID/OOD held-out results separately. Do not

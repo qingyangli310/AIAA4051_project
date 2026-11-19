@@ -24,6 +24,7 @@ from the one reference. Of the 45 long-path examples, 20 succeeded; of the
 collided with obstacles.
 
 These results have **not** yet been evaluated by member A's official executor.
-The downloaded v9 `run_report.json` was also unavailable, so the archived
-record does not claim its model asset hashes, selected checkpoint path or GPU
-identity. Add that report and the official executor evaluation when available.
+The completed v9 `run_report.json` and best epoch 3 checkpoint are now archived
+under `results/generation_trace_v9/` and `artifacts/generation_trace_v9/`.
+The model weight uses Git LFS. Add official executor and held-out results when
+available.
