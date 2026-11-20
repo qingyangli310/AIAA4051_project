@@ -500,6 +500,8 @@ python scripts/run_pipeline_demo.py
 
 ## 详细文档
 
+- `docs/member_b_generation_trace_v9.md`：成员 B 的 Trace-only Generation 方法、Dev100 结果及复核限制；
+- `generation_trace_v9/`：Trace-only 训练与旧 v7 输出重评估代码；对应预测与指标在 `results/generation_trace_v9/`；
 - `docs/成员C_11月10日至12日工作说明.md`：成员 C 两天内完成的代码、协议、测试和 CUDA 验证记录；
 - `docs/Project6_项目说明与三人分工.md`：项目背景、研究问题、完整时间线；
 - `docs/Project6_团队统一协议.md`：字段、编号、错误类型、模型和实验规则；
