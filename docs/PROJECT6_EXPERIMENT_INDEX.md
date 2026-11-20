@@ -1,0 +1,15 @@
+# 实验进度与版本索引
+
+| 分类 | 版本 | 证据与适用范围 |
+|---|---|---|
+| 数据冻结 | A `3d5f188` | [冻结 Manifest](../data/manifests/frozen_dataset_20261116.json)、[审计](../results/data_freeze_audit_20261116.json)、[Train/Dev 交接](MEMBER_A_20261117_DATA_HANDOFF.md)。162 个 ID/OOD 配对，1 条异常。 |
+| 正式 Part 1 历史基线 | `93d260d` 实际 CUDA 运行；后续修订至 `7abc640` | [原实验报告](../results/part1_cuda_20261117.md)。匹配 Generation ID 上 T5-small 0/162、BART-base 2/162。后续代码默认值不能当成这次运行的参数。 |
+| Dev 诊断 | B v9 `347a10e` | [归档](../artifacts/generation_trace_v9/README.md)、[运行报告](../results/generation_trace_v9/run_report.json)。Flan-T5-base，Train2000 / Dev100，66/100 本地路径诊断，保留最佳 epoch 3 checkpoint 和 Git LFS 指针。v7/v8 原预测与报告保留在同一结果目录。 |
+| Dev 诊断 | Repair v3 `dfd42a4` | [结果](../results/repair_v3/README.md)。纯 Generation 66/100，no-feedback Repair 78/100，Executor-feedback 与 shuffled-feedback 都是 80/100。相同结果限制了对具体反馈内容的因果解释。旧 scorer 报告保留，Trace 评分以 `dev_rescored_report.json` 为准。Repair 权重据交接存于团队 CUDA host。 |
+| 联调 Pilot | C `6e3c5e9` | [40 ID × 三种条件](MEMBER_C_20261115_16_HANDOFF.md)。使用真实 Executor 与 Mock 模型。 |
+| 历史联调 | B `64c49da` | [Day 13](member_b_day13_delivery.md)。8 条往返样例和历史日志，由原分支复现。 |
+| 历史 Pilot | A legacy A-4 / Nov14 | `data/samples/legacy_a4_pilot/` 和 `data/samples/nov14_pilot/`。用途和限制见对应 manifest 与交接。 |
+
+v9 权重需要 Git LFS，下载后按归档 README 校验 SHA-256。项目分支保留已发布的配对测试条件。完整 protected processed Held-out 和官方原始 PPNL 需要在授权位置访问。
+
+正式三组反馈对照仍需使用统一候选和配对样本运行，并记录模型 revision、数据哈希、配置、解析状态以及逐样本结果。no-feedback Repair 和 Direct Generation 是两个实验条件，报告时分别命名。v9 的 2,000 条 Generation 数据与原 Part 1 的 1,000 条配置属于不同实验，不能与原 Verification/Repair 预算直接相加。
