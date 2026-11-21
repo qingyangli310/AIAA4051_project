@@ -1,0 +1,49 @@
+{
+  "formal_part1_run": false,
+  "experiment_label": "generation_like_trace_hardonly_repair_v3_dedup",
+  "task": "repair",
+  "model_name": "google-t5/t5-small",
+  "model_revision": "df1b051c49625cf57a3d0d8d3863ed4d13564fe4",
+  "base_model_weights_sha256": "bd944e5f1b3ad9b70dd9d00010a517059e19265671076b8b0a4a58d9491842bc",
+  "checkpoint_weights_sha256": "c73e1f2c26e077395bdd04be1358d263642099e30b0f2b5d019fd47a713d17cf",
+  "seed": 42,
+  "device": "cuda",
+  "train_count": 1500,
+  "dev_count": 90,
+  "epochs": 3,
+  "completed_steps": 1125,
+  "learning_rate": 0.0002,
+  "batch_size": 4,
+  "gradient_accumulation": 1,
+  "train_seconds": 99.23656632006168,
+  "train_sha256": "1ec7d70869fdaa7bd309889114f1951f7d9e2bb928b55a3e28603c7ba47c7bb5",
+  "dev_sha256": "a78624ca78ac98c643aae123cde865f1d6de9263b3447f25ee09501d2845df6a",
+  "train_metrics": {
+    "train_loss": 0.2934600819034709,
+    "train_samples_per_second": 45.436,
+    "train_steps_per_second": 11.359
+  },
+  "dev_metrics": {
+    "eval_loss": 0.13549146056175232,
+    "parse_rate": 0.8111111111111111,
+    "exact_match_rate": 0.24444444444444444,
+    "feasibility": 0.5666666666666667,
+    "repair_success_rate": 0.5333333333333333,
+    "mean_optimality": 0.9833333333333334,
+    "parsed": [73, 90],
+    "feasible": [51, 90],
+    "successful": [48, 90]
+  },
+  "conditioning_probe": {
+    "matched_loss": 0.1380328098518981,
+    "mismatched_loss": 2.107092209491465,
+    "mismatched_minus_matched": 1.9690593996395667,
+    "matched_better_count": [89, 90]
+  },
+  "decoding": {
+    "do_sample": false,
+    "num_beams": 1,
+    "no_repeat_ngram_size": 0,
+    "early_stopping": false
+  }
+}

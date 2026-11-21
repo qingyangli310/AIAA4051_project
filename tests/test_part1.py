@@ -6,7 +6,7 @@ from src.models.prompts import build_generation_prompt, build_repair_prompt
 from src.part1.baselines import shortest_path
 from src.part1.data import build_part1_datasets
 from src.part1.evaluate import score_predictions
-from scripts.train_part1 import diagnostic_rows
+from scripts.train_part1 import diagnostic_rows, sha256_file
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -68,6 +68,12 @@ def test_overfit_probe_is_first_action_balanced():
     rows = [json.loads(line) for line in (ROOT / "data/part1/generation_train.jsonl").read_text().splitlines()]
     selected = diagnostic_rows(rows, 4)
     assert [row["target_plan"] for row in selected] == [["up"], ["down"], ["left"], ["right"]]
+
+
+def test_sha256_file_streams_expected_digest(tmp_path):
+    artifact = tmp_path / "weights.bin"
+    artifact.write_bytes(b"verified local model snapshot")
+    assert sha256_file(artifact) == "579f3bfcad27312250dbdd674bdc6dfd23d5af2d820682c4389ea5e141238ec0"
 
 
 def test_part1_data_is_reproducible_and_respects_budgets(tmp_path):

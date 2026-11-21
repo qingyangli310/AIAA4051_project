@@ -32,6 +32,15 @@ MODELS = {
 PLAN_ACTIONS = ("up", "down", "left", "right")
 
 
+def sha256_file(path: Path) -> str:
+    """Hash a file without loading large model weights into memory."""
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
 def diagnostic_rows(rows: list[dict[str, Any]], count: int) -> list[dict[str, Any]]:
     """Choose an action-balanced, easy-to-hard set for an overfit probe."""
     groups = {
@@ -131,6 +140,11 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--task", choices=("generation", "verification", "repair"), required=True)
     parser.add_argument("--model", choices=tuple(MODELS), required=True)
+    parser.add_argument(
+        "--model-path",
+        type=Path,
+        help="load the selected model from a verified local snapshot instead of the network",
+    )
     parser.add_argument("--data-dir", type=Path, default=ROOT / "data/part1")
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--epochs", type=int, default=3)
@@ -187,9 +201,13 @@ def main() -> int:
         train_rows = diagnostic_rows(train_rows, args.diagnostic_train_examples)
         dev_rows = list(train_rows)
     checkpoint_name, revision = MODELS[args.model]
+    if args.model_path is not None and not args.model_path.is_dir():
+        raise FileNotFoundError(f"local model snapshot not found: {args.model_path}")
+    model_load_source = str(args.model_path) if args.model_path is not None else checkpoint_name
+    load_revision = None if args.model_path is not None else revision
     set_seed(42)
-    tokenizer = AutoTokenizer.from_pretrained(checkpoint_name, revision=revision)
-    model = AutoModelForSeq2SeqLM.from_pretrained(checkpoint_name, revision=revision)
+    tokenizer = AutoTokenizer.from_pretrained(model_load_source, revision=load_revision)
+    model = AutoModelForSeq2SeqLM.from_pretrained(model_load_source, revision=load_revision)
     before = parameter_signature(model)
     encoded_train, train_lengths = encode_rows(
         train_rows, tokenizer, args.max_input_length, args.max_output_length
@@ -289,6 +307,13 @@ def main() -> int:
         "model_key": args.model,
         "model_name": checkpoint_name,
         "model_revision": revision,
+        "model_load_source": model_load_source,
+        "base_model_weights_sha256": (
+            sha256_file(args.model_path / "model.safetensors")
+            if args.model_path is not None
+            and (args.model_path / "model.safetensors").is_file()
+            else None
+        ),
         "checkpoint": str(checkpoint_dir),
         "seed": 42,
         "train_count": len(train_rows),
