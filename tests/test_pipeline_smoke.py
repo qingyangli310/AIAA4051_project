@@ -5,7 +5,12 @@ from src.mock_components import (
     MockVerifier,
     execute_plan,
 )
-from src.pipeline import run_pipeline, run_pipeline_batch
+from src.pipeline import (
+    run_pipeline,
+    run_pipeline_batch,
+    run_pipeline_comparison,
+    run_pipeline_comparison_batch,
+)
 
 
 GRID = {
@@ -161,3 +166,87 @@ def test_batch_preserves_error_and_continues() -> None:
     assert records[0]["environment_id"] == "broken"
     assert records[1]["status"] == "ok"
     assert records[1]["final_result"]["success"] is True
+
+
+class CountingGenerator(MockGenerator):
+    def __init__(self):
+        self.calls = 0
+
+    def generate(self, grid):
+        self.calls += 1
+        return super().generate(grid)
+
+
+class ParseFailingVerifier:
+    def verify(self, grid, plan):
+        del grid, plan
+        return {
+            "raw_output": "unparseable",
+            "parse_success": False,
+            "valid": None,
+            "first_error_step": None,
+            "reason": None,
+        }
+
+
+def test_comparison_generates_once_and_reuses_candidate() -> None:
+    generator = CountingGenerator()
+    result = run_pipeline_comparison(
+        GRID,
+        generator,
+        MockVerifier(),
+        MockRepairer(),
+        MockExecutor(),
+        conditions=("direct", "no_feedback", "self_feedback", "executor_feedback"),
+    )
+    assert generator.calls == 1
+    assert result["branches"]["direct"]["final_result"]["success"] is False
+    assert result["branches"]["no_feedback"]["final_result"]["success"] is True
+    assert result["branches"]["self_feedback"]["final_result"]["success"] is True
+    assert result["branches"]["executor_feedback"]["final_result"]["success"] is True
+
+
+def test_self_feedback_parse_failure_is_auditable_and_does_not_repair() -> None:
+    result = run_pipeline_comparison(
+        GRID,
+        MockGenerator(),
+        ParseFailingVerifier(),
+        RepairMustNotRun(),
+        MockExecutor(),
+        conditions=("self_feedback",),
+    )
+    branch = result["branches"]["self_feedback"]
+    assert branch["routing_status"] == "verifier_parse_failed"
+    assert branch["repair"] is None
+    assert branch["final_result"]["success"] is False
+
+
+def test_comparison_batch_isolates_broken_rows() -> None:
+    rows = [{"grid": {"environment_id": "broken"}}, {"grid": GRID}]
+    records = run_pipeline_comparison_batch(
+        rows,
+        MockGenerator(),
+        MockVerifier(),
+        MockRepairer(),
+        MockExecutor(),
+    )
+    assert records[0]["status"] == "error"
+    assert records[1]["status"] == "ok"
+
+
+def test_batch_adds_traceable_shuffled_feedback_condition() -> None:
+    second_grid = {**GRID, "environment_id": "grid_0002"}
+    records = run_pipeline_comparison_batch(
+        [{"grid": GRID}, {"grid": second_grid}],
+        MockGenerator(),
+        MockVerifier(),
+        MockRepairer(),
+        MockExecutor(),
+        conditions=("executor_feedback", "shuffled_executor_feedback"),
+    )
+    first = records[0]["branches"]["shuffled_executor_feedback"]
+    second = records[1]["branches"]["shuffled_executor_feedback"]
+    assert first["feedback_shuffled"] is True
+    assert second["feedback_shuffled"] is True
+    assert first["feedback_source_environment_id"] == "grid_0002"
+    assert second["feedback_source_environment_id"] == "grid_0001"

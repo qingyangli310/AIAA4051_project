@@ -1,0 +1,59 @@
+protocol_id: project6-final-pipeline-v1
+status: pending_primary_model_confirmation
+
+# Replace null only after the project manager confirms the final family.
+primary_model:
+  family: null
+  selection_evidence: null
+
+training_examples:
+  generation: 2000
+  verification: 500
+  repair: 1500
+
+dev_examples:
+  generation: 100
+  verification: 50
+  repair: 50
+
+test_examples:
+  id: 162
+  ood: 162
+
+epochs:
+  generation: 3
+  verification: 3
+  repair: 3
+
+# These are task-specific fine-tuned checkpoints from one primary base family.
+task_models:
+  generation:
+    base_model_family: null
+    checkpoint: null
+    checkpoint_sha256: null
+    revision: null
+  verification:
+    base_model_family: null
+    checkpoint: null
+    checkpoint_sha256: null
+    revision: null
+  repair:
+    base_model_family: null
+    checkpoint: null
+    checkpoint_sha256: null
+    revision: null
+
+decoding:
+  do_sample: false
+  num_beams: 1
+  generator_max_new_tokens: 128
+  verifier_max_new_tokens: 64
+  repair_max_new_tokens: 128
+
+data:
+  freeze_id: project6-6x6-seed42-20261116
+  seed: 42
+  environment_split: train_dev_heldout_test
+  id_ood_share_heldout_environments: true
+  pairing_key: base_sample_id
+
