@@ -64,3 +64,11 @@ git diff --check
 Before any final project claim, rerun the selected method on frozen held-out
 ID/OOD data. Do not describe the current Dev100 result as final test accuracy.
 
+## Deduplicated successor
+
+The historical checkpoint remains tied to the original training SHA-256. For a
+new run with all 1,500 model input/target pairs unique, use
+`data/repair_generation_like_trace_hardonly_v3_dedup/` or rebuild it with the
+same command above plus `--deduplicate-model-io`. This changes the training hash,
+so it requires a new checkpoint and a new training report.
+

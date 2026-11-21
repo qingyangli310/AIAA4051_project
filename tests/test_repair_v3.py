@@ -1,4 +1,5 @@
 from scripts.build_generation_like_repair_data import (
+    deduplicate_candidate_model_io,
     generation_like_candidates,
     shortest_suffix,
     use_structured_feedback,
@@ -45,3 +46,17 @@ def test_structured_feedback_prefix_does_not_leak_into_no_feedback():
     assert "ERROR_STEP=unknown" in prompt
     assert "ERROR_REASON=unknown" in prompt
     assert "obstacle_collision" not in prompt
+
+
+def test_candidate_deduplication_ignores_distinct_source_metadata():
+    candidate = {
+        "base_sample_id": "base-one",
+        "environment_id": GRID["environment_id"],
+        "grid": GRID,
+        "candidate_plan": ["down", "down"],
+        "target_plan": ["right", "right", "down", "down"],
+    }
+    duplicate = {**candidate, "base_sample_id": "base-two"}
+    distinct = {**candidate, "candidate_plan": ["right", "down"]}
+    result = deduplicate_candidate_model_io([candidate, duplicate, distinct])
+    assert result == [candidate, distinct]

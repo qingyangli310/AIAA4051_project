@@ -177,6 +177,34 @@ def take_environment_diverse(
     return selected
 
 
+def deduplicate_candidate_model_io(
+    rows: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Keep one candidate for each eventual grid/candidate/target model pair.
+
+    Different PPNL base records can describe the same grid and shortest path.
+    Their metadata remains distinct, but after prompt construction they produce
+    identical Repair inputs and targets.  This optional cleanup maximizes the
+    effective diversity of a fixed 1,500-row budget.
+    """
+    unique: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for row in rows:
+        signature = json.dumps(
+            {
+                "grid": row["grid"],
+                "candidate_plan": row["candidate_plan"],
+                "target_plan": row["target_plan"],
+            },
+            sort_keys=True,
+            separators=(",", ":"),
+        )
+        if signature not in seen:
+            seen.add(signature)
+            unique.append(row)
+    return unique
+
+
 def paired_repair_rows(candidates: list[dict[str, Any]]) -> list[dict[str, Any]]:
     rows = []
     for candidate in candidates:
@@ -234,6 +262,11 @@ def main() -> int:
         default="global_shortest",
     )
     parser.add_argument("--structured-feedback", action="store_true")
+    parser.add_argument(
+        "--deduplicate-model-io",
+        action="store_true",
+        help="remove duplicate grid/candidate/target candidates before sampling",
+    )
     parser.add_argument("--original-per-feedback", type=int, default=375)
     args = parser.parse_args()
     if args.output.exists():
@@ -254,7 +287,12 @@ def main() -> int:
         rng.shuffle(pool)
         original_rows.extend(pool[: args.original_per_feedback])
 
-    hard_pool = generation_like_candidates(base_rows, args.hard_target)
+    hard_pool_raw = generation_like_candidates(base_rows, args.hard_target)
+    hard_pool = (
+        deduplicate_candidate_model_io(hard_pool_raw)
+        if args.deduplicate_model_io
+        else hard_pool_raw
+    )
     hard_candidate_count = 750 - args.original_per_feedback
     hard_candidates = take_environment_diverse(hard_pool, hard_candidate_count, args.seed)
     hard_rows = paired_repair_rows(hard_candidates)
@@ -274,6 +312,11 @@ def main() -> int:
     if args.output_format == "trace_only":
         train_rows = [use_trace_output(row) for row in train_rows]
         dev_rows = [use_trace_output(row) for row in dev_rows]
+    unique_model_io = {
+        (row["input_text"], row["target_text"]) for row in train_rows
+    }
+    if args.deduplicate_model_io and len(unique_model_io) != len(train_rows):
+        raise AssertionError("deduplicated training set still contains repeated model I/O")
 
     args.output.mkdir(parents=True)
     train_path = args.output / "repair_train.jsonl"
@@ -288,6 +331,7 @@ def main() -> int:
         "output_format": args.output_format,
         "hard_target": args.hard_target,
         "structured_feedback": args.structured_feedback,
+        "deduplicate_model_io": args.deduplicate_model_io,
         "original_per_feedback": args.original_per_feedback,
         "train_count": len(train_rows),
         "dev_count": len(read_jsonl(dev_path)),
@@ -297,6 +341,9 @@ def main() -> int:
         "generation_like_unique_environments": len(
             {row["environment_id"] for row in hard_candidates}
         ),
+        "hard_pool_raw_count": len(hard_pool_raw),
+        "hard_pool_deduplicated_count": len(hard_pool),
+        "train_unique_model_io": len(unique_model_io),
         "feedback_sources": dict(Counter(row["feedback_source"] for row in train_rows)),
         "hard_failure_reasons": dict(
             Counter(row["executor_label"]["reason"] for row in hard_candidates)
