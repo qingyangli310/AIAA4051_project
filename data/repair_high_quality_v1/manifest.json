@@ -1,0 +1,77 @@
+{
+  "protocol": "repair-high-quality-v1",
+  "seed": 42,
+  "source": "data/samples/member_c_day14/train_repair.jsonl",
+  "source_rows": 1600,
+  "validated_unique_candidate_pool": 751,
+  "train_count": 1000,
+  "candidate_pair_count": 500,
+  "dev_count": 90,
+  "train_unique_model_io": 1000,
+  "train_unique_environments": 200,
+  "dev_unique_environments": 20,
+  "train_dev_environment_overlap": 0,
+  "feedback_counts": {
+    "no_feedback": 500,
+    "executor_feedback": 500
+  },
+  "corruption_counts": {
+    "action_substitution": 250,
+    "action_deletion": 250,
+    "premature_stopping": 250,
+    "action_insertion": 250
+  },
+  "error_reason_counts_by_candidate": {
+    "goal_not_reached": 375,
+    "obstacle_collision": 90,
+    "out_of_bounds": 35
+  },
+  "candidate_quotas": {
+    "premature_stopping::goal_not_reached": 125,
+    "action_deletion::goal_not_reached": 100,
+    "action_deletion::obstacle_collision": 25,
+    "action_insertion::goal_not_reached": 75,
+    "action_insertion::obstacle_collision": 28,
+    "action_insertion::out_of_bounds": 22,
+    "action_substitution::goal_not_reached": 75,
+    "action_substitution::obstacle_collision": 37,
+    "action_substitution::out_of_bounds": 13
+  },
+  "target_length_counts": {
+    "5": 76,
+    "1": 51,
+    "4": 69,
+    "3": 91,
+    "6": 68,
+    "8": 15,
+    "2": 76,
+    "7": 45,
+    "9": 6,
+    "10": 3
+  },
+  "candidate_length_counts": {
+    "4": 60,
+    "2": 77,
+    "1": 74,
+    "6": 45,
+    "0": 71,
+    "3": 59,
+    "7": 32,
+    "5": 55,
+    "8": 17,
+    "9": 7,
+    "10": 2,
+    "11": 1
+  },
+  "quality_checks": {
+    "feedback_paired": true,
+    "candidate_fails_executor": true,
+    "executor_feedback_matches": true,
+    "target_succeeds_executor": true,
+    "target_is_shortest": true,
+    "no_feedback_does_not_leak_diagnosis": true,
+    "semantic_duplicates_removed": true
+  },
+  "train_sha256": "15a4853e3e67614e9bcdc00ac83567e88824bee38c61a32721899b1a020a588d",
+  "dev_sha256": "a78624ca78ac98c643aae123cde865f1d6de9263b3447f25ee09501d2845df6a"
+}
