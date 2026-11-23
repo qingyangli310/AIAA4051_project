@@ -77,7 +77,8 @@ def score_verification(
     for row, raw in zip(rows, raw_outputs):
         parsed = parse_verification(raw, len(row["candidate_plan"]))
         parsed_count += int(parsed["parse_success"])
-        exact += int(raw.strip().lower() == row["target_text"].strip().lower())
+        expected = row.get("verdict_text", row["target_text"]).strip().lower()
+        exact += int(parsed.get("normalized_output") == expected)
         truth = row["executor_label"]
         flattened.append(
             {

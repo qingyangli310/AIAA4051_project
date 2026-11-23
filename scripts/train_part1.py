@@ -28,6 +28,10 @@ MODELS = {
         "facebook/bart-base",
         "aadd2ab0ae0c8268c7c9693540e9904811f36177",
     ),
+    "flan-t5-base": (
+        "google/flan-t5-base",
+        "7bcac572ce56db69c1ea7c8af255c5d7c9672fc2",
+    ),
 }
 PLAN_ACTIONS = ("up", "down", "left", "right")
 
@@ -145,15 +149,32 @@ def main() -> int:
         type=Path,
         help="load the selected model from a verified local snapshot instead of the network",
     )
+    parser.add_argument(
+        "--load-dtype",
+        choices=("float32", "bfloat16"),
+        default="float32",
+        help="parameter dtype used while loading the model",
+    )
     parser.add_argument("--data-dir", type=Path, default=ROOT / "data/part1")
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--epochs", type=int, default=3)
     parser.add_argument("--learning-rate", type=float)
     parser.add_argument("--batch-size", type=int)
     parser.add_argument("--gradient-accumulation", type=int)
+    parser.add_argument(
+        "--optimizer",
+        choices=("adamw_torch", "adafactor"),
+        default="adamw_torch",
+        help="optimizer implementation; Adafactor reduces memory for T5-family models",
+    )
     parser.add_argument("--diagnostic-train-examples", type=int)
     parser.add_argument("--max-input-length", type=int, default=512)
     parser.add_argument("--max-output-length", type=int, default=128)
+    parser.add_argument(
+        "--gradient-checkpointing",
+        action="store_true",
+        help="trade extra compute for lower CUDA activation memory",
+    )
     parser.add_argument("--allow-cpu", action="store_true")
     parser.add_argument("--not-formal", action="store_true")
     parser.add_argument("--experiment-label")
@@ -207,7 +228,15 @@ def main() -> int:
     load_revision = None if args.model_path is not None else revision
     set_seed(42)
     tokenizer = AutoTokenizer.from_pretrained(model_load_source, revision=load_revision)
-    model = AutoModelForSeq2SeqLM.from_pretrained(model_load_source, revision=load_revision)
+    load_dtype = torch.bfloat16 if args.load_dtype == "bfloat16" else torch.float32
+    model = AutoModelForSeq2SeqLM.from_pretrained(
+        model_load_source,
+        revision=load_revision,
+        dtype=load_dtype,
+    )
+    if args.gradient_checkpointing:
+        model.gradient_checkpointing_enable()
+        model.config.use_cache = False
     before = parameter_signature(model)
     encoded_train, train_lengths = encode_rows(
         train_rows, tokenizer, args.max_input_length, args.max_output_length
@@ -227,7 +256,7 @@ def main() -> int:
         lr_scheduler_type="constant",
         warmup_steps=0,
         weight_decay=0.01,
-        optim="adamw_torch",
+        optim=args.optimizer,
         bf16=bool(torch.cuda.is_available() and torch.cuda.is_bf16_supported()),
         seed=42,
         data_seed=42,
@@ -236,6 +265,7 @@ def main() -> int:
         eval_strategy="epoch",
         save_strategy="no",
         report_to="none",
+        gradient_checkpointing=args.gradient_checkpointing,
     )
     collator = DataCollatorForSeq2Seq(tokenizer, model=model, label_pad_token_id=-100)
     preview_batch = collator(encoded_train[: min(args.batch_size, len(encoded_train))])
@@ -308,6 +338,7 @@ def main() -> int:
         "model_name": checkpoint_name,
         "model_revision": revision,
         "model_load_source": model_load_source,
+        "model_load_dtype": args.load_dtype,
         "base_model_weights_sha256": (
             sha256_file(args.model_path / "model.safetensors")
             if args.model_path is not None
@@ -323,6 +354,8 @@ def main() -> int:
         "learning_rate": args.learning_rate,
         "batch_size": args.batch_size,
         "gradient_accumulation": args.gradient_accumulation,
+        "gradient_checkpointing": args.gradient_checkpointing,
+        "optimizer": args.optimizer,
         "device": device,
         "bf16": training_args.bf16,
         "train_seconds": duration,

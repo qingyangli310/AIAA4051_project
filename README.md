@@ -31,4 +31,4 @@ no-feedback / shuffled-feedback 条件共享同一候选路径。正式 Test 运
 - [最终报告内容骨架](report/REPORT_OUTLINE.md)
 - [展示材料内容骨架](poster/PRESENTATION_OUTLINE.md)
 
-冻结版本为 `project6-6x6-seed42-20261116`。共享 Train/Dev 分别有 17,510 和 2,517 条基础记录。Part 1 历史训练子集总计 4,000 条（Generation 1,000、Verification 1,500、Repair 1,500）。待确认的最终协议建议使用 2,000 / 500 / 1,500，二者不得混成一次正式实验。冻结 ID/OOD 条件有 162 组配对。
+冻结版本为 `project6-6x6-seed42-20261116`。共享 Train/Dev 分别有 17,510 和 2,517 条基础记录。Part 1 历史训练子集总计 4,000 条（Generation 1,000、Verification 1,500、Repair 1,500）。最终数据预算使用 Generation 2,000、Verification 1,000、Repair 1,000；Dev 使用 100 / 50 / 50。历史数据与最终数据不得混成一次正式实验。冻结 ID/OOD 条件有 162 组配对。

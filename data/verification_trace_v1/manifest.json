@@ -1,0 +1,14 @@
+{
+  "protocol": "verification-trace-v1",
+  "source": "data/verification_high_quality_v1",
+  "counts": {
+    "train": 1000,
+    "dev": 50
+  },
+  "sha256": {
+    "verification_train.jsonl": "8637b26069579c5946b21762edc76f64648a1703ec78a8df0065efef4fe46997",
+    "verification_dev.jsonl": "29411101876b3a257e3456aff393d14011bd6473132e2a70b2aa4dff0bbf2ecc"
+  },
+  "target_schema": "Trace: <state transitions>\\nVerdict: <strict verification output>",
+  "final_verdict_parser": "final explicitly labelled Verdict line only"
+}
