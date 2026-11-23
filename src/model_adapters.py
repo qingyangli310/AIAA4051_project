@@ -110,7 +110,7 @@ class Seq2SeqVerifierAdapter:
         self,
         infer_text: InferText,
         *,
-        max_new_tokens: int = 64,
+        max_new_tokens: int = 128,
         checkpoint_id: str | None = None,
     ) -> None:
         self.infer_text = infer_text

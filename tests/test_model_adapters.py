@@ -24,11 +24,17 @@ def test_generator_adapter_parses_trace_output() -> None:
 
 
 def test_verifier_adapter_preserves_parse_failure() -> None:
-    infer = lambda prompt, limit: "probably invalid"  # noqa: E731
+    limits = []
+
+    def infer(prompt, limit):
+        limits.append(limit)
+        return "probably invalid"
+
     result = Seq2SeqVerifierAdapter(infer).verify(GRID, ["right"])
     assert result["parse_success"] is False
     assert result["valid"] is None
     assert result["raw_output"] == "probably invalid"
+    assert limits == [128]
 
 
 def test_repair_adapter_hides_feedback_in_no_feedback_prompt() -> None:

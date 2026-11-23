@@ -217,7 +217,7 @@ def main() -> int:
         "--repair-output-format", choices=("plan", "trace_only"), default="trace_only"
     )
     parser.add_argument("--generator-max-new-tokens", type=int, default=128)
-    parser.add_argument("--verifier-max-new-tokens", type=int, default=64)
+    parser.add_argument("--verifier-max-new-tokens", type=int, default=128)
     parser.add_argument("--repair-max-new-tokens", type=int, default=128)
     args = parser.parse_args()
 
