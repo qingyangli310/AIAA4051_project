@@ -1,0 +1,122 @@
+# Flan-T5 Repair training and ID/OOD evaluation
+
+## Decision rule
+
+`google-t5/t5-small` and `google/flan-t5-*` are different pretrained
+checkpoints. Do not rename an existing T5 result as Flan-T5. Select the final
+primary family using Development results from a matched baseline comparison,
+then fine-tune separate Generation, Verification, and Repair checkpoints from
+that same primary base family.
+
+The current Flan-T5 Generator v9 result makes `google/flan-t5-base` a primary
+model candidate, not an automatically selected final model. Its archived
+immutable revision is:
+
+```text
+google/flan-t5-base@7bcac572ce56db69c1ea7c8af255c5d7c9672fc2
+```
+
+## Controlled Repair comparison on Development data
+
+Use the validated high-quality Repair data for a controlled T5-small versus
+Flan-T5-base comparison. Keep the data, seed, epochs, optimizer and greedy
+decoding fixed. This run is Development-only because the current high-quality
+dataset contains 1,000 training rows rather than the proposed final 1,500-row
+Repair allocation.
+
+```bash
+CUDA_VISIBLE_DEVICES=0 python scripts/train_part1.py \
+  --task repair \
+  --model flan-t5-base \
+  --data-dir data/repair_high_quality_v1 \
+  --output results/flan_t5_base_repair_high_quality_v1_adafactor_epoch2 \
+  --epochs 2 \
+  --learning-rate 0.0002 \
+  --batch-size 1 \
+  --gradient-accumulation 4 \
+  --optimizer adafactor \
+  --gradient-checkpointing \
+  --load-dtype bfloat16 \
+  --not-formal \
+  --experiment-label flan_t5_base_repair_high_quality_v1_adafactor_epoch2
+```
+
+The selected Development checkpoint uses two epochs. A matched three-epoch run
+reached 65/90 successful repairs, while the two-epoch run reached 68/90 and had
+lower Development loss. The project limit is at most three passes, so selecting
+the two-epoch checkpoint from Development results is protocol-compliant.
+
+For an offline HPC snapshot, add the following argument. The snapshot must
+match the model name and revision above and its weight hash must be retained in
+the run report.
+
+```text
+--model-path /path/to/verified/flan-t5-base
+```
+
+Do not use the Generator v9 fine-tuned checkpoint to initialize Repair. Both
+task checkpoints should start from the same pretrained Flan-T5-base snapshot
+and be fine-tuned independently.
+
+## Required Repair data before the final run
+
+The final frozen Repair training set must:
+
+- stay within the selected 1,500-example allocation;
+- use Train environments only;
+- keep Dev and Held-out Test environments disjoint;
+- contain action substitution, deletion, insertion and premature stopping;
+- cover obstacle collision, out of bounds, invalid action token and goal not
+  reached;
+- include both no-feedback and exact executor-feedback inputs where required;
+- use targets that pass the canonical executor;
+- record sample IDs, environment IDs and file hashes.
+
+The current `repair_high_quality_v1` data is suitable for a Development model
+comparison, but it does not contain the `invalid_action_token` failure reason
+and must not be described as complete four-reason coverage.
+
+## Frozen single-error and double-error evaluation
+
+After selecting and locking the primary model, evaluate the same Repair
+checkpoint once on both frozen conditions:
+
+```bash
+CUDA_VISIBLE_DEVICES=0 python scripts/evaluate_part1_checkpoint.py \
+  --task repair \
+  --checkpoint /path/to/flan-t5-base-repair/checkpoint-final \
+  --data data/part1/repair_id_test.jsonl \
+  --output results/flan_t5_base_repair_id
+
+CUDA_VISIBLE_DEVICES=0 python scripts/evaluate_part1_checkpoint.py \
+  --task repair \
+  --checkpoint /path/to/flan-t5-base-repair/checkpoint-final \
+  --data data/part1/repair_ood_test.jsonl \
+  --output results/flan_t5_base_repair_ood
+```
+
+The ID file contains single-error candidates and the OOD file contains paired
+double-error candidates. Preserve `evaluation.json` and `predictions.jsonl`
+from both commands. Report Success Rate, Feasibility, Optimality and Repair
+Success Rate overall and by failure type.
+
+## Current evidence status
+
+| Item | Status | Evidence limit |
+|---|---|---|
+| Paired ID single-error and OOD double-error data | Complete, 162 pairs | Data construction and executor audit only |
+| Symbolic ID/OOD Repair acceptance | Complete | BFS upper bound, not a language-model result |
+| Historical BART-base Repair ID/OOD | Reported as 22/162 ID and 5/162 OOD | Summary is committed; per-example evaluation artifacts are not committed |
+| T5-small Repair v3 and high-quality v1 | Development only | No frozen ID/OOD result |
+| Flan-T5-base Generator v9 | Development only | No official held-out ID result |
+| Flan-T5-base Repair | Dev complete, 68/90 selected | No frozen ID/OOD result |
+| Same-family full Flan-T5 pipeline ID/OOD | Not run | Requires locked Generator, Verifier and Repair checkpoints |
+
+The selected Flan-T5-base two-epoch checkpoint has 68/90 Development Repair
+success, 84/90 parsed outputs, 67/90 exact matches and mean optimality 1.0.
+Frozen ID/OOD and the full same-family cascade remain unrun.
+
+Do not use the symbolic result or the historical BART result as evidence for a
+Flan-T5 Repair model. Do not consume the protected test sets until the primary
+model, data hashes, decoding and checkpoint hashes are locked from Development
+results.

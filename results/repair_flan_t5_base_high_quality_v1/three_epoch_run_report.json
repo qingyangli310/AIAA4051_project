@@ -1,0 +1,130 @@
+{
+  "formal_part1_run": false,
+  "diagnostic_overfit_probe": false,
+  "experiment_label": "flan_t5_base_repair_high_quality_v1_adafactor",
+  "task": "repair",
+  "model_key": "flan-t5-base",
+  "model_name": "google/flan-t5-base",
+  "model_revision": "7bcac572ce56db69c1ea7c8af255c5d7c9672fc2",
+  "model_load_source": "google/flan-t5-base",
+  "model_load_dtype": "bfloat16",
+  "base_model_weights_sha256": null,
+  "checkpoint": "results/flan_t5_base_repair_high_quality_v1_adafactor/checkpoint-final",
+  "seed": 42,
+  "train_count": 1000,
+  "dev_count": 90,
+  "epochs": 3,
+  "completed_steps": 750,
+  "learning_rate": 0.0002,
+  "batch_size": 1,
+  "gradient_accumulation": 4,
+  "gradient_checkpointing": true,
+  "optimizer": "adafactor",
+  "device": "cuda",
+  "bf16": true,
+  "train_seconds": 530.7925497852266,
+  "train_sha256": "15a4853e3e67614e9bcdc00ac83567e88824bee38c61a32721899b1a020a588d",
+  "dev_sha256": "a78624ca78ac98c643aae123cde865f1d6de9263b3447f25ee09501d2845df6a",
+  "train_lengths": {
+    "max_input_tokens": 291,
+    "max_target_tokens": 48
+  },
+  "dev_lengths": {
+    "max_input_tokens": 290,
+    "max_target_tokens": 43
+  },
+  "parameter_signature_before": {
+    "parameter": "shared.weight",
+    "sum": 440652.84375,
+    "norm": 54495.76953125
+  },
+  "parameter_signature_after": {
+    "parameter": "shared.weight",
+    "sum": 440653.125,
+    "norm": 54555.09375
+  },
+  "train_metrics": {
+    "train_runtime": 530.6167,
+    "train_samples_per_second": 5.654,
+    "train_steps_per_second": 1.413,
+    "total_flos": 1081770838447104.0,
+    "train_loss": 0.17858709843068693,
+    "epoch": 3.0
+  },
+  "dev_metrics": {
+    "eval_loss": 0.07878390699625015,
+    "eval_runtime": 2.9354,
+    "eval_samples_per_second": 30.66,
+    "eval_steps_per_second": 30.66,
+    "epoch": 3.0
+  },
+  "conditioning_probe": {
+    "matched_loss": 0.07920298527173296,
+    "mismatched_loss": 2.9214144870438354,
+    "mismatched_minus_matched": 2.8422115017721024,
+    "matched_better_count": 87,
+    "examples": 90
+  },
+  "dev_scoring": {
+    "task": "repair",
+    "examples": 90,
+    "parse_rate": 0.8666666666666667,
+    "exact_match_rate": 0.7,
+    "unique_predictions": 26,
+    "most_common_predictions": [
+      [
+        "Trace: (5,4) left (5,3) left (5,2) left (5,1)",
+        5
+      ],
+      [
+        "Trace: (0,1) down (1,1) down (2,1)",
+        5
+      ],
+      [
+        "Trace: (1,0) down (2,0) down (3,0) down (4,0) right (4,1)",
+        5
+      ],
+      [
+        "Trace: (5,3) right (5,4) right (5,5)",
+        5
+      ],
+      [
+        "Trace: (5,2) up (4,2)",
+        5
+      ]
+    ],
+    "most_common_share": 0.05555555555555555,
+    "metrics": {
+      "examples": 90,
+      "success_rate": 0.7222222222222222,
+      "feasibility": 0.7222222222222222,
+      "verification_macro_f1": null,
+      "first_error_accuracy": null,
+      "repair_success_rate": 0.7222222222222222,
+      "end_to_end_success_rate": 0.7222222222222222,
+      "mean_optimality": 1.0,
+      "counts": {
+        "success": [
+          65,
+          90
+        ],
+        "feasible": [
+          65,
+          90
+        ],
+        "repair_success": [
+          65,
+          90
+        ],
+        "optimality_scored": 65,
+        "verification_scored": 0
+      }
+    }
+  },
+  "decoding": {
+    "do_sample": false,
+    "num_beams": 1,
+    "no_repeat_ngram_size": 0,
+    "early_stopping": false
+  }
+}

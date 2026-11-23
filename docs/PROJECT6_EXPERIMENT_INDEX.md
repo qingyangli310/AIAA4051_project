@@ -13,3 +13,23 @@
 v9 权重需要 Git LFS，下载后按归档 README 校验 SHA-256。项目分支保留已发布的配对测试条件。完整 protected processed Held-out 和官方原始 PPNL 需要在授权位置访问。
 
 正式三组反馈对照仍需使用统一候选和配对样本运行，并记录模型 revision、数据哈希、配置、解析状态以及逐样本结果。no-feedback Repair 和 Direct Generation 是两个实验条件，报告时分别命名。v9 的 2,000 条 Generation 数据与原 Part 1 的 1,000 条配置属于不同实验，不能与原 Verification/Repair 预算直接相加。
+
+## Flan-T5 Repair and held-out status
+
+The training entry point now recognizes pinned `flan-t5-small` and
+`flan-t5-base` model keys. The reproducible Development comparison and frozen
+Repair ID/OOD commands are documented in
+[`FLAN_T5_REPAIR_RUNBOOK.md`](FLAN_T5_REPAIR_RUNBOOK.md).
+
+The paired 162-row single-error and double-error datasets have been built and
+audited. Historical BART-base Repair ID/OOD summary numbers and symbolic BFS
+acceptance exist, but the current T5 Repair improvements and Flan-T5 Generator
+v9 have not been evaluated as a locked same-family language-model pipeline on
+the frozen ID/OOD conditions. Therefore no Flan-T5 Repair ID/OOD result is
+currently available.
+
+The completed Flan-T5-base high-quality Repair Development run selected the
+two-epoch checkpoint: 68/90 Repair success, 84/90 parse count, 67/90 exact
+match and mean optimality 1.0. The three-epoch comparison reached 65/90 and
+showed higher Development loss. These are Repair-only Development results, not
+frozen ID/OOD or end-to-end cascade evidence.
