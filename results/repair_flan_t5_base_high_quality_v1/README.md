@@ -28,4 +28,7 @@ T5-small run used AdamW, so this is not a controlled architecture-only
 ablation.
 
 This result is Repair-only and Development-only. It must not be described as a
-frozen ID/OOD or end-to-end pipeline result.
+frozen ID/OOD or end-to-end pipeline result. It was trained on
+`repair_high_quality_v1`; the formal cross-task-disjoint dataset is now
+`repair_high_quality_v2`, so this checkpoint is archived evidence and must not
+be placed in the locked final pipeline without retraining.

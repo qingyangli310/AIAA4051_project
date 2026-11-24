@@ -18,6 +18,11 @@ google/flan-t5-base@7bcac572ce56db69c1ea7c8af255c5d7c9672fc2
 
 ## Controlled Repair comparison on Development data
 
+The archived command below documents the v1 Development comparison. Its
+checkpoint is retained for provenance, but it is not the formal v2 checkpoint.
+Use the cross-task-disjoint v2 data for the next controlled comparison and
+formal Repair training.
+
 Use the validated high-quality Repair data for a controlled T5-small versus
 Flan-T5-base comparison. Keep the data, seed, epochs, optimizer and greedy
 decoding fixed. This run is Development-only because the current high-quality
@@ -28,7 +33,7 @@ Repair allocation.
 CUDA_VISIBLE_DEVICES=0 python scripts/train_part1.py \
   --task repair \
   --model flan-t5-base \
-  --data-dir data/repair_high_quality_v1 \
+  --data-dir data/repair_high_quality_v2 \
   --output results/flan_t5_base_repair_high_quality_v1_adafactor_epoch2 \
   --epochs 2 \
   --learning-rate 0.0002 \
@@ -41,7 +46,7 @@ CUDA_VISIBLE_DEVICES=0 python scripts/train_part1.py \
   --experiment-label flan_t5_base_repair_high_quality_v1_adafactor_epoch2
 ```
 
-The selected Development checkpoint uses two epochs. A matched three-epoch run
+The archived v1 Development checkpoint uses two epochs. A matched three-epoch run
 reached 65/90 successful repairs, while the two-epoch run reached 68/90 and had
 lower Development loss. The project limit is at most three passes, so selecting
 the two-epoch checkpoint from Development results is protocol-compliant.
@@ -72,9 +77,13 @@ The final frozen Repair training set must:
 - use targets that pass the canonical executor;
 - record sample IDs, environment IDs and file hashes.
 
-The current `repair_high_quality_v1` data is suitable for a Development model
-comparison, but it does not contain the `invalid_action_token` failure reason
-and must not be described as complete four-reason coverage.
+The formal `repair_high_quality_v2` data contains 1,000 Train rows derived from
+500 distinct base samples and environments, plus 50 independent Dev rows from
+50 distinct base samples and environments. Its base samples have zero overlap
+with Generator v9 and Verification high-quality v1. It does not contain the
+`invalid_action_token` failure reason and must not be described as complete
+four-reason Repair coverage; Verification high-quality v1 does cover all four
+required verification reasons.
 
 ## Frozen single-error and double-error evaluation
 
@@ -109,12 +118,14 @@ Success Rate overall and by failure type.
 | Historical BART-base Repair ID/OOD | Reported as 22/162 ID and 5/162 OOD | Summary is committed; per-example evaluation artifacts are not committed |
 | T5-small Repair v3 and high-quality v1 | Development only | No frozen ID/OOD result |
 | Flan-T5-base Generator v9 | Development only | No official held-out ID result |
-| Flan-T5-base Repair | Dev complete, 68/90 selected | No frozen ID/OOD result |
+| Flan-T5-base Repair v1 | Archived Dev result, 68/90 | Trained on superseded v1 data |
+| Flan-T5-base Repair v2 | Data frozen, retraining required | No v2 checkpoint or ID/OOD result |
 | Same-family full Flan-T5 pipeline ID/OOD | Not run | Requires locked Generator, Verifier and Repair checkpoints |
 
-The selected Flan-T5-base two-epoch checkpoint has 68/90 Development Repair
+The archived Flan-T5-base two-epoch checkpoint has 68/90 Development Repair
 success, 84/90 parsed outputs, 67/90 exact matches and mean optimality 1.0.
-Frozen ID/OOD and the full same-family cascade remain unrun.
+Frozen ID/OOD and the full same-family cascade remain unrun. Retrain on v2
+before locking the formal pipeline.
 
 Do not use the symbolic result or the historical BART result as evidence for a
 Flan-T5 Repair model. Do not consume the protected test sets until the primary

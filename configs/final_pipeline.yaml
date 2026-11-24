@@ -60,6 +60,6 @@ data:
   generation_dev: artifacts/generation_trace_v9/data/transformed_dev.jsonl
   verification_train: data/verification_trace_v1/verification_train.jsonl
   verification_dev: data/verification_trace_v1/verification_dev.jsonl
-  repair_train: data/repair_high_quality_v1/repair_train.jsonl
-  repair_dev: data/repair_high_quality_v1/repair_dev.jsonl
+  repair_train: data/repair_high_quality_v2/repair_train.jsonl
+  repair_dev: data/repair_high_quality_v2/repair_dev.jsonl
 

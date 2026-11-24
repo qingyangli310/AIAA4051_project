@@ -6,6 +6,7 @@
 | 正式 Part 1 历史基线 | `93d260d` 实际 CUDA 运行；后续修订至 `7abc640` | [原实验报告](../results/part1_cuda_20261117.md)。匹配 Generation ID 上 T5-small 0/162、BART-base 2/162。后续代码默认值不能当成这次运行的参数。 |
 | Dev 诊断 | B v9 `347a10e` | [归档](../artifacts/generation_trace_v9/README.md)、[运行报告](../results/generation_trace_v9/run_report.json)。Flan-T5-base，Train2000 / Dev100，66/100 本地路径诊断，保留最佳 epoch 3 checkpoint 和 Git LFS 指针。v7/v8 原预测与报告保留在同一结果目录。 |
 | Dev 诊断 | Repair v3 `dfd42a4` | [结果](../results/repair_v3/README.md)。纯 Generation 66/100，no-feedback Repair 78/100，Executor-feedback 与 shuffled-feedback 都是 80/100。相同结果限制了对具体反馈内容的因果解释。旧 scorer 报告保留，Trace 评分以 `dev_rescored_report.json` 为准。Repair 权重据交接存于团队 CUDA host。 |
+| 正式数据候选 | Repair high-quality v2 | [数据说明](../data/repair_high_quality_v2/README.md) 与 `manifest.json`。Train 1000 行来自 500 个不同 base/environment，每个 candidate 保留 no-feedback/executor-feedback 配对；Dev 50 行来自 50 个不同 base/environment。与 Generator v9、Verification high-quality v1 的 base ID 重叠均为 0。v1 checkpoint 不适用于 v2，需重新训练。 |
 | 联调 Pilot | C `6e3c5e9` | [40 ID × 三种条件](MEMBER_C_20261115_16_HANDOFF.md)。使用真实 Executor 与 Mock 模型。 |
 | 历史联调 | B `64c49da` | [Day 13](member_b_day13_delivery.md)。8 条往返样例和历史日志，由原分支复现。 |
 | 历史 Pilot | A legacy A-4 / Nov14 | `data/samples/legacy_a4_pilot/` 和 `data/samples/nov14_pilot/`。用途和限制见对应 manifest 与交接。 |
