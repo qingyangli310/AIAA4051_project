@@ -18,24 +18,18 @@ google/flan-t5-base@7bcac572ce56db69c1ea7c8af255c5d7c9672fc2
 
 ## Controlled Repair comparison on Development data
 
-The archived command below documents the v1 Development comparison. Its
-checkpoint is retained for provenance, but it is not the formal v2 checkpoint.
-Use the cross-task-disjoint v2 data for the next controlled comparison and
-formal Repair training.
-
-Use the validated high-quality Repair data for a controlled T5-small versus
-Flan-T5-base comparison. Keep the data, seed, epochs, optimizer and greedy
-decoding fixed. This run is Development-only because the current high-quality
-dataset contains 1,000 training rows rather than the proposed final 1,500-row
-Repair allocation.
+The formal Repair v2 data uses 1,000 training rows and 50 Development rows.
+The selected run below starts independently from the pinned original
+Flan-T5-base snapshot. A matched two-epoch run is retained as selection
+evidence; three epochs achieved the better Development Repair Success.
 
 ```bash
 CUDA_VISIBLE_DEVICES=0 python scripts/train_part1.py \
   --task repair \
   --model flan-t5-base \
   --data-dir data/repair_high_quality_v2 \
-  --output results/flan_t5_base_repair_high_quality_v1_adafactor_epoch2 \
-  --epochs 2 \
+  --output results/flan_t5_base_repair_high_quality_v2_epoch3 \
+  --epochs 3 \
   --learning-rate 0.0002 \
   --batch-size 1 \
   --gradient-accumulation 4 \
@@ -43,13 +37,14 @@ CUDA_VISIBLE_DEVICES=0 python scripts/train_part1.py \
   --gradient-checkpointing \
   --load-dtype bfloat16 \
   --not-formal \
-  --experiment-label flan_t5_base_repair_high_quality_v1_adafactor_epoch2
+  --experiment-label flan_t5_base_repair_high_quality_v2_epoch3
 ```
 
-The archived v1 Development checkpoint uses two epochs. A matched three-epoch run
-reached 65/90 successful repairs, while the two-epoch run reached 68/90 and had
-lower Development loss. The project limit is at most three passes, so selecting
-the two-epoch checkpoint from Development results is protocol-compliant.
+On v2, two epochs reached 34/50 successful repairs and three epochs reached
+38/50 with lower Development loss. The project limit is at most three passes,
+so selecting the three-epoch checkpoint from Development results is
+protocol-compliant. The old v1 result remains archived separately and is not
+used by the locked v2 pipeline.
 
 For an offline HPC snapshot, add the following argument. The snapshot must
 match the model name and revision above and its weight hash must be retained in
@@ -67,7 +62,7 @@ and be fine-tuned independently.
 
 The final frozen Repair training set must:
 
-- stay within the selected 1,500-example allocation;
+- stay within the selected 1,000-example allocation;
 - use Train environments only;
 - keep Dev and Held-out Test environments disjoint;
 - contain action substitution, deletion, insertion and premature stopping;
@@ -119,13 +114,14 @@ Success Rate overall and by failure type.
 | T5-small Repair v3 and high-quality v1 | Development only | No frozen ID/OOD result |
 | Flan-T5-base Generator v9 | Development only | No official held-out ID result |
 | Flan-T5-base Repair v1 | Archived Dev result, 68/90 | Trained on superseded v1 data |
-| Flan-T5-base Repair v2 | Data frozen, retraining required | No v2 checkpoint or ID/OOD result |
+| Flan-T5-base Repair v2 | Dev complete, 38/50 selected at 3 epochs | No frozen ID/OOD result |
 | Same-family full Flan-T5 pipeline ID/OOD | Not run | Requires locked Generator, Verifier and Repair checkpoints |
 
-The archived Flan-T5-base two-epoch checkpoint has 68/90 Development Repair
+The archived Flan-T5-base v1 two-epoch checkpoint has 68/90 Development Repair
 success, 84/90 parsed outputs, 67/90 exact matches and mean optimality 1.0.
-Frozen ID/OOD and the full same-family cascade remain unrun. Retrain on v2
-before locking the formal pipeline.
+The selected v2 three-epoch checkpoint has 38/50 Development Repair success,
+47/50 parsed outputs, 33/50 exact matches and mean optimality 1.0. Frozen
+ID/OOD and the full same-family cascade remain unrun.
 
 Do not use the symbolic result or the historical BART result as evidence for a
 Flan-T5 Repair model. Do not consume the protected test sets until the primary

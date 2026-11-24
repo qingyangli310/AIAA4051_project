@@ -1,0 +1,130 @@
+{
+  "formal_part1_run": false,
+  "diagnostic_overfit_probe": false,
+  "experiment_label": "flan_t5_base_repair_high_quality_v2_epoch3",
+  "task": "repair",
+  "model_key": "flan-t5-base",
+  "model_name": "google/flan-t5-base",
+  "model_revision": "7bcac572ce56db69c1ea7c8af255c5d7c9672fc2",
+  "model_load_source": "/data/liqingyang/hf_cache_project6/hub/models--google--flan-t5-base/snapshots/7bcac572ce56db69c1ea7c8af255c5d7c9672fc2",
+  "model_load_dtype": "bfloat16",
+  "base_model_weights_sha256": "1dfb70afdcedceb9f9fae2f9b68e004ad934361fb35b9b2bd50b45ea90790fc8",
+  "checkpoint": "artifacts/repair_flan_t5_base_high_quality_v2/checkpoint-final",
+  "seed": 42,
+  "train_count": 1000,
+  "dev_count": 50,
+  "epochs": 3,
+  "completed_steps": 750,
+  "learning_rate": 0.0002,
+  "batch_size": 1,
+  "gradient_accumulation": 4,
+  "gradient_checkpointing": true,
+  "optimizer": "adafactor",
+  "device": "cuda",
+  "bf16": true,
+  "train_seconds": 506.80499372445047,
+  "train_sha256": "a0d826e31a04eea953890d87a7850fa7eafc1dca83777f2b368bbd1414f79069",
+  "dev_sha256": "f1b9744c3f57ff6fb7c72cf3c42379e628d3f24906d2596f1e22808def8008a0",
+  "train_lengths": {
+    "max_input_tokens": 298,
+    "max_target_tokens": 57
+  },
+  "dev_lengths": {
+    "max_input_tokens": 290,
+    "max_target_tokens": 54
+  },
+  "parameter_signature_before": {
+    "parameter": "shared.weight",
+    "sum": 440652.84375,
+    "norm": 54495.76953125
+  },
+  "parameter_signature_after": {
+    "parameter": "shared.weight",
+    "sum": 440652.6875,
+    "norm": 54555.09375
+  },
+  "train_metrics": {
+    "train_runtime": 506.6423,
+    "train_samples_per_second": 5.921,
+    "train_steps_per_second": 1.48,
+    "total_flos": 1081152951929856.0,
+    "train_loss": 0.17503504482656718,
+    "epoch": 3.0
+  },
+  "dev_metrics": {
+    "eval_loss": 0.04331070929765701,
+    "eval_runtime": 1.7631,
+    "eval_samples_per_second": 28.359,
+    "eval_steps_per_second": 28.359,
+    "epoch": 3.0
+  },
+  "conditioning_probe": {
+    "matched_loss": 0.04309863453585422,
+    "mismatched_loss": 2.2987163496017455,
+    "mismatched_minus_matched": 2.2556177150658914,
+    "matched_better_count": 50,
+    "examples": 50
+  },
+  "dev_scoring": {
+    "task": "repair",
+    "examples": 50,
+    "parse_rate": 0.94,
+    "exact_match_rate": 0.66,
+    "unique_predictions": 50,
+    "most_common_predictions": [
+      [
+        "Trace: (2,4) right (2,5)",
+        1
+      ],
+      [
+        "Trace: (3,4) up (2,4) left (2,3) left (2,2)",
+        1
+      ],
+      [
+        "Trace: (3,0) down (4,0) down (5,0)",
+        1
+      ],
+      [
+        "Trace: (0,5) down (1,5) down (2,5) down (3,5) left (3,4) left (3,3) left (3,2) left (3,1)",
+        1
+      ],
+      [
+        "Trace: (2,5) down (3,5) down (4,5) left (4,4) down (5,4)",
+        1
+      ]
+    ],
+    "most_common_share": 0.02,
+    "metrics": {
+      "examples": 50,
+      "success_rate": 0.76,
+      "feasibility": 0.78,
+      "verification_macro_f1": null,
+      "first_error_accuracy": null,
+      "repair_success_rate": 0.76,
+      "end_to_end_success_rate": 0.76,
+      "mean_optimality": 1.0,
+      "counts": {
+        "success": [
+          38,
+          50
+        ],
+        "feasible": [
+          39,
+          50
+        ],
+        "repair_success": [
+          38,
+          50
+        ],
+        "optimality_scored": 38,
+        "verification_scored": 0
+      }
+    }
+  },
+  "decoding": {
+    "do_sample": false,
+    "num_beams": 1,
+    "no_repeat_ngram_size": 0,
+    "early_stopping": false
+  }
+}

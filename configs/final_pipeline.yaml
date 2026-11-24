@@ -38,10 +38,10 @@ task_models:
     checkpoint_sha256: c125484941f4744540cfd250ade8ca1d921f0efb8d6a88fa22a03cc083a474f1
     revision: 7bcac572ce56db69c1ea7c8af255c5d7c9672fc2
   repair:
-    base_model_family: null
-    checkpoint: null
-    checkpoint_sha256: null
-    revision: null
+    base_model_family: google/flan-t5-base
+    checkpoint: artifacts/repair_flan_t5_base_high_quality_v2/checkpoint-final
+    checkpoint_sha256: c097e2031d30e540e4549c076ce1bf39b475bfa4b4873c518db794c1ad0351d5
+    revision: 7bcac572ce56db69c1ea7c8af255c5d7c9672fc2
 
 decoding:
   do_sample: false

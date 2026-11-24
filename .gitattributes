@@ -1,4 +1,5 @@
 artifacts/generation_trace_v9/checkpoint-final/model.safetensors filter=lfs diff=lfs merge=lfs -text
 artifacts/repair_flan_t5_base_high_quality_v1/checkpoint-final/model.safetensors filter=lfs diff=lfs merge=lfs -text
+artifacts/repair_flan_t5_base_high_quality_v2/checkpoint-final/model.safetensors filter=lfs diff=lfs merge=lfs -text
 artifacts/verification_trace_v1/checkpoint-final/model.safetensors filter=lfs diff=lfs merge=lfs -text
 *.jsonl text eol=lf
