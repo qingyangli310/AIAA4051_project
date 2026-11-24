@@ -8,6 +8,7 @@
 | Dev 诊断 | Repair v3 `dfd42a4` | [结果](../results/repair_v3/README.md)。纯 Generation 66/100，no-feedback Repair 78/100，Executor-feedback 与 shuffled-feedback 都是 80/100。相同结果限制了对具体反馈内容的因果解释。旧 scorer 报告保留，Trace 评分以 `dev_rescored_report.json` 为准。Repair 权重据交接存于团队 CUDA host。 |
 | 正式数据候选 | Repair high-quality v2 | [数据说明](../data/repair_high_quality_v2/README.md) 与 `manifest.json`。Train 1000 行来自 500 个不同 base/environment，每个 candidate 保留 no-feedback/executor-feedback 配对；Dev 50 行来自 50 个不同 base/environment。与 Generator v9、Verification high-quality v1 的 base ID 重叠均为 0。v1 checkpoint 不适用于 v2，需重新训练。 |
 | Dev 选择 | Repair high-quality v2 Flan-T5-base | [结果](../results/repair_flan_t5_base_high_quality_v2/README.md)。匹配的 2/3 epoch 比较分别为 34/50 与 38/50 Repair Success；选择 3 epoch checkpoint，权重与训练/Dev 数据哈希均已归档。尚未运行冻结 ID/OOD 或完整 pipeline。 |
+| 三模型 Dev 联调 | Flan-T5-base integrated v2 | [结果](../results/full_pipeline_dev_flan_v2/README.md)。100/100 行完成、0 异常；Direct 19%，no-feedback 44%，self-feedback 28%，executor-feedback 43%，shuffled-feedback 44%。技术集成完成，但当前结果不支持 feedback-content improvement。 |
 | 联调 Pilot | C `6e3c5e9` | [40 ID × 三种条件](MEMBER_C_20261115_16_HANDOFF.md)。使用真实 Executor 与 Mock 模型。 |
 | 历史联调 | B `64c49da` | [Day 13](member_b_day13_delivery.md)。8 条往返样例和历史日志，由原分支复现。 |
 | 历史 Pilot | A legacy A-4 / Nov14 | `data/samples/legacy_a4_pilot/` 和 `data/samples/nov14_pilot/`。用途和限制见对应 manifest 与交接。 |

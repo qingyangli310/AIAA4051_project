@@ -1,10 +1,12 @@
 protocol_id: project6-final-pipeline-v1
-status: pending_primary_model_confirmation
+status: dev_integrated
 
-# Replace null only after the project manager confirms the final family.
 primary_model:
-  family: null
-  selection_evidence: null
+  family: google/flan-t5-base
+  selection_evidence:
+    - results/generation_trace_v9/run_report.json
+    - results/verification_high_quality_v1/run_report.json
+    - results/repair_flan_t5_base_high_quality_v2/run_report.json
 
 training_examples:
   generation: 2000
@@ -28,10 +30,10 @@ epochs:
 # These are task-specific fine-tuned checkpoints from one primary base family.
 task_models:
   generation:
-    base_model_family: null
-    checkpoint: null
-    checkpoint_sha256: null
-    revision: null
+    base_model_family: google/flan-t5-base
+    checkpoint: artifacts/generation_trace_v9/checkpoint-final
+    checkpoint_sha256: bbf45876009d69b0907a36066ae55404496f34455175f18c3ae934df49aafaf9
+    revision: 7bcac572ce56db69c1ea7c8af255c5d7c9672fc2
   verification:
     base_model_family: google/flan-t5-base
     checkpoint: artifacts/verification_trace_v1/checkpoint-final

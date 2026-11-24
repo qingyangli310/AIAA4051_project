@@ -234,6 +234,18 @@ def test_comparison_batch_isolates_broken_rows() -> None:
     assert records[1]["status"] == "ok"
 
 
+def test_comparison_batch_reads_generator_v9_reference_length() -> None:
+    records = run_pipeline_comparison_batch(
+        [{"grid": GRID, "reference_actions": ["down", "right", "down", "right"]}],
+        MockGenerator(),
+        MockVerifier(),
+        MockRepairer(),
+        MockExecutor(),
+    )
+    assert records[0]["status"] == "ok"
+    assert records[0]["optimal_length"] == 4
+
+
 def test_batch_adds_traceable_shuffled_feedback_condition() -> None:
     second_grid = {**GRID, "environment_id": "grid_0002"}
     records = run_pipeline_comparison_batch(

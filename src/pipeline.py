@@ -269,12 +269,7 @@ def run_pipeline_comparison_batch(
                     "sample_id": row.get("sample_id"),
                     "corruption_type": row.get("corruption_type"),
                     "test_condition": row.get("condition"),
-                    "optimal_length": row.get(
-                        "optimal_length",
-                        len(row["shortest_plan"])
-                        if isinstance(row.get("shortest_plan"), list)
-                        else None,
-                    ),
+                    "optimal_length": _row_optimal_length(row),
                     **result,
                 }
             )
@@ -343,3 +338,15 @@ def run_pipeline_comparison_batch(
             ) != (own_feedback.get("first_error_step"), own_feedback.get("reason"))
             record["branches"]["shuffled_executor_feedback"] = branch
     return records
+
+
+def _row_optimal_length(row: dict[str, Any]) -> int | None:
+    """Read the optimal path length from every frozen task representation."""
+    explicit = row.get("optimal_length")
+    if isinstance(explicit, int) and explicit >= 0:
+        return explicit
+    for field in ("shortest_plan", "target_plan", "reference_actions"):
+        plan = row.get(field)
+        if isinstance(plan, list):
+            return len(plan)
+    return None
