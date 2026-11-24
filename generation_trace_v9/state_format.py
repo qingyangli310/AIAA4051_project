@@ -22,11 +22,8 @@ def map_text(grid):
     return '\n'.join(lines)
 
 
-def make_example(row, mode):
-    if mode != 'trace_only':
-        raise ValueError('Expected trace_only mode')
-    g = row['grid']
-    prompt = ('Find a path that reaches the goal without crossing obstacles or leaving the grid.\n'
+def build_trace_prompt(g):
+    return ('Find a path that reaches the goal without crossing obstacles or leaving the grid.\n'
               'Coordinates are (row,col), starting at (0,0) in the top left.\n'
               f"Grid size: {g['rows']} rows, {g['cols']} columns.\n"
               f"Start: ({g['start'][0]},{g['start'][1]}). Goal: ({g['goal'][0]},{g['goal'][1]}).\n"
@@ -34,6 +31,13 @@ def make_example(row, mode):
               'up decreases row; down increases row; left decreases column; right increases column.\n'
               'Output exactly one Trace: line with the start coordinate, then each action and its resulting coordinate. '
               'Use coordinates formatted (row,col). Stop the path at the goal.\nAnswer:')
+
+
+def make_example(row, mode):
+    if mode != 'trace_only':
+        raise ValueError('Expected trace_only mode')
+    g = row['grid']
+    prompt = build_trace_prompt(g)
     if not ACTION_RE.fullmatch(row['target_text']):
         raise ValueError(f"Unexpected reference actions: {row['base_sample_id']}")
     actions = row['target_text'].split(', ')

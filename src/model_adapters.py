@@ -11,11 +11,13 @@ from collections.abc import Callable
 from pathlib import Path
 from typing import Any
 
+from generation_trace_v9.state_format import build_trace_prompt
 from src.models.output_parser import parse_plan, parse_trace, parse_verification
 from src.models.prompts import (
     build_generation_prompt,
     build_repair_prompt,
     build_verification_prompt,
+    validate_grid,
 )
 
 
@@ -92,7 +94,11 @@ class Seq2SeqGeneratorAdapter:
         self.checkpoint_id = checkpoint_id
 
     def generate(self, grid: dict[str, Any]) -> dict[str, Any]:
-        prompt = build_generation_prompt(grid)
+        if self.output_format == "trace_only":
+            validate_grid(grid)
+            prompt = build_trace_prompt(grid)
+        else:
+            prompt = build_generation_prompt(grid)
         raw_output = self.infer_text(prompt, self.max_new_tokens)
         parsed = _parse_path(raw_output, grid, self.output_format)
         return {
