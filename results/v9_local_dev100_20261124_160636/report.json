@@ -1,0 +1,25 @@
+{
+  "scope": "fixed_v9_dev100_cpu",
+  "checkpoint": "C:\\Users\\wyj_l\\Desktop\\Workspace\\NLP\\final_project\\AIAA4051_project_upload\\artifacts\\generation_trace_v9\\checkpoint-final",
+  "data_sha256": "3d143c9e07f1d680f7ae343c174f43dbaee4de1cb88670b5a5b7fd62fb047d82",
+  "examples": 100,
+  "success_count": 66,
+  "success_rate": 0.66,
+  "parse_success_count": 100,
+  "exact_match_count": 60,
+  "error_count": 0,
+  "diagnostic_success_count": 66,
+  "archived_plan_match_count": 100,
+  "archived_raw_output_match_count": 100,
+  "archived_diagnostic_success_count": 66,
+  "failure_reasons": {
+    "obstacle_collision": 34
+  },
+  "inference_and_scoring_seconds": 627.7123278999934,
+  "device": "cpu",
+  "decoding": {
+    "max_new_tokens": 128,
+    "num_beams": 1,
+    "do_sample": false
+  }
+}

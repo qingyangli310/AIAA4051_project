@@ -16,11 +16,14 @@ GRID = {
 
 
 def test_generator_adapter_parses_trace_output() -> None:
-    infer = lambda prompt, limit: "Trace: (0,0) down (1,0) right (1,1)"  # noqa: E731
+    def infer(prompt: str, limit: int) -> str:
+        assert "Output exactly one Trace:" in prompt
+        assert "Output only comma-separated actions" not in prompt
+        return "Trace: (0,0) down (1,0) right (1,1)"
+
     result = Seq2SeqGeneratorAdapter(infer, output_format="trace_only").generate(GRID)
     assert result["parse_success"] is True
     assert result["plan"] == ["down", "right"]
-    assert result["prompt"].startswith("Task: generate")
 
 
 def test_verifier_adapter_preserves_parse_failure() -> None:
