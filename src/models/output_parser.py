@@ -80,8 +80,14 @@ def parse_verification(raw_output: Any, plan_length: int | None = None) -> dict[
     if not isinstance(raw_output, str):
         return result
     text = raw_output.strip().lower()
+    # Structured-reasoning variants may emit a state trace before the strict
+    # protocol verdict. Only the final explicitly labelled verdict is parsed;
+    # arbitrary prose without this delimiter remains a parse failure.
+    verdict_labels = list(re.finditer(r"(?:^|\s)verdict:\s*", text))
+    if verdict_labels:
+        text = text[verdict_labels[-1].end() :].strip()
     if text == "valid":
-        result.update(parse_success=True, valid=True)
+        result.update(parse_success=True, valid=True, normalized_output=text)
         return result
     match = re.fullmatch(
         r"invalid\s*\|\s*step\s*=\s*([0-9]+)\s*\|\s*reason\s*=\s*([a-z_]+)",
@@ -102,5 +108,6 @@ def parse_verification(raw_output: Any, plan_length: int | None = None) -> dict[
         valid=False,
         first_error_step=step,
         reason=reason,
+        normalized_output=text,
     )
     return result

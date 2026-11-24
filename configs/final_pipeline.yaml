@@ -8,8 +8,8 @@ primary_model:
 
 training_examples:
   generation: 2000
-  verification: 500
-  repair: 1500
+  verification: 1000
+  repair: 1000
 
 dev_examples:
   generation: 100
@@ -33,10 +33,10 @@ task_models:
     checkpoint_sha256: null
     revision: null
   verification:
-    base_model_family: null
-    checkpoint: null
-    checkpoint_sha256: null
-    revision: null
+    base_model_family: google/flan-t5-base
+    checkpoint: artifacts/verification_trace_v1/checkpoint-final
+    checkpoint_sha256: c125484941f4744540cfd250ade8ca1d921f0efb8d6a88fa22a03cc083a474f1
+    revision: 7bcac572ce56db69c1ea7c8af255c5d7c9672fc2
   repair:
     base_model_family: null
     checkpoint: null
@@ -47,7 +47,7 @@ decoding:
   do_sample: false
   num_beams: 1
   generator_max_new_tokens: 128
-  verifier_max_new_tokens: 64
+  verifier_max_new_tokens: 128
   repair_max_new_tokens: 128
 
 data:
@@ -56,4 +56,10 @@ data:
   environment_split: train_dev_heldout_test
   id_ood_share_heldout_environments: true
   pairing_key: base_sample_id
+  generation_train: artifacts/generation_trace_v9/data/transformed_train.jsonl
+  generation_dev: artifacts/generation_trace_v9/data/transformed_dev.jsonl
+  verification_train: data/verification_trace_v1/verification_train.jsonl
+  verification_dev: data/verification_trace_v1/verification_dev.jsonl
+  repair_train: data/repair_high_quality_v1/repair_train.jsonl
+  repair_dev: data/repair_high_quality_v1/repair_dev.jsonl
 

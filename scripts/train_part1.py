@@ -36,6 +36,10 @@ MODELS = {
         "facebook/bart-base",
         "aadd2ab0ae0c8268c7c9693540e9904811f36177",
     ),
+    "flan-t5-base": (
+        "google/flan-t5-base",
+        "7bcac572ce56db69c1ea7c8af255c5d7c9672fc2",
+    ),
 }
 PLAN_ACTIONS = ("up", "down", "left", "right")
 

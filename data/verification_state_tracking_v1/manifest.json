@@ -1,0 +1,19 @@
+{
+  "protocol": "verification-state-tracking-v1",
+  "source": "data/verification_high_quality_v1",
+  "counts": {
+    "train": 1000,
+    "dev": 50
+  },
+  "sha256": {
+    "verification_train.jsonl": "f6ccb066a6aa179d34849c4a2e0b77b514be1ff5bb246a5c5a906278762e2ef6",
+    "verification_dev.jsonl": "e83070b1555ef019470c66fd8d1bd4048953071707b5afc456a0818c479f06ef"
+  },
+  "max_input_lines": 36,
+  "label_free_trace": true,
+  "trace_checks": [
+    "coordinates are derived from start and candidate actions only",
+    "trace does not consult executor labels",
+    "trace does not identify validity, failure reason, or first error step"
+  ]
+}
