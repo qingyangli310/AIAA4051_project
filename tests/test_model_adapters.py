@@ -58,3 +58,31 @@ def test_repair_adapter_hides_feedback_in_no_feedback_prompt() -> None:
     assert result["repaired_plan"] == ["down", "down", "right", "right"]
     assert "Verifier feedback: none" in prompts[0]
 
+
+def test_trace_repair_prompt_and_feedback() -> None:
+    for source in ("no_feedback", "executor_feedback", "self_feedback"):
+        feedback = None if source == "no_feedback" else {
+            "valid": False, "first_error_step": 1, "reason": "obstacle_collision"
+        }
+
+        def infer(prompt: str, limit: int) -> str:
+            assert "Output exactly one Trace:" in prompt
+            assert "comma-separated repaired path" not in prompt
+            assert f"Feedback source: {source}" in prompt
+            if source == "no_feedback":
+                assert "Verifier feedback: none" in prompt
+                assert "reason=obstacle_collision" not in prompt
+            else:
+                assert "invalid | step=1 | reason=obstacle_collision" in prompt
+            return "Trace: (0,0) down (1,0) right (1,1) down (2,1) right (2,2)"
+
+        result = Seq2SeqRepairerAdapter(infer, output_format="trace_only").repair(
+            environment_id=GRID["environment_id"],
+            grid=GRID,
+            candidate_plan=["right", "right"],
+            feedback_source=source,
+            verifier_feedback=feedback,
+        )
+        assert result["parse_success"] is True
+        assert result["repaired_plan"] == ["down", "right", "down", "right"]
+

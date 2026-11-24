@@ -17,6 +17,7 @@ from src.models.prompts import (
     build_generation_prompt,
     build_repair_prompt,
     build_verification_prompt,
+    format_repair_trace_prompt,
     validate_grid,
 )
 
@@ -165,6 +166,8 @@ class Seq2SeqRepairerAdapter:
             feedback_source,
             verifier_feedback,
         )
+        if self.output_format == "trace_only":
+            prompt = format_repair_trace_prompt(prompt)
         raw_output = self.infer_text(prompt, self.max_new_tokens)
         parsed = _parse_path(raw_output, grid, self.output_format)
         return {

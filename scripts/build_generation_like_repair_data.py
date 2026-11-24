@@ -24,7 +24,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from src.executor.executor import execute_plan
-from src.models.prompts import PROTOCOL_VERSION, build_repair_prompt
+from src.models.prompts import PROTOCOL_VERSION, build_repair_prompt, format_repair_trace_prompt
 from src.part1.data import read_jsonl, write_jsonl
 
 
@@ -45,17 +45,8 @@ def trace_target(grid: dict[str, Any], plan: list[str]) -> str:
 
 
 def use_trace_output(row: dict[str, Any]) -> dict[str, Any]:
-    marker = "Output only the complete comma-separated repaired path using: "
-    if marker not in row["input_text"]:
-        raise ValueError(f"Repair prompt marker missing: {row['example_id']}")
-    prefix = row["input_text"].split(marker, 1)[0]
     updated = dict(row)
-    updated["input_text"] = (
-        prefix
-        + "Output exactly one Trace: line with the start coordinate, then each action "
-        "and its resulting coordinate. Use coordinates formatted (row,col). Stop at "
-        "the goal.\nAnswer:"
-    )
+    updated["input_text"] = format_repair_trace_prompt(row["input_text"])
     updated["target_text"] = trace_target(row["grid"], row["target_plan"])
     updated["output_format"] = "trace_only"
     return updated

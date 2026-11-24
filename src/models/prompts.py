@@ -127,3 +127,17 @@ def build_repair_prompt(
         "up, down, left, right.\n"
         "Repaired path:"
     )
+
+
+def format_repair_trace_prompt(prompt: str) -> str:
+    """Use the Trace instructions shared by Repair training and inference."""
+    marker = "Output only the complete comma-separated repaired path using: "
+    if marker not in prompt:
+        raise ValueError("Repair prompt marker missing")
+    prefix = prompt.split(marker, 1)[0]
+    return (
+        prefix
+        + "Output exactly one Trace: line with the start coordinate, then each action "
+        "and its resulting coordinate. Use coordinates formatted (row,col). Stop at "
+        "the goal.\nAnswer:"
+    )

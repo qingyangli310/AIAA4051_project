@@ -1,0 +1,20 @@
+{
+  "scope": "repair_v2_dev_cpu",
+  "checkpoint": "C:\\Users\\wyj_l\\Desktop\\Workspace\\NLP\\final_project\\_github_review_verification\\artifacts\\repair_flan_t5_base_high_quality_v2\\checkpoint-final",
+  "data_sha256": "f1b9744c3f57ff6fb7c72cf3c42379e628d3f24906d2596f1e22808def8008a0",
+  "examples": 1,
+  "success_count": 1,
+  "success_rate": 1.0,
+  "parse_success_count": 1,
+  "archived_raw_output_match_count": 1,
+  "error_count": 0,
+  "feedback_counts": {
+    "no_feedback": 1
+  },
+  "inference_and_scoring_seconds": 1.7544296000851318,
+  "decoding": {
+    "max_new_tokens": 128,
+    "num_beams": 1,
+    "do_sample": false
+  }
+}
