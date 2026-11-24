@@ -88,12 +88,14 @@ checkpoint once on both frozen conditions:
 ```bash
 CUDA_VISIBLE_DEVICES=0 python scripts/evaluate_part1_checkpoint.py \
   --task repair \
+  --repair-output-format trace_only \
   --checkpoint /path/to/flan-t5-base-repair/checkpoint-final \
   --data data/part1/repair_id_test.jsonl \
   --output results/flan_t5_base_repair_id
 
 CUDA_VISIBLE_DEVICES=0 python scripts/evaluate_part1_checkpoint.py \
   --task repair \
+  --repair-output-format trace_only \
   --checkpoint /path/to/flan-t5-base-repair/checkpoint-final \
   --data data/part1/repair_ood_test.jsonl \
   --output results/flan_t5_base_repair_ood
