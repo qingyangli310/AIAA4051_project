@@ -7,6 +7,7 @@
 - 最新集成文档说明：`docs/PROJECT6_INTEGRATION_REPORT.md`、`docs/PROJECT6_UNIFIED_GUIDE.md`。
 - C 的 `feature/c-repair-evaluation` (`6e3c5e9`) 和 `feature/c-repair-pipeline` (`e3927b6`) 已在集成分支的提交祖先中。
 - B 的 `feature/b-verifier` (`64c49da`) 没有合入该集成分支；其适配器和接口证据仍单独保留。仓库另有后续 `codex/verification-high-quality-v1` 与 `codex/final-pipeline-integration-v2` 分支，本实现不改写或推送到它们。
+- `codex/verification-high-quality-v1` 的 `eb2bec4` 是较新的 Verifier 侧修正（包括 token 上限和 JSONL 行尾规范），但它不是 `feature/b-verifier`，且不在本次指定基线上。`codex/final-pipeline-integration-v2` 的 `8fa7eda` 则已经有 Generator 模式的 `run_pipeline_comparison` / batch helper。本分支从指定的 integration commit 创建，因此加入同名对照入口并扩展 `candidate_source`。这两个分支均未被修改；若后续要把本分支合入 codex/final-pipeline 分支，需在 `src/pipeline.py` 合并两边实现，保留其已有 Repair prompt changes。
 
 ## 现有接口观察
 
