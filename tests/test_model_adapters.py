@@ -1,4 +1,5 @@
 from src.model_adapters import (
+    ConditionRoutingRepairer,
     Seq2SeqGeneratorAdapter,
     Seq2SeqRepairerAdapter,
     Seq2SeqVerifierAdapter,
@@ -85,4 +86,64 @@ def test_trace_repair_prompt_and_feedback() -> None:
         )
         assert result["parse_success"] is True
         assert result["repaired_plan"] == ["down", "right", "down", "right"]
+
+
+def test_feedback_localized_repair_prompt_exposes_only_authorized_localization() -> None:
+    prompts = []
+
+    def infer(prompt: str, limit: int) -> str:
+        prompts.append(prompt)
+        return "Trace: (0,0) down (1,0) right (1,1) down (2,1) right (2,2)"
+
+    adapter = Seq2SeqRepairerAdapter(
+        infer,
+        output_format="trace_only",
+        prompt_protocol="feedback_localized_v1",
+    )
+    adapter.repair(
+        environment_id=GRID["environment_id"],
+        grid=GRID,
+        candidate_plan=["down", "right", "right"],
+        feedback_source="executor_feedback",
+        verifier_feedback={
+            "valid": False,
+            "first_error_step": 2,
+            "reason": "obstacle_collision",
+        },
+    )
+    assert "Keep this valid prefix unchanged: down, right" in prompts[-1]
+    assert "Resume from last valid position: (1,1)" in prompts[-1]
+
+    adapter.repair(
+        environment_id=GRID["environment_id"],
+        grid=GRID,
+        candidate_plan=["down", "right", "right"],
+        feedback_source="no_feedback",
+        verifier_feedback=None,
+    )
+    assert "Repair localization" not in prompts[-1]
+    assert "obstacle_collision" not in prompts[-1]
+    assert "Resume from last valid position" not in prompts[-1]
+
+
+def test_condition_routing_repairer_uses_separate_no_feedback_model() -> None:
+    calls = []
+
+    class Repairer:
+        def __init__(self, name):
+            self.name = name
+
+        def repair(self, **request):
+            calls.append((self.name, request["feedback_source"]))
+            return {"repaired_plan": [], "parse_success": True}
+
+    router = ConditionRoutingRepairer(Repairer("baseline"), Repairer("feedback"))
+    router.repair(feedback_source="no_feedback")
+    router.repair(feedback_source="executor_feedback")
+    router.repair(feedback_source="self_feedback")
+    assert calls == [
+        ("baseline", "no_feedback"),
+        ("feedback", "executor_feedback"),
+        ("feedback", "self_feedback"),
+    ]
 

@@ -1,0 +1,46 @@
+{
+  "seed": 42,
+  "method": "feedback_localized_suffix_v1",
+  "output_format": "trace_only",
+  "prompt_protocol": "feedback_localized_v1",
+  "train_unique_candidates": 500,
+  "train_materialized_rows_total": 1000,
+  "dev_unique_candidates": 50,
+  "dev_materialized_views_total": 100,
+  "train_candidate_families": {
+    "generation_like_collision": 375,
+    "controlled_error": 125
+  },
+  "dev_candidate_families": {
+    "generation_like_collision": 25,
+    "controlled_error": 25
+  },
+  "train_unique_environments": 416,
+  "dev_unique_environments": 36,
+  "train_dev_environment_overlap": 0,
+  "views": {
+    "no_feedback": {
+      "train_rows": 500,
+      "dev_rows": 50,
+      "train_sha256": "2ef31acef6407779ab9a0348ab1816007ea5acca6bb771a1cd2dce6ebd39ac03",
+      "dev_sha256": "c5b6d1f0496a06ae700e3ff3f98fcd063d6aef7e3b6e3dfa1728f46b429bdd9e"
+    },
+    "executor_feedback": {
+      "train_rows": 500,
+      "dev_rows": 50,
+      "train_sha256": "62d9258f535c533a317bece798b31c7cd3e5d5d3dec916ed59850267eefa5f9c",
+      "dev_sha256": "82c53078a95b94780d635353e3079ca9acc8a87ea2024425cec2c18f1e4edd31"
+    }
+  },
+  "budget_interpretation": {
+    "repair_train_examples": 1000,
+    "repair_dev_unique_examples": 50,
+    "note": "Dev candidates are materialized under both conditions for a paired ablation; they remain the same 50 unique examples."
+  },
+  "data_policy": [
+    "Training candidates use frozen Train environments only.",
+    "Dev candidates use frozen Dev environments only.",
+    "No current Generator Dev failure or frozen Test row is used for training.",
+    "The no-feedback prompt contains no error step, reason, prefix, or resume position."
+  ]
+}

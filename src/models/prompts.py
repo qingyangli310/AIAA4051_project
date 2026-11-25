@@ -141,3 +141,76 @@ def format_repair_trace_prompt(prompt: str) -> str:
         "and its resulting coordinate. Use coordinates formatted (row,col). Stop at "
         "the goal.\nAnswer:"
     )
+
+
+def _position_after_prefix(
+    grid: dict[str, Any], candidate_plan: list[str], prefix_length: int
+) -> list[int]:
+    """Return the position after a known-valid candidate prefix."""
+    deltas = {
+        "up": (-1, 0),
+        "down": (1, 0),
+        "left": (0, -1),
+        "right": (0, 1),
+    }
+    row, col = grid["start"]
+    for action in candidate_plan[:prefix_length]:
+        if action not in deltas:
+            raise ValueError("valid repair prefix contains an invalid action token")
+        delta_row, delta_col = deltas[action]
+        row, col = row + delta_row, col + delta_col
+    return [row, col]
+
+
+def build_feedback_localized_repair_prompt(
+    grid: dict[str, Any],
+    candidate_plan: list[str],
+    feedback_source: str,
+    verifier_feedback: dict[str, Any] | None,
+) -> str:
+    """Build the feedback-aware suffix-repair prompt used by Repair v4.
+
+    The no-feedback view deliberately contains no derived error location.  A
+    feedback-enabled view states the valid prefix and resume position so the
+    model can preserve correct work and focus capacity on the failed suffix.
+    """
+    base = build_repair_prompt(
+        grid,
+        candidate_plan,
+        feedback_source,
+        verifier_feedback,
+    )
+    marker = "Output only the complete comma-separated repaired path using: "
+    if marker not in base:
+        raise ValueError("Repair prompt marker missing")
+    prefix = base.split(marker, 1)[0]
+
+    localization = ""
+    if feedback_source != "no_feedback":
+        if not isinstance(verifier_feedback, dict):
+            raise ValueError("feedback-localized repair requires verifier feedback")
+        error_step = verifier_feedback.get("first_error_step")
+        reason = verifier_feedback.get("reason")
+        if type(error_step) is not int or not 0 <= error_step <= len(candidate_plan):
+            raise ValueError("feedback error step must index the candidate or its end")
+        if not isinstance(reason, str) or not reason:
+            raise ValueError("feedback reason must be a non-empty string")
+        valid_prefix = candidate_plan[:error_step]
+        resume = _position_after_prefix(grid, candidate_plan, error_step)
+        prefix_text = ", ".join(valid_prefix) if valid_prefix else "<empty>"
+        localization = (
+            "Repair localization (authoritative):\n"
+            f"First invalid action index: {error_step}\n"
+            f"Failure reason: {reason}\n"
+            f"Keep this valid prefix unchanged: {prefix_text}\n"
+            f"Resume from last valid position: ({resume[0]},{resume[1]})\n"
+            "Replace the failed action and all later actions with a valid suffix.\n"
+        )
+
+    return (
+        prefix
+        + localization
+        + "Output exactly one Trace: line with the start coordinate, then each action "
+        "and its resulting coordinate. Use coordinates formatted (row,col). Stop at "
+        "the goal.\nAnswer:"
+    )

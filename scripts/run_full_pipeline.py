@@ -24,6 +24,7 @@ if str(ROOT) not in sys.path:
 from src.data.candidate_source import CONDITIONS, load_candidate_records
 from src.evaluation.metrics import evaluate_records
 from src.model_adapters import (
+    ConditionRoutingRepairer,
     Seq2SeqGeneratorAdapter,
     Seq2SeqRepairerAdapter,
     Seq2SeqVerifierAdapter,
@@ -168,6 +169,34 @@ def build_components(args: argparse.Namespace) -> tuple[Any, Any, Any, Any]:
         args.verifier_checkpoint, device=args.device
     )
     repair_runner = TransformersTextGenerator(args.repair_checkpoint, device=args.device)
+    no_feedback_repair_runner = (
+        TransformersTextGenerator(
+            args.no_feedback_repair_checkpoint, device=args.device
+        )
+        if args.no_feedback_repair_checkpoint is not None
+        else None
+    )
+    feedback_repairer = Seq2SeqRepairerAdapter(
+        repair_runner,
+        output_format=args.repair_output_format,
+        prompt_protocol=args.repair_prompt_protocol,
+        max_new_tokens=args.repair_max_new_tokens,
+        checkpoint_id=str(args.repair_checkpoint),
+    )
+    repairer = (
+        ConditionRoutingRepairer(
+            Seq2SeqRepairerAdapter(
+                no_feedback_repair_runner,
+                output_format=args.repair_output_format,
+                prompt_protocol=args.repair_prompt_protocol,
+                max_new_tokens=args.repair_max_new_tokens,
+                checkpoint_id=str(args.no_feedback_repair_checkpoint),
+            ),
+            feedback_repairer,
+        )
+        if no_feedback_repair_runner is not None
+        else feedback_repairer
+    )
     return (
         (
             Seq2SeqGeneratorAdapter(
@@ -184,12 +213,7 @@ def build_components(args: argparse.Namespace) -> tuple[Any, Any, Any, Any]:
             max_new_tokens=args.verifier_max_new_tokens,
             checkpoint_id=str(args.verifier_checkpoint),
         ),
-        Seq2SeqRepairerAdapter(
-            repair_runner,
-            output_format=args.repair_output_format,
-            max_new_tokens=args.repair_max_new_tokens,
-            checkpoint_id=str(args.repair_checkpoint),
-        ),
+        repairer,
         executor,
     )
 
@@ -231,10 +255,23 @@ def main() -> int:
     parser.add_argument("--verifier-checkpoint", type=Path)
     parser.add_argument("--repair-checkpoint", type=Path)
     parser.add_argument(
+        "--no-feedback-repair-checkpoint",
+        type=Path,
+        help=(
+            "optional matched baseline checkpoint used only by the no_feedback "
+            "condition; other conditions use --repair-checkpoint"
+        ),
+    )
+    parser.add_argument(
         "--generator-output-format", choices=("plan", "trace_only"), default="trace_only"
     )
     parser.add_argument(
         "--repair-output-format", choices=("plan", "trace_only"), default="trace_only"
+    )
+    parser.add_argument(
+        "--repair-prompt-protocol",
+        choices=("standard", "feedback_localized_v1"),
+        default="standard",
     )
     parser.add_argument("--generator-max-new-tokens", type=int, default=128)
     parser.add_argument("--verifier-max-new-tokens", type=int, default=128)
@@ -300,6 +337,11 @@ def main() -> int:
             "generator": str(args.generator_checkpoint) if args.generator_checkpoint else None,
             "verifier": str(args.verifier_checkpoint) if args.verifier_checkpoint else None,
             "repair": str(args.repair_checkpoint) if args.repair_checkpoint else None,
+            "repair_no_feedback": (
+                str(args.no_feedback_repair_checkpoint)
+                if args.no_feedback_repair_checkpoint
+                else None
+            ),
         },
         "decoding": {
             "do_sample": False,
@@ -307,6 +349,7 @@ def main() -> int:
             "generator_max_new_tokens": args.generator_max_new_tokens,
             "verifier_max_new_tokens": args.verifier_max_new_tokens,
             "repair_max_new_tokens": args.repair_max_new_tokens,
+            "repair_prompt_protocol": args.repair_prompt_protocol,
         },
         "elapsed_seconds": elapsed,
         "summary": summarize(records, conditions),

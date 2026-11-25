@@ -4,6 +4,7 @@ from scripts.build_generation_like_repair_data import (
     shortest_suffix,
     use_structured_feedback,
 )
+from scripts.build_feedback_localized_repair_data import controlled_candidates
 from src.executor.executor import execute_plan
 
 
@@ -60,3 +61,17 @@ def test_candidate_deduplication_ignores_distinct_source_metadata():
     distinct = {**candidate, "candidate_plan": ["right", "down"]}
     result = deduplicate_candidate_model_io([candidate, duplicate, distinct])
     assert result == [candidate, distinct]
+
+
+def test_controlled_candidate_target_preserves_prefix_and_repairs_suffix():
+    row = {
+        "base_sample_id": "controlled-base",
+        "environment_id": GRID["environment_id"],
+        "grid": GRID,
+        "candidate_plan": ["right", "down", "down"],
+        "corruption_type": "action_substitution",
+    }
+    [candidate] = controlled_candidates([row])
+    error_step = candidate["executor_label"]["first_error_step"]
+    assert candidate["target_plan"][:error_step] == row["candidate_plan"][:error_step]
+    assert execute_plan(GRID, candidate["target_plan"])["success"] is True

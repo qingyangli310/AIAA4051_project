@@ -14,6 +14,7 @@ from typing import Any
 from generation_trace_v9.state_format import build_trace_prompt
 from src.models.output_parser import parse_plan, parse_trace, parse_verification
 from src.models.prompts import (
+    build_feedback_localized_repair_prompt,
     build_generation_prompt,
     build_repair_prompt,
     build_verification_prompt,
@@ -143,11 +144,15 @@ class Seq2SeqRepairerAdapter:
         infer_text: InferText,
         *,
         output_format: str = "plan",
+        prompt_protocol: str = "standard",
         max_new_tokens: int = 128,
         checkpoint_id: str | None = None,
     ) -> None:
         self.infer_text = infer_text
         self.output_format = output_format
+        if prompt_protocol not in {"standard", "feedback_localized_v1"}:
+            raise ValueError(f"unsupported Repair prompt protocol: {prompt_protocol!r}")
+        self.prompt_protocol = prompt_protocol
         self.max_new_tokens = max_new_tokens
         self.checkpoint_id = checkpoint_id
 
@@ -160,13 +165,20 @@ class Seq2SeqRepairerAdapter:
         verifier_feedback: dict[str, Any] | None,
     ) -> dict[str, Any]:
         del environment_id
-        prompt = build_repair_prompt(
-            grid,
-            candidate_plan,
-            feedback_source,
-            verifier_feedback,
-        )
-        if self.output_format == "trace_only":
+        if self.prompt_protocol == "feedback_localized_v1":
+            if self.output_format != "trace_only":
+                raise ValueError("feedback_localized_v1 requires trace_only output")
+            prompt = build_feedback_localized_repair_prompt(
+                grid, candidate_plan, feedback_source, verifier_feedback
+            )
+        else:
+            prompt = build_repair_prompt(
+                grid,
+                candidate_plan,
+                feedback_source,
+                verifier_feedback,
+            )
+        if self.output_format == "trace_only" and self.prompt_protocol == "standard":
             prompt = format_repair_trace_prompt(prompt)
         raw_output = self.infer_text(prompt, self.max_new_tokens)
         parsed = _parse_path(raw_output, grid, self.output_format)
@@ -177,5 +189,23 @@ class Seq2SeqRepairerAdapter:
             "trace_positions": parsed.get("trace_positions"),
             "prompt": prompt,
             "output_format": self.output_format,
+            "prompt_protocol": self.prompt_protocol,
             "checkpoint": self.checkpoint_id,
         }
+
+
+class ConditionRoutingRepairer:
+    """Route the no-feedback baseline and feedback conditions to matched models."""
+
+    def __init__(self, no_feedback_repairer: Any, feedback_repairer: Any) -> None:
+        self.no_feedback_repairer = no_feedback_repairer
+        self.feedback_repairer = feedback_repairer
+
+    def repair(self, **request: Any) -> dict[str, Any]:
+        repairer = (
+            self.no_feedback_repairer
+            if request.get("feedback_source") == "no_feedback"
+            else self.feedback_repairer
+        )
+        result = repairer.repair(**request)
+        return {**result, "condition_routed": True}
