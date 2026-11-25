@@ -78,6 +78,37 @@ Direct Generation 只需要在 Held-out Test 网格运行一次。ID/OOD 的主�
 Verification 和 Repair 接收的单错误或双错误候选；不要把同一批 Direct 结果重复描述成
 两个独立实验。
 
+## 冻结 Candidate 输入模式
+
+正式 ID/OOD Verification 与 Repair 对照必须使用冻结数据中的候选，而不是重新调用
+Generator。运行器通过 `--candidate-source dataset` 明确启用该模式，并要求声明输入是
+单错误 ID 还是双错误 OOD。Loader 只向模型暴露 grid 和 candidate，reference plan 仅以
+长度标量参与最终 Optimality 评分。
+
+开发期可先用 Symbolic 组件检查数据流，不消耗语言模型推理：
+
+```bash
+python scripts/run_full_pipeline.py \
+  --data data/part1/repair_id_test.jsonl \
+  --output results/pipeline_dataset_candidate_smoke \
+  --split diagnostic \
+  --limit 10 \
+  --candidate-source dataset \
+  --candidate-condition id_single_error \
+  --conditions direct no_feedback self_feedback executor_feedback \
+    shuffled_executor_feedback \
+  --symbolic
+```
+
+锁定配置后的正式运行使用相同入口，并分别选择：
+
+- `--candidate-condition id_single_error` 与冻结 ID 文件；
+- `--candidate-condition ood_double_error` 与冻结 OOD 文件。
+
+Dataset 模式不会加载或调用 Generator checkpoint，但仍需要真实 Verifier、Repair 和
+canonical Executor。每条输出保存 `sample_id`、`base_sample_id`、candidate SHA-256 和
+全部条件结果，供 ID/OOD 配对审计。
+
 ## 尚需外部资源完成的事项
 
 - 项目经理确认 T5、Flan-T5 或 BART 中的最终 primary family；

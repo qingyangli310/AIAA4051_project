@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+from copy import deepcopy
+import hashlib
+import json
 from typing import Any
 
 from src.repair_schema import build_repair_request, validate_repair_output
@@ -15,33 +18,40 @@ def run_pipeline(
     executor: Any,
     *,
     feedback_source: str = "self_feedback",
+    candidate_source: str = "generator",
+    candidate_record: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Run one pipeline example and preserve every intermediate result."""
-    generation = generator.generate(grid)
-    candidate_plan = generation["plan"]
-    verification = verifier.verify(grid=grid, plan=candidate_plan)
+    generation, candidate_plan = _resolve_candidate(
+        grid,
+        generator,
+        candidate_source=candidate_source,
+        candidate_record=candidate_record,
+    )
+    verification = verifier.verify(grid=deepcopy(grid), plan=deepcopy(candidate_plan))
 
     repair = None
     if verification["valid"]:
         repaired_plan = candidate_plan
     else:
         repair_request = build_repair_request(
-            grid,
-            candidate_plan,
-            verification,
+            deepcopy(grid),
+            deepcopy(candidate_plan),
+            deepcopy(verification),
             feedback_source=feedback_source,
         )
         repair = repairer.repair(**repair_request)
         validate_repair_output(repair)
         repaired_plan = repair["repaired_plan"]
 
-    final_result = executor.execute(grid=grid, plan=repaired_plan)
+    final_result = executor.execute(grid=deepcopy(grid), plan=deepcopy(repaired_plan))
     return {
-        "environment_id": grid["environment_id"],
-        "grid": grid,
+        **_sample_metadata(candidate_record, grid),
+        "grid": deepcopy(grid),
         "feedback_source": feedback_source,
+        "candidate_source": candidate_source,
         "generation": generation,
-        "candidate_plan": candidate_plan,
+        "candidate_plan": deepcopy(candidate_plan),
         "verification": verification,
         "repair": repair,
         "repaired_plan": repaired_plan,
@@ -57,10 +67,21 @@ def run_pipeline_batch(
     executor: Any,
     *,
     feedback_source: str = "self_feedback",
+    candidate_source: str = "generator",
+    candidate_records: list[dict[str, Any]] | None = None,
 ) -> list[dict[str, Any]]:
     """Run a batch while preserving per-sample failures instead of aborting."""
+    if candidate_source == "dataset":
+        if candidate_records is None or len(candidate_records) != len(grids):
+            raise ValueError("dataset mode requires one candidate record per grid")
+    elif candidate_records is not None:
+        raise ValueError("candidate_records may only be supplied in dataset mode")
+
     records: list[dict[str, Any]] = []
-    for grid in grids:
+    for index, grid in enumerate(grids):
+        candidate_record = (
+            candidate_records[index] if candidate_records is not None else None
+        )
         try:
             result = run_pipeline(
                 grid,
@@ -69,14 +90,18 @@ def run_pipeline_batch(
                 repairer,
                 executor,
                 feedback_source=feedback_source,
+                candidate_source=candidate_source,
+                candidate_record=candidate_record,
             )
             records.append({"status": "ok", **result})
         except Exception as exc:  # The caller receives an auditable failure record.
             records.append(
                 {
                     "status": "error",
+                    **_sample_metadata(candidate_record, grid),
                     "environment_id": grid.get("environment_id"),
                     "feedback_source": feedback_source,
+                    "candidate_source": candidate_source,
                     "error_type": type(exc).__name__,
                     "error_message": str(exc),
                 }
@@ -160,6 +185,8 @@ def run_pipeline_comparison(
         "self_feedback",
         "executor_feedback",
     ),
+    candidate_source: str = "generator",
+    candidate_record: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Generate once and compare feedback conditions on the same candidate.
 
@@ -175,11 +202,15 @@ def run_pipeline_comparison(
     if len(set(conditions)) != len(conditions):
         raise ValueError("comparison conditions must be unique")
 
-    generation = generator.generate(grid)
-    candidate_plan = generation.get("plan")
-    if not isinstance(candidate_plan, list):
-        raise ValueError("generator output must contain plan as a list")
-    candidate_result = executor.execute(grid=grid, plan=candidate_plan)
+    generation, candidate_plan = _resolve_candidate(
+        grid,
+        generator,
+        candidate_source=candidate_source,
+        candidate_record=candidate_record,
+    )
+    candidate_result = executor.execute(
+        grid=deepcopy(grid), plan=deepcopy(candidate_plan)
+    )
     ground_truth_feedback = executor_feedback(candidate_result)
 
     branches: dict[str, Any] = {}
@@ -193,7 +224,9 @@ def run_pipeline_comparison(
             "routing_status": "direct_generation",
         }
     if "self_feedback" in conditions:
-        learned_feedback = verifier.verify(grid=grid, plan=candidate_plan)
+        learned_feedback = verifier.verify(
+            grid=deepcopy(grid), plan=deepcopy(candidate_plan)
+        )
         branches["self_feedback"] = _run_repair_branch(
             grid=grid,
             candidate_plan=candidate_plan,
@@ -222,10 +255,16 @@ def run_pipeline_comparison(
         )
 
     return {
-        "environment_id": grid["environment_id"],
-        "grid": grid,
+        **_sample_metadata(candidate_record, grid),
+        "candidate_source": candidate_source,
+        "grid": deepcopy(grid),
         "generation": generation,
-        "candidate_plan": candidate_plan,
+        "candidate_plan": deepcopy(candidate_plan),
+        "candidate_plan_sha256": hashlib.sha256(
+            json.dumps(
+                candidate_plan, ensure_ascii=False, separators=(",", ":")
+            ).encode("utf-8")
+        ).hexdigest(),
         "candidate_executor": candidate_result,
         "branches": branches,
     }
@@ -243,6 +282,7 @@ def run_pipeline_comparison_batch(
         "self_feedback",
         "executor_feedback",
     ),
+    candidate_source: str = "generator",
 ) -> list[dict[str, Any]]:
     """Run paired comparisons and isolate individual sample failures."""
     include_shuffled = "shuffled_executor_feedback" in conditions
@@ -260,6 +300,8 @@ def run_pipeline_comparison_batch(
                 repairer,
                 executor,
                 conditions=base_conditions,
+                candidate_source=candidate_source,
+                candidate_record=row if candidate_source == "dataset" else None,
             )
             records.append(
                 {
@@ -277,6 +319,7 @@ def run_pipeline_comparison_batch(
             records.append(
                 {
                     "status": "error",
+                    "candidate_source": candidate_source,
                     "base_sample_id": row.get("base_sample_id"),
                     "example_id": row.get("example_id", row.get("sample_id")),
                     "environment_id": grid.get("environment_id"),
@@ -338,6 +381,56 @@ def run_pipeline_comparison_batch(
             ) != (own_feedback.get("first_error_step"), own_feedback.get("reason"))
             record["branches"]["shuffled_executor_feedback"] = branch
     return records
+
+
+def _resolve_candidate(
+    grid: dict[str, Any],
+    generator: Any,
+    *,
+    candidate_source: str,
+    candidate_record: dict[str, Any] | None,
+) -> tuple[dict[str, Any] | None, list[str]]:
+    """Return one isolated candidate from Generator output or a frozen row."""
+    if candidate_source not in {"generator", "dataset"}:
+        raise ValueError("candidate_source must be 'generator' or 'dataset'")
+    if candidate_source == "generator":
+        if candidate_record is not None:
+            raise ValueError(
+                "candidate_record is only valid with candidate_source='dataset'"
+            )
+        if generator is None:
+            raise ValueError("generator is required in generator mode")
+        generation = generator.generate(deepcopy(grid))
+        candidate_plan = generation.get("plan")
+        if not isinstance(candidate_plan, list):
+            raise ValueError("generator output must contain plan as a list")
+        return generation, deepcopy(candidate_plan)
+
+    if not isinstance(candidate_record, dict):
+        raise ValueError("candidate_record is required in dataset mode")
+    candidate_plan = candidate_record.get("candidate_plan")
+    if candidate_plan is None:
+        candidate_plan = candidate_record.get("corrupted_plan")
+    if not isinstance(candidate_plan, list) or any(
+        not isinstance(action, str) for action in candidate_plan
+    ):
+        raise ValueError("dataset record requires candidate_plan or corrupted_plan")
+    return None, deepcopy(candidate_plan)
+
+
+def _sample_metadata(
+    record: dict[str, Any] | None, grid: dict[str, Any]
+) -> dict[str, Any]:
+    metadata = {"environment_id": grid.get("environment_id")}
+    if record is not None:
+        metadata.update(
+            sample_id=record.get("sample_id", record.get("example_id")),
+            base_sample_id=record.get("base_sample_id"),
+            environment_id=record.get(
+                "environment_id", grid.get("environment_id")
+            ),
+        )
+    return metadata
 
 
 def _row_optimal_length(row: dict[str, Any]) -> int | None:

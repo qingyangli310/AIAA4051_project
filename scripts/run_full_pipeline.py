@@ -21,6 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from src.data.candidate_source import CONDITIONS, load_candidate_records
 from src.evaluation.metrics import evaluate_records
 from src.model_adapters import (
     Seq2SeqGeneratorAdapter,
@@ -54,14 +55,17 @@ def metric_record(record: dict[str, Any], condition: str) -> dict[str, Any]:
     candidate = record["candidate_executor"]
     verification = branch["verification"]
     is_self_feedback = condition == "self_feedback"
+    candidate_parse_success = (
+        generation.get("parse_success") if isinstance(generation, dict) else True
+    )
     final_parse_success = (
         repair.get("parse_success")
         if isinstance(repair, dict)
-        else generation.get("parse_success")
+        else candidate_parse_success
     )
     return {
         "status": record["status"],
-        "candidate_parse_success": generation.get("parse_success"),
+        "candidate_parse_success": candidate_parse_success,
         "candidate_valid": candidate.get("success") is True,
         "repair_parse_success": (
             repair.get("parse_success") if isinstance(repair, dict) else None
@@ -143,32 +147,37 @@ def build_components(args: argparse.Namespace) -> tuple[Any, Any, Any, Any]:
     if args.symbolic:
         return BFSGenerator(), ExecutorVerifier(), BFSRepairer(), executor
 
+    required_checkpoints = ["verifier_checkpoint", "repair_checkpoint"]
+    if args.candidate_source == "generator":
+        required_checkpoints.append("generator_checkpoint")
     missing = [
         name
-        for name in (
-            "generator_checkpoint",
-            "verifier_checkpoint",
-            "repair_checkpoint",
-        )
+        for name in required_checkpoints
         if getattr(args, name) is None
     ]
     if missing:
         raise ValueError(
             "real-model mode requires checkpoints: " + ", ".join(sorted(missing))
         )
-    generator_runner = TransformersTextGenerator(
-        args.generator_checkpoint, device=args.device
+    generator_runner = (
+        TransformersTextGenerator(args.generator_checkpoint, device=args.device)
+        if args.candidate_source == "generator"
+        else None
     )
     verifier_runner = TransformersTextGenerator(
         args.verifier_checkpoint, device=args.device
     )
     repair_runner = TransformersTextGenerator(args.repair_checkpoint, device=args.device)
     return (
-        Seq2SeqGeneratorAdapter(
-            generator_runner,
-            output_format=args.generator_output_format,
-            max_new_tokens=args.generator_max_new_tokens,
-            checkpoint_id=str(args.generator_checkpoint),
+        (
+            Seq2SeqGeneratorAdapter(
+                generator_runner,
+                output_format=args.generator_output_format,
+                max_new_tokens=args.generator_max_new_tokens,
+                checkpoint_id=str(args.generator_checkpoint),
+            )
+            if generator_runner is not None
+            else None
         ),
         Seq2SeqVerifierAdapter(
             verifier_runner,
@@ -193,6 +202,17 @@ def main() -> int:
     parser.add_argument("--confirm-frozen-test", action="store_true")
     parser.add_argument("--protocol-config", type=Path)
     parser.add_argument("--limit", type=int)
+    parser.add_argument(
+        "--candidate-source",
+        choices=("generator", "dataset"),
+        default="generator",
+        help="Generate a candidate or read the frozen candidate from each data row.",
+    )
+    parser.add_argument(
+        "--candidate-condition",
+        choices=tuple(sorted(CONDITIONS)),
+        help="Required with --candidate-source dataset to validate ID/OOD rows.",
+    )
     parser.add_argument(
         "--conditions",
         nargs="+",
@@ -231,6 +251,10 @@ def main() -> int:
         raise FileExistsError(f"refusing to overwrite {args.output}")
     if args.limit is not None and args.limit < 1:
         raise ValueError("--limit must be positive")
+    if args.candidate_source == "dataset" and args.candidate_condition is None:
+        raise ValueError("dataset candidate mode requires --candidate-condition")
+    if args.candidate_source == "generator" and args.candidate_condition is not None:
+        raise ValueError("--candidate-condition requires --candidate-source dataset")
     conditions = tuple(args.conditions)
     protocol = None
     if args.protocol_config is not None:
@@ -238,9 +262,16 @@ def main() -> int:
             load_protocol(args.protocol_config),
             require_ready=args.split == "test",
         )
-    rows = read_jsonl(args.data)
-    if args.limit is not None:
-        rows = rows[: args.limit]
+    if args.candidate_source == "dataset":
+        rows = load_candidate_records(
+            args.data,
+            condition=args.candidate_condition,
+            limit=args.limit,
+        )
+    else:
+        rows = read_jsonl(args.data)
+        if args.limit is not None:
+            rows = rows[: args.limit]
 
     generator, verifier, repairer, executor = build_components(args)
     started = time.perf_counter()
@@ -251,6 +282,7 @@ def main() -> int:
         repairer,
         executor,
         conditions=conditions,
+        candidate_source=args.candidate_source,
     )
     elapsed = time.perf_counter() - started
     report = {
@@ -258,6 +290,8 @@ def main() -> int:
         "scope": args.split,
         "formal_test": args.split == "test",
         "symbolic_reference": args.symbolic,
+        "candidate_source": args.candidate_source,
+        "candidate_condition": args.candidate_condition,
         "data": str(args.data),
         "data_sha256": sha256(args.data),
         "conditions": list(conditions),
