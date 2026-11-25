@@ -1,5 +1,11 @@
 # Integrated Flan-T5-base pipeline Development result
 
+> **Superseded.** This run used integration prompts that did not match the
+> archived Generator v9 and Repair v2 training prompts. Use
+> `results/full_pipeline_dev_flan_v3_correct_prompts/` for the corrected
+> Development comparison. The files in this directory are retained only as an
+> audit record of the integration defect.
+
 This run combines the selected Flan-T5-base Generator v9, Verification trace
 v1, and Repair high-quality v2 checkpoints on the same 100 frozen Generation
 Development rows. The Generator runs once per grid and every condition reuses
