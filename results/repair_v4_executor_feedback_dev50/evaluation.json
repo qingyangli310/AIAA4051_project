@@ -1,0 +1,73 @@
+{
+  "task": "repair",
+  "checkpoint": "results/flan_repair_v4_executor_feedback/checkpoint-final",
+  "data": "data/repair_feedback_localized_v4/executor_feedback/repair_dev.jsonl",
+  "data_sha256": "82c53078a95b94780d635353e3079ca9acc8a87ea2024425cec2c18f1e4edd31",
+  "device": "cuda",
+  "examples": 50,
+  "inference_seconds": 23.790953788906336,
+  "repair_output_format": "plan",
+  "scoring": {
+    "task": "repair",
+    "examples": 50,
+    "parse_rate": 0.92,
+    "exact_match_rate": 0.42,
+    "unique_predictions": 49,
+    "most_common_predictions": [
+      [
+        "Trace: (5,2) down (4,2)",
+        2
+      ],
+      [
+        "Trace: (3,0) right (3,1) up (2,1) right (2,2) right (2,3) right (2,4)",
+        1
+      ],
+      [
+        "Trace: (3,4) down (4,4) down (5,4) left (5,3) left (5,2) left (5,1) left (5,0)",
+        1
+      ],
+      [
+        "Trace: (0,1) down (1,1) down (2,1)",
+        1
+      ],
+      [
+        "Trace: (5,4) left (5,3) left (5,2) left (5,1)",
+        1
+      ]
+    ],
+    "most_common_share": 0.04,
+    "metrics": {
+      "examples": 50,
+      "success_rate": 0.66,
+      "feasibility": 0.7,
+      "verification_macro_f1": null,
+      "first_error_accuracy": null,
+      "repair_success_rate": 0.66,
+      "end_to_end_success_rate": 0.66,
+      "mean_optimality": 0.9160894660894663,
+      "counts": {
+        "success": [
+          33,
+          50
+        ],
+        "feasible": [
+          35,
+          50
+        ],
+        "repair_success": [
+          33,
+          50
+        ],
+        "optimality_scored": 33,
+        "verification_scored": 0
+      }
+    }
+  },
+  "decoding": {
+    "do_sample": false,
+    "num_beams": 1,
+    "no_repeat_ngram_size": 0,
+    "early_stopping": false,
+    "max_new_tokens": 128
+  }
+}

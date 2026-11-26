@@ -7,6 +7,7 @@ from typing import Any, Sequence
 
 from src.evaluation.metrics import evaluate_records
 from src.executor.executor import execute_plan
+from src.part1.baselines import shortest_path
 from src.models.output_parser import parse_plan, parse_trace, parse_verification
 
 
@@ -52,7 +53,11 @@ def score_plan_task(
                 "final_parse_success": parsed["parse_success"],
                 "final_success": result["success"],
                 "final_reason": result.get("reason"),
-                "optimal_length": len(target_plan),
+                "optimal_length": (
+                    len(shortest_path(row["grid"]))
+                    if task == "repair"
+                    else len(target_plan)
+                ),
                 "predicted_length": predicted_length,
             }
         )
