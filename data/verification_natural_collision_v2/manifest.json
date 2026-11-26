@@ -1,0 +1,11 @@
+{
+  "seed": 42,
+  "train_count": 1000,
+  "dev_count": 50,
+  "natural_generator_train_collisions": 37,
+  "synthetic_collisions_replaced": 37,
+  "train_dev_environment_overlap": 0,
+  "train_sha256": "99cc87c2c24a0462a07c832914d93065402a86f15508cd89d3199824d0a70cb4",
+  "dev_sha256": "29411101876b3a257e3456aff393d14011bd6473132e2a70b2aa4dff0bbf2ecc",
+  "generator_predictions_sha256": "d70cceabd13f267fd0240ecc7ff8b06dde5179e32ee49b67d5bf5afa779a8939"
+}

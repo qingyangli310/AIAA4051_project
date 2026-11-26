@@ -1,0 +1,661 @@
+{
+  "status": "complete",
+  "scope": "test",
+  "formal_test": true,
+  "symbolic_reference": false,
+  "candidate_source": "dataset",
+  "candidate_condition": "id_single_error",
+  "data": "data/part1/repair_id_test.jsonl",
+  "data_sha256": "283bde1bc2cdb1005f32a1929607e1f7051ff56fc61e9d0dabeab0d26e6734c8",
+  "conditions": [
+    "direct",
+    "no_feedback",
+    "self_feedback",
+    "executor_feedback",
+    "shuffled_executor_feedback"
+  ],
+  "protocol": {
+    "protocol_id": "project6-final-pipeline-v4",
+    "status": "locked",
+    "primary_model_family": "google/flan-t5-base",
+    "training_examples": {
+      "generation": 2000,
+      "verification": 1000,
+      "repair": 1000
+    },
+    "training_total": 4000,
+    "dev_examples": {
+      "generation": 100,
+      "verification": 50,
+      "repair": 50
+    },
+    "dev_total": 200,
+    "test_examples": {
+      "id": 162,
+      "ood": 162
+    },
+    "epochs": {
+      "generation": 3,
+      "verification": 3,
+      "repair": 3
+    },
+    "task_model_families": {
+      "generation": "google/flan-t5-base",
+      "verification": "google/flan-t5-base",
+      "repair": "google/flan-t5-base"
+    },
+    "ready_for_formal_test": true
+  },
+  "checkpoints": {
+    "generator": null,
+    "verifier": "/data/liqingyang/project6_verify_20261123/outputs/verification_flan_t5_base_trace_v1/checkpoint-final",
+    "repair": "results/flan_repair_v4_executor_feedback/checkpoint-final",
+    "repair_no_feedback": "results/flan_repair_v4_no_feedback/checkpoint-final"
+  },
+  "decoding": {
+    "do_sample": false,
+    "num_beams": 1,
+    "generator_max_new_tokens": 128,
+    "verifier_max_new_tokens": 128,
+    "repair_max_new_tokens": 128,
+    "repair_prompt_protocol": "feedback_localized_v1"
+  },
+  "elapsed_seconds": 296.82547928765416,
+  "summary": {
+    "input_rows": 162,
+    "completed_rows": 162,
+    "error_rows": 0,
+    "conditions": {
+      "direct": {
+        "metrics": {
+          "examples": 162,
+          "success_rate": 0.0,
+          "feasibility": 0.7345679012345679,
+          "verification_macro_f1": null,
+          "first_error_accuracy": null,
+          "repair_success_rate": 0.0,
+          "end_to_end_success_rate": 0.0,
+          "mean_optimality": null,
+          "counts": {
+            "success": [
+              0,
+              162
+            ],
+            "feasible": [
+              119,
+              162
+            ],
+            "repair_success": [
+              0,
+              162
+            ],
+            "optimality_scored": 0,
+            "verification_scored": 0
+          }
+        },
+        "error_reason_accuracy": null,
+        "error_reason_counts": [
+          0,
+          0
+        ],
+        "candidate_reason_counts": {
+          "goal_not_reached": 119,
+          "obstacle_collision": 28,
+          "out_of_bounds": 15
+        },
+        "metrics_by_candidate_reason": {
+          "goal_not_reached": {
+            "examples": 119,
+            "success_rate": 0.0,
+            "feasibility": 1.0,
+            "verification_macro_f1": null,
+            "first_error_accuracy": null,
+            "repair_success_rate": 0.0,
+            "end_to_end_success_rate": 0.0,
+            "mean_optimality": null,
+            "counts": {
+              "success": [
+                0,
+                119
+              ],
+              "feasible": [
+                119,
+                119
+              ],
+              "repair_success": [
+                0,
+                119
+              ],
+              "optimality_scored": 0,
+              "verification_scored": 0
+            }
+          },
+          "obstacle_collision": {
+            "examples": 28,
+            "success_rate": 0.0,
+            "feasibility": 0.0,
+            "verification_macro_f1": null,
+            "first_error_accuracy": null,
+            "repair_success_rate": 0.0,
+            "end_to_end_success_rate": 0.0,
+            "mean_optimality": null,
+            "counts": {
+              "success": [
+                0,
+                28
+              ],
+              "feasible": [
+                0,
+                28
+              ],
+              "repair_success": [
+                0,
+                28
+              ],
+              "optimality_scored": 0,
+              "verification_scored": 0
+            }
+          },
+          "out_of_bounds": {
+            "examples": 15,
+            "success_rate": 0.0,
+            "feasibility": 0.0,
+            "verification_macro_f1": null,
+            "first_error_accuracy": null,
+            "repair_success_rate": 0.0,
+            "end_to_end_success_rate": 0.0,
+            "mean_optimality": null,
+            "counts": {
+              "success": [
+                0,
+                15
+              ],
+              "feasible": [
+                0,
+                15
+              ],
+              "repair_success": [
+                0,
+                15
+              ],
+              "optimality_scored": 0,
+              "verification_scored": 0
+            }
+          }
+        }
+      },
+      "no_feedback": {
+        "metrics": {
+          "examples": 162,
+          "success_rate": 0.6049382716049383,
+          "feasibility": 0.6851851851851852,
+          "verification_macro_f1": null,
+          "first_error_accuracy": null,
+          "repair_success_rate": 0.6049382716049383,
+          "end_to_end_success_rate": 0.6049382716049383,
+          "mean_optimality": 0.961345966958212,
+          "counts": {
+            "success": [
+              98,
+              162
+            ],
+            "feasible": [
+              111,
+              162
+            ],
+            "repair_success": [
+              98,
+              162
+            ],
+            "optimality_scored": 98,
+            "verification_scored": 0
+          }
+        },
+        "error_reason_accuracy": null,
+        "error_reason_counts": [
+          0,
+          0
+        ],
+        "candidate_reason_counts": {
+          "goal_not_reached": 119,
+          "obstacle_collision": 28,
+          "out_of_bounds": 15
+        },
+        "metrics_by_candidate_reason": {
+          "goal_not_reached": {
+            "examples": 119,
+            "success_rate": 0.6386554621848739,
+            "feasibility": 0.7394957983193278,
+            "verification_macro_f1": null,
+            "first_error_accuracy": null,
+            "repair_success_rate": 0.6386554621848739,
+            "end_to_end_success_rate": 0.6386554621848739,
+            "mean_optimality": 0.95015664160401,
+            "counts": {
+              "success": [
+                76,
+                119
+              ],
+              "feasible": [
+                88,
+                119
+              ],
+              "repair_success": [
+                76,
+                119
+              ],
+              "optimality_scored": 76,
+              "verification_scored": 0
+            }
+          },
+          "obstacle_collision": {
+            "examples": 28,
+            "success_rate": 0.39285714285714285,
+            "feasibility": 0.39285714285714285,
+            "verification_macro_f1": null,
+            "first_error_accuracy": null,
+            "repair_success_rate": 0.39285714285714285,
+            "end_to_end_success_rate": 0.39285714285714285,
+            "mean_optimality": 1.0,
+            "counts": {
+              "success": [
+                11,
+                28
+              ],
+              "feasible": [
+                11,
+                28
+              ],
+              "repair_success": [
+                11,
+                28
+              ],
+              "optimality_scored": 11,
+              "verification_scored": 0
+            }
+          },
+          "out_of_bounds": {
+            "examples": 15,
+            "success_rate": 0.7333333333333333,
+            "feasibility": 0.8,
+            "verification_macro_f1": null,
+            "first_error_accuracy": null,
+            "repair_success_rate": 0.7333333333333333,
+            "end_to_end_success_rate": 0.7333333333333333,
+            "mean_optimality": 1.0,
+            "counts": {
+              "success": [
+                11,
+                15
+              ],
+              "feasible": [
+                12,
+                15
+              ],
+              "repair_success": [
+                11,
+                15
+              ],
+              "optimality_scored": 11,
+              "verification_scored": 0
+            }
+          }
+        }
+      },
+      "self_feedback": {
+        "metrics": {
+          "examples": 162,
+          "success_rate": 0.2962962962962963,
+          "feasibility": 0.6481481481481481,
+          "verification_macro_f1": 0.352,
+          "first_error_accuracy": 0.43209876543209874,
+          "repair_success_rate": 0.2962962962962963,
+          "end_to_end_success_rate": 0.2962962962962963,
+          "mean_optimality": 0.8731150793650793,
+          "counts": {
+            "success": [
+              48,
+              162
+            ],
+            "feasible": [
+              105,
+              162
+            ],
+            "repair_success": [
+              48,
+              162
+            ],
+            "optimality_scored": 48,
+            "verification_scored": 162
+          }
+        },
+        "error_reason_accuracy": 0.4382716049382716,
+        "error_reason_counts": [
+          71,
+          162
+        ],
+        "candidate_reason_counts": {
+          "goal_not_reached": 119,
+          "obstacle_collision": 28,
+          "out_of_bounds": 15
+        },
+        "metrics_by_candidate_reason": {
+          "goal_not_reached": {
+            "examples": 119,
+            "success_rate": 0.35294117647058826,
+            "feasibility": 0.8319327731092437,
+            "verification_macro_f1": 0.3602150537634409,
+            "first_error_accuracy": 0.5210084033613446,
+            "repair_success_rate": 0.35294117647058826,
+            "end_to_end_success_rate": 0.35294117647058826,
+            "mean_optimality": 0.8549886621315191,
+            "counts": {
+              "success": [
+                42,
+                119
+              ],
+              "feasible": [
+                99,
+                119
+              ],
+              "repair_success": [
+                42,
+                119
+              ],
+              "optimality_scored": 42,
+              "verification_scored": 119
+            }
+          },
+          "obstacle_collision": {
+            "examples": 28,
+            "success_rate": 0.03571428571428571,
+            "feasibility": 0.03571428571428571,
+            "verification_macro_f1": 0.3,
+            "first_error_accuracy": 0.0,
+            "repair_success_rate": 0.03571428571428571,
+            "end_to_end_success_rate": 0.03571428571428571,
+            "mean_optimality": 1.0,
+            "counts": {
+              "success": [
+                1,
+                28
+              ],
+              "feasible": [
+                1,
+                28
+              ],
+              "repair_success": [
+                1,
+                28
+              ],
+              "optimality_scored": 1,
+              "verification_scored": 28
+            }
+          },
+          "out_of_bounds": {
+            "examples": 15,
+            "success_rate": 0.3333333333333333,
+            "feasibility": 0.3333333333333333,
+            "verification_macro_f1": 0.375,
+            "first_error_accuracy": 0.5333333333333333,
+            "repair_success_rate": 0.3333333333333333,
+            "end_to_end_success_rate": 0.3333333333333333,
+            "mean_optimality": 1.0,
+            "counts": {
+              "success": [
+                5,
+                15
+              ],
+              "feasible": [
+                5,
+                15
+              ],
+              "repair_success": [
+                5,
+                15
+              ],
+              "optimality_scored": 5,
+              "verification_scored": 15
+            }
+          }
+        }
+      },
+      "executor_feedback": {
+        "metrics": {
+          "examples": 162,
+          "success_rate": 0.5493827160493827,
+          "feasibility": 0.6049382716049383,
+          "verification_macro_f1": null,
+          "first_error_accuracy": null,
+          "repair_success_rate": 0.5493827160493827,
+          "end_to_end_success_rate": 0.5493827160493827,
+          "mean_optimality": 0.8616550740146246,
+          "counts": {
+            "success": [
+              89,
+              162
+            ],
+            "feasible": [
+              98,
+              162
+            ],
+            "repair_success": [
+              89,
+              162
+            ],
+            "optimality_scored": 89,
+            "verification_scored": 0
+          }
+        },
+        "error_reason_accuracy": null,
+        "error_reason_counts": [
+          0,
+          0
+        ],
+        "candidate_reason_counts": {
+          "goal_not_reached": 119,
+          "obstacle_collision": 28,
+          "out_of_bounds": 15
+        },
+        "metrics_by_candidate_reason": {
+          "goal_not_reached": {
+            "examples": 119,
+            "success_rate": 0.6386554621848739,
+            "feasibility": 0.7058823529411765,
+            "verification_macro_f1": null,
+            "first_error_accuracy": null,
+            "repair_success_rate": 0.6386554621848739,
+            "end_to_end_success_rate": 0.6386554621848739,
+            "mean_optimality": 0.8550125313283211,
+            "counts": {
+              "success": [
+                76,
+                119
+              ],
+              "feasible": [
+                84,
+                119
+              ],
+              "repair_success": [
+                76,
+                119
+              ],
+              "optimality_scored": 76,
+              "verification_scored": 0
+            }
+          },
+          "obstacle_collision": {
+            "examples": 28,
+            "success_rate": 0.17857142857142858,
+            "feasibility": 0.21428571428571427,
+            "verification_macro_f1": null,
+            "first_error_accuracy": null,
+            "repair_success_rate": 0.17857142857142858,
+            "end_to_end_success_rate": 0.17857142857142858,
+            "mean_optimality": 0.8412698412698413,
+            "counts": {
+              "success": [
+                5,
+                28
+              ],
+              "feasible": [
+                6,
+                28
+              ],
+              "repair_success": [
+                5,
+                28
+              ],
+              "optimality_scored": 5,
+              "verification_scored": 0
+            }
+          },
+          "out_of_bounds": {
+            "examples": 15,
+            "success_rate": 0.5333333333333333,
+            "feasibility": 0.5333333333333333,
+            "verification_macro_f1": null,
+            "first_error_accuracy": null,
+            "repair_success_rate": 0.5333333333333333,
+            "end_to_end_success_rate": 0.5333333333333333,
+            "mean_optimality": 0.9375,
+            "counts": {
+              "success": [
+                8,
+                15
+              ],
+              "feasible": [
+                8,
+                15
+              ],
+              "repair_success": [
+                8,
+                15
+              ],
+              "optimality_scored": 8,
+              "verification_scored": 0
+            }
+          }
+        }
+      },
+      "shuffled_executor_feedback": {
+        "metrics": {
+          "examples": 162,
+          "success_rate": 0.5432098765432098,
+          "feasibility": 0.5925925925925926,
+          "verification_macro_f1": null,
+          "first_error_accuracy": null,
+          "repair_success_rate": 0.5432098765432098,
+          "end_to_end_success_rate": 0.5432098765432098,
+          "mean_optimality": 0.9156114718614717,
+          "counts": {
+            "success": [
+              88,
+              162
+            ],
+            "feasible": [
+              96,
+              162
+            ],
+            "repair_success": [
+              88,
+              162
+            ],
+            "optimality_scored": 88,
+            "verification_scored": 0
+          }
+        },
+        "error_reason_accuracy": null,
+        "error_reason_counts": [
+          0,
+          0
+        ],
+        "candidate_reason_counts": {
+          "goal_not_reached": 119,
+          "obstacle_collision": 28,
+          "out_of_bounds": 15
+        },
+        "metrics_by_candidate_reason": {
+          "goal_not_reached": {
+            "examples": 119,
+            "success_rate": 0.6302521008403361,
+            "feasibility": 0.6974789915966386,
+            "verification_macro_f1": null,
+            "first_error_accuracy": null,
+            "repair_success_rate": 0.6302521008403361,
+            "end_to_end_success_rate": 0.6302521008403361,
+            "mean_optimality": 0.9009841269841271,
+            "counts": {
+              "success": [
+                75,
+                119
+              ],
+              "feasible": [
+                83,
+                119
+              ],
+              "repair_success": [
+                75,
+                119
+              ],
+              "optimality_scored": 75,
+              "verification_scored": 0
+            }
+          },
+          "obstacle_collision": {
+            "examples": 28,
+            "success_rate": 0.21428571428571427,
+            "feasibility": 0.21428571428571427,
+            "verification_macro_f1": null,
+            "first_error_accuracy": null,
+            "repair_success_rate": 0.21428571428571427,
+            "end_to_end_success_rate": 0.21428571428571427,
+            "mean_optimality": 1.0,
+            "counts": {
+              "success": [
+                6,
+                28
+              ],
+              "feasible": [
+                6,
+                28
+              ],
+              "repair_success": [
+                6,
+                28
+              ],
+              "optimality_scored": 6,
+              "verification_scored": 0
+            }
+          },
+          "out_of_bounds": {
+            "examples": 15,
+            "success_rate": 0.4666666666666667,
+            "feasibility": 0.4666666666666667,
+            "verification_macro_f1": null,
+            "first_error_accuracy": null,
+            "repair_success_rate": 0.4666666666666667,
+            "end_to_end_success_rate": 0.4666666666666667,
+            "mean_optimality": 1.0,
+            "counts": {
+              "success": [
+                7,
+                15
+              ],
+              "feasible": [
+                7,
+                15
+              ],
+              "repair_success": [
+                7,
+                15
+              ],
+              "optimality_scored": 7,
+              "verification_scored": 0
+            }
+          }
+        }
+      }
+    }
+  }
+}

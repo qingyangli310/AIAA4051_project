@@ -1,0 +1,391 @@
+{
+  "status": "complete",
+  "scope": "test",
+  "formal_test": true,
+  "symbolic_reference": false,
+  "candidate_source": "dataset",
+  "candidate_condition": "ood_double_error",
+  "data": "data/part1/repair_ood_test.jsonl",
+  "data_sha256": "3c44fc60da1c8fae58294e958d5dcb1abde81a307196d9dae537720ab38d068d",
+  "conditions": [
+    "direct",
+    "no_feedback",
+    "self_feedback",
+    "executor_feedback",
+    "shuffled_executor_feedback"
+  ],
+  "protocol": {
+    "protocol_id": "project6-final-pipeline-v4",
+    "status": "locked",
+    "primary_model_family": "google/flan-t5-base",
+    "training_examples": {
+      "generation": 2000,
+      "verification": 1000,
+      "repair": 1000
+    },
+    "training_total": 4000,
+    "dev_examples": {
+      "generation": 100,
+      "verification": 50,
+      "repair": 50
+    },
+    "dev_total": 200,
+    "test_examples": {
+      "id": 162,
+      "ood": 162
+    },
+    "epochs": {
+      "generation": 3,
+      "verification": 3,
+      "repair": 3
+    },
+    "task_model_families": {
+      "generation": "google/flan-t5-base",
+      "verification": "google/flan-t5-base",
+      "repair": "google/flan-t5-base"
+    },
+    "ready_for_formal_test": true
+  },
+  "checkpoints": {
+    "generator": null,
+    "verifier": "/data/liqingyang/project6_verify_20261123/outputs/verification_flan_t5_base_trace_v1/checkpoint-final",
+    "repair": "results/flan_repair_v4_executor_feedback/checkpoint-final",
+    "repair_no_feedback": "results/flan_repair_v4_no_feedback/checkpoint-final"
+  },
+  "decoding": {
+    "do_sample": false,
+    "num_beams": 1,
+    "generator_max_new_tokens": 128,
+    "verifier_max_new_tokens": 128,
+    "repair_max_new_tokens": 128,
+    "repair_prompt_protocol": "feedback_localized_v1"
+  },
+  "elapsed_seconds": 311.316302344203,
+  "summary": {
+    "input_rows": 162,
+    "completed_rows": 162,
+    "error_rows": 0,
+    "conditions": {
+      "direct": {
+        "metrics": {
+          "examples": 162,
+          "success_rate": 0.0,
+          "feasibility": 1.0,
+          "verification_macro_f1": null,
+          "first_error_accuracy": null,
+          "repair_success_rate": 0.0,
+          "end_to_end_success_rate": 0.0,
+          "mean_optimality": null,
+          "counts": {
+            "success": [
+              0,
+              162
+            ],
+            "feasible": [
+              162,
+              162
+            ],
+            "repair_success": [
+              0,
+              162
+            ],
+            "optimality_scored": 0,
+            "verification_scored": 0
+          }
+        },
+        "error_reason_accuracy": null,
+        "error_reason_counts": [
+          0,
+          0
+        ],
+        "candidate_reason_counts": {
+          "goal_not_reached": 162
+        },
+        "metrics_by_candidate_reason": {
+          "goal_not_reached": {
+            "examples": 162,
+            "success_rate": 0.0,
+            "feasibility": 1.0,
+            "verification_macro_f1": null,
+            "first_error_accuracy": null,
+            "repair_success_rate": 0.0,
+            "end_to_end_success_rate": 0.0,
+            "mean_optimality": null,
+            "counts": {
+              "success": [
+                0,
+                162
+              ],
+              "feasible": [
+                162,
+                162
+              ],
+              "repair_success": [
+                0,
+                162
+              ],
+              "optimality_scored": 0,
+              "verification_scored": 0
+            }
+          }
+        }
+      },
+      "no_feedback": {
+        "metrics": {
+          "examples": 162,
+          "success_rate": 0.5185185185185185,
+          "feasibility": 0.654320987654321,
+          "verification_macro_f1": null,
+          "first_error_accuracy": null,
+          "repair_success_rate": 0.5185185185185185,
+          "end_to_end_success_rate": 0.5185185185185185,
+          "mean_optimality": 0.9371882086167802,
+          "counts": {
+            "success": [
+              84,
+              162
+            ],
+            "feasible": [
+              106,
+              162
+            ],
+            "repair_success": [
+              84,
+              162
+            ],
+            "optimality_scored": 84,
+            "verification_scored": 0
+          }
+        },
+        "error_reason_accuracy": null,
+        "error_reason_counts": [
+          0,
+          0
+        ],
+        "candidate_reason_counts": {
+          "goal_not_reached": 162
+        },
+        "metrics_by_candidate_reason": {
+          "goal_not_reached": {
+            "examples": 162,
+            "success_rate": 0.5185185185185185,
+            "feasibility": 0.654320987654321,
+            "verification_macro_f1": null,
+            "first_error_accuracy": null,
+            "repair_success_rate": 0.5185185185185185,
+            "end_to_end_success_rate": 0.5185185185185185,
+            "mean_optimality": 0.9371882086167802,
+            "counts": {
+              "success": [
+                84,
+                162
+              ],
+              "feasible": [
+                106,
+                162
+              ],
+              "repair_success": [
+                84,
+                162
+              ],
+              "optimality_scored": 84,
+              "verification_scored": 0
+            }
+          }
+        }
+      },
+      "self_feedback": {
+        "metrics": {
+          "examples": 162,
+          "success_rate": 0.16666666666666666,
+          "feasibility": 0.7345679012345679,
+          "verification_macro_f1": 0.3305785123966942,
+          "first_error_accuracy": 0.3765432098765432,
+          "repair_success_rate": 0.16666666666666666,
+          "end_to_end_success_rate": 0.16666666666666666,
+          "mean_optimality": 0.7498236331569665,
+          "counts": {
+            "success": [
+              27,
+              162
+            ],
+            "feasible": [
+              119,
+              162
+            ],
+            "repair_success": [
+              27,
+              162
+            ],
+            "optimality_scored": 27,
+            "verification_scored": 162
+          }
+        },
+        "error_reason_accuracy": 0.3765432098765432,
+        "error_reason_counts": [
+          61,
+          162
+        ],
+        "candidate_reason_counts": {
+          "goal_not_reached": 162
+        },
+        "metrics_by_candidate_reason": {
+          "goal_not_reached": {
+            "examples": 162,
+            "success_rate": 0.16666666666666666,
+            "feasibility": 0.7345679012345679,
+            "verification_macro_f1": 0.3305785123966942,
+            "first_error_accuracy": 0.3765432098765432,
+            "repair_success_rate": 0.16666666666666666,
+            "end_to_end_success_rate": 0.16666666666666666,
+            "mean_optimality": 0.7498236331569665,
+            "counts": {
+              "success": [
+                27,
+                162
+              ],
+              "feasible": [
+                119,
+                162
+              ],
+              "repair_success": [
+                27,
+                162
+              ],
+              "optimality_scored": 27,
+              "verification_scored": 162
+            }
+          }
+        }
+      },
+      "executor_feedback": {
+        "metrics": {
+          "examples": 162,
+          "success_rate": 0.345679012345679,
+          "feasibility": 0.4382716049382716,
+          "verification_macro_f1": null,
+          "first_error_accuracy": null,
+          "repair_success_rate": 0.345679012345679,
+          "end_to_end_success_rate": 0.345679012345679,
+          "mean_optimality": 0.7745464852607711,
+          "counts": {
+            "success": [
+              56,
+              162
+            ],
+            "feasible": [
+              71,
+              162
+            ],
+            "repair_success": [
+              56,
+              162
+            ],
+            "optimality_scored": 56,
+            "verification_scored": 0
+          }
+        },
+        "error_reason_accuracy": null,
+        "error_reason_counts": [
+          0,
+          0
+        ],
+        "candidate_reason_counts": {
+          "goal_not_reached": 162
+        },
+        "metrics_by_candidate_reason": {
+          "goal_not_reached": {
+            "examples": 162,
+            "success_rate": 0.345679012345679,
+            "feasibility": 0.4382716049382716,
+            "verification_macro_f1": null,
+            "first_error_accuracy": null,
+            "repair_success_rate": 0.345679012345679,
+            "end_to_end_success_rate": 0.345679012345679,
+            "mean_optimality": 0.7745464852607711,
+            "counts": {
+              "success": [
+                56,
+                162
+              ],
+              "feasible": [
+                71,
+                162
+              ],
+              "repair_success": [
+                56,
+                162
+              ],
+              "optimality_scored": 56,
+              "verification_scored": 0
+            }
+          }
+        }
+      },
+      "shuffled_executor_feedback": {
+        "metrics": {
+          "examples": 162,
+          "success_rate": 0.345679012345679,
+          "feasibility": 0.4382716049382716,
+          "verification_macro_f1": null,
+          "first_error_accuracy": null,
+          "repair_success_rate": 0.345679012345679,
+          "end_to_end_success_rate": 0.345679012345679,
+          "mean_optimality": 0.7745464852607711,
+          "counts": {
+            "success": [
+              56,
+              162
+            ],
+            "feasible": [
+              71,
+              162
+            ],
+            "repair_success": [
+              56,
+              162
+            ],
+            "optimality_scored": 56,
+            "verification_scored": 0
+          }
+        },
+        "error_reason_accuracy": null,
+        "error_reason_counts": [
+          0,
+          0
+        ],
+        "candidate_reason_counts": {
+          "goal_not_reached": 162
+        },
+        "metrics_by_candidate_reason": {
+          "goal_not_reached": {
+            "examples": 162,
+            "success_rate": 0.345679012345679,
+            "feasibility": 0.4382716049382716,
+            "verification_macro_f1": null,
+            "first_error_accuracy": null,
+            "repair_success_rate": 0.345679012345679,
+            "end_to_end_success_rate": 0.345679012345679,
+            "mean_optimality": 0.7745464852607711,
+            "counts": {
+              "success": [
+                56,
+                162
+              ],
+              "feasible": [
+                71,
+                162
+              ],
+              "repair_success": [
+                56,
+                162
+              ],
+              "optimality_scored": 56,
+              "verification_scored": 0
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,72 @@
+protocol_id: project6-final-pipeline-v4
+status: locked
+
+primary_model:
+  family: google/flan-t5-base
+  selection_evidence:
+    - results/full_pipeline_dev_flan_v4_matched_baseline/report.json
+    - results/full_pipeline_dev_flan_v4_natural_verifier/report.json
+
+training_examples:
+  generation: 2000
+  verification: 1000
+  repair: 1000
+
+dev_examples:
+  generation: 100
+  verification: 50
+  repair: 50
+
+test_examples:
+  id: 162
+  ood: 162
+
+epochs:
+  generation: 3
+  verification: 3
+  repair: 3
+
+task_models:
+  generation:
+    base_model_family: google/flan-t5-base
+    checkpoint: /data/liqingyang/project6_verify_20261123/artifacts/generation_trace_v9/checkpoint-final
+    checkpoint_sha256: bbf45876009d69b0907a36066ae55404496f34455175f18c3ae934df49aafaf9
+    revision: 7bcac572ce56db69c1ea7c8af255c5d7c9672fc2
+  verification:
+    base_model_family: google/flan-t5-base
+    checkpoint: /data/liqingyang/project6_verify_20261123/outputs/verification_flan_t5_base_trace_v1/checkpoint-final
+    checkpoint_sha256: c125484941f4744540cfd250ade8ca1d921f0efb8d6a88fa22a03cc083a474f1
+    revision: 7bcac572ce56db69c1ea7c8af255c5d7c9672fc2
+  repair:
+    base_model_family: google/flan-t5-base
+    checkpoint: /data/liqingyang/project6_repair_v4_20261126/results/flan_repair_v4_executor_feedback/checkpoint-final
+    checkpoint_sha256: 827e8233061be5fb087431fcf2b90642244710be3f0b96a3ad65f4339a8557c3
+    revision: 7bcac572ce56db69c1ea7c8af255c5d7c9672fc2
+  repair_no_feedback:
+    base_model_family: google/flan-t5-base
+    checkpoint: /data/liqingyang/project6_repair_v4_20261126/results/flan_repair_v4_no_feedback/checkpoint-final
+    checkpoint_sha256: fc43ee9d18fb9e63c7874c1f7dbb29f7a2ae2b8a7bff7816af4c015954f48d46
+    revision: 7bcac572ce56db69c1ea7c8af255c5d7c9672fc2
+
+decoding:
+  do_sample: false
+  num_beams: 1
+  generator_max_new_tokens: 128
+  verifier_max_new_tokens: 128
+  repair_max_new_tokens: 128
+  repair_prompt_protocol: feedback_localized_v1
+
+data:
+  freeze_id: project6-6x6-seed42-20261116
+  seed: 42
+  environment_split: train_dev_heldout_test
+  id_ood_share_heldout_environments: true
+  pairing_key: base_sample_id
+  generation_train: artifacts/generation_trace_v9/data/transformed_train.jsonl
+  generation_dev: artifacts/generation_trace_v9/data/transformed_dev.jsonl
+  verification_train: data/verification_trace_v1/verification_train.jsonl
+  verification_dev: data/verification_trace_v1/verification_dev.jsonl
+  repair_train: data/repair_feedback_localized_v4
+  repair_dev: data/repair_feedback_localized_v4
+  repair_id_test: data/part1/repair_id_test.jsonl
+  repair_ood_test: data/part1/repair_ood_test.jsonl
