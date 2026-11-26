@@ -12,6 +12,7 @@
 | 三模型 Dev 联调 | Flan-T5-base matched-prompt v3 | [结果](../results/full_pipeline_dev_flan_v3_correct_prompts/README.md)。修复 Generator 与 Repair 的 train-inference prompt mismatch 后，100/100 行完成、0 异常；Direct 66%，no-feedback 67%，self-feedback 66%，executor-feedback 67%，shuffled-feedback 67%。三种 Repair 条件在全部 34 个失败候选上输出完全相同，仍不支持 feedback-content improvement。v2 结果已标记为 superseded。 |
 | Repair 改进方法 | feedback-localized suffix v4 | [运行说明](REPAIR_V4_RUNBOOK.md)。已完成合规数据与 pipeline 支持：1,000 Train 视图、50 个唯一 Dev 候选、Train/Dev 环境零重叠；已训练 executor-feedback checkpoint，独立 no-feedback baseline 尚待训练。 |
 | 三模型 Dev 联调 | Flan-T5-base Repair v4 | [完整结果](../results/full_pipeline_dev_flan_v4_executor_feedback/README.md)。与 v3 相同 Dev100 输入和 Generator/Verifier：Direct 66%，no-feedback 70%，self-feedback 66%，executor-feedback 78%，shuffled-feedback 71%；100/100 完成、0 异常。当前仅训练 executor-feedback v4 checkpoint；no-feedback 分支使用该模型隐藏反馈，独立 baseline 待训练。 |
+| 三模型 Dev 联调 | Repair v4 matched baseline | [配对结果](../results/full_pipeline_dev_flan_v4_matched_baseline/README.md)。独立 no-feedback checkpoint 已按相同 500 样本、3 epochs 训练；同批 Dev100：Direct 66%，no-feedback 68%，self-feedback 66%，executor-feedback 78%，shuffled-feedback 71%；100/100 完成、0 异常。此结果取代上行的 70% 作为独立模型对照。 |
 | 联调 Pilot | C `6e3c5e9` | [40 ID × 三种条件](MEMBER_C_20261115_16_HANDOFF.md)。使用真实 Executor 与 Mock 模型。 |
 | 历史联调 | B `64c49da` | [Day 13](member_b_day13_delivery.md)。8 条往返样例和历史日志，由原分支复现。 |
 | 历史 Pilot | A legacy A-4 / Nov14 | `data/samples/legacy_a4_pilot/` 和 `data/samples/nov14_pilot/`。用途和限制见对应 manifest 与交接。 |

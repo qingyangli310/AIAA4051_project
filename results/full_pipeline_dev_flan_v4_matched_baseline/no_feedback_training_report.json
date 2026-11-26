@@ -1,0 +1,130 @@
+{
+  "formal_part1_run": true,
+  "diagnostic_overfit_probe": false,
+  "experiment_label": "repair_v4_no_feedback",
+  "task": "repair",
+  "model_key": "flan-t5-base",
+  "model_name": "google/flan-t5-base",
+  "model_revision": "7bcac572ce56db69c1ea7c8af255c5d7c9672fc2",
+  "model_load_source": "/data/liqingyang/hf_cache_project6/hub/models--google--flan-t5-base/snapshots/7bcac572ce56db69c1ea7c8af255c5d7c9672fc2",
+  "model_load_dtype": "float32",
+  "base_model_weights_sha256": "1dfb70afdcedceb9f9fae2f9b68e004ad934361fb35b9b2bd50b45ea90790fc8",
+  "checkpoint": "results/flan_repair_v4_no_feedback/checkpoint-final",
+  "seed": 42,
+  "train_count": 500,
+  "dev_count": 50,
+  "epochs": 3,
+  "completed_steps": 375,
+  "learning_rate": 0.0002,
+  "batch_size": 4,
+  "gradient_accumulation": 1,
+  "gradient_checkpointing": false,
+  "optimizer": "adamw_torch",
+  "device": "cuda",
+  "bf16": true,
+  "train_seconds": 52.83101018704474,
+  "train_sha256": "2ef31acef6407779ab9a0348ab1816007ea5acca6bb771a1cd2dce6ebd39ac03",
+  "dev_sha256": "c5b6d1f0496a06ae700e3ff3f98fcd063d6aef7e3b6e3dfa1728f46b429bdd9e",
+  "train_lengths": {
+    "max_input_tokens": 278,
+    "max_target_tokens": 70
+  },
+  "dev_lengths": {
+    "max_input_tokens": 276,
+    "max_target_tokens": 55
+  },
+  "parameter_signature_before": {
+    "parameter": "shared.weight",
+    "sum": 440601.75,
+    "norm": 54485.609375
+  },
+  "parameter_signature_after": {
+    "parameter": "shared.weight",
+    "sum": 440268.25,
+    "norm": 54513.734375
+  },
+  "train_metrics": {
+    "train_runtime": 52.6589,
+    "train_samples_per_second": 28.485,
+    "train_steps_per_second": 7.121,
+    "total_flos": 538593755701248.0,
+    "train_loss": 0.3107345103621483,
+    "epoch": 3.0
+  },
+  "dev_metrics": {
+    "eval_loss": 0.13740520179271698,
+    "eval_runtime": 0.4099,
+    "eval_samples_per_second": 121.99,
+    "eval_steps_per_second": 31.717,
+    "epoch": 3.0
+  },
+  "conditioning_probe": {
+    "matched_loss": 0.13814304724335671,
+    "mismatched_loss": 1.5320261454582214,
+    "mismatched_minus_matched": 1.3938830982148647,
+    "matched_better_count": 50,
+    "examples": 50
+  },
+  "dev_scoring": {
+    "task": "repair",
+    "examples": 50,
+    "parse_rate": 0.86,
+    "exact_match_rate": 0.1,
+    "unique_predictions": 47,
+    "most_common_predictions": [
+      [
+        "Trace: (5,4) left (5,3) left (5,2) left (5,1)",
+        2
+      ],
+      [
+        "Trace: (0,0) down (1,0) down (2,0) down (3,0) down (4,0) down (5,0) right (5,1) right (5,2) right (5,3)",
+        2
+      ],
+      [
+        "Trace: (0,4) down (1,4) down (2,4) down (3,4) right (3,5)",
+        2
+      ],
+      [
+        "Trace: (3,0) up (2,0) right (2,1) right (2,2) right (2,3) right (2,4)",
+        1
+      ],
+      [
+        "Trace: (3,4) down (4,4) left (4,3) left (4,2) left (4,1) left (4,0) down (5,0)",
+        1
+      ]
+    ],
+    "most_common_share": 0.04,
+    "metrics": {
+      "examples": 50,
+      "success_rate": 0.36,
+      "feasibility": 0.4,
+      "verification_macro_f1": null,
+      "first_error_accuracy": null,
+      "repair_success_rate": 0.36,
+      "end_to_end_success_rate": 0.36,
+      "mean_optimality": 1.0,
+      "counts": {
+        "success": [
+          18,
+          50
+        ],
+        "feasible": [
+          20,
+          50
+        ],
+        "repair_success": [
+          18,
+          50
+        ],
+        "optimality_scored": 18,
+        "verification_scored": 0
+      }
+    }
+  },
+  "decoding": {
+    "do_sample": false,
+    "num_beams": 1,
+    "no_repeat_ngram_size": 0,
+    "early_stopping": false
+  }
+}
