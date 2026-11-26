@@ -1,0 +1,28 @@
+{
+  "status": "supplemental_diagnostic_not_blind_test",
+  "seed": 42,
+  "paired_count": 162,
+  "id_corruption_types": {
+    "action_substitution": 41,
+    "action_insertion": 42,
+    "premature_stopping": 39,
+    "action_deletion": 40
+  },
+  "id_executor_reasons": {
+    "goal_not_reached": 54,
+    "obstacle_collision": 54,
+    "out_of_bounds": 54
+  },
+  "ood_executor_reasons": {
+    "goal_not_reached": 54,
+    "obstacle_collision": 54,
+    "out_of_bounds": 54
+  },
+  "id_shuffled_feedback_content_changed": 145,
+  "ood_shuffled_feedback_content_changed": 162,
+  "source_sha256": "a6e7d567906edd895d9f4fd25dacd9689a9567376ac7057b9f782f9d47a5b397",
+  "notes": [
+    "Uses previously inspected held-out environments; preserve original frozen Test.",
+    "OOD operations independently fail and each changes the combined execution."
+  ]
+}
