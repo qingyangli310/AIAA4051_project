@@ -15,6 +15,7 @@
 | 三模型 Dev 联调 | Repair v4 matched baseline | [配对结果](../results/full_pipeline_dev_flan_v4_matched_baseline/README.md)。独立 no-feedback checkpoint 已按相同 500 样本、3 epochs 训练；同批 Dev100：Direct 66%，no-feedback 68%，self-feedback 66%，executor-feedback 78%，shuffled-feedback 71%；100/100 完成、0 异常。此结果取代上行的 70% 作为独立模型对照。 |
 | Verifier Dev 消融 | Natural collision augmentation v2 | [结果](../results/full_pipeline_dev_flan_v4_natural_verifier/README.md)。用 Train Generator 的 37 个真实 collision 替换等量人工 collision，维持 1,000/50 预算和类别比例；Self-feedback Dev100 仍为 66%，Verifier Macro-F1 为 0.391。未采纳该 checkpoint。 |
 | 锁定正式 Test | Repair v4 ID/OOD | [ID](../results/final_pipeline_v4_id/README.md) 与 [OOD](../results/final_pipeline_v4_ood/README.md)。冻结 dataset candidate 模式各 162 条、0 异常。ID：独立 no-feedback 98/162，executor-feedback 89/162；OOD：独立 no-feedback 84/162，executor-feedback 56/162。正式 Test 不支持 Dev 上的 feedback 优势；OOD shuffled feedback 实际内容 0/162 改变，不能作为有效对照。锁定配置见 [协议](../configs/final_pipeline_v4_locked.yaml)。 |
+| Repair 探索性 Dev 消融 | Feedback suffix v5 | [结果](../results/full_pipeline_dev_flan_v5_suffix/README.md)。只用 Train/Dev，500 feedback Train、50 探索性 Dev，3 epochs。Dev100 correct executor 69%、shuffled 66%、独立 no-feedback v4 68%；34 个自然失败的 suffix 全部可解析，但仅修好 3 个。未采纳 v5，未重跑已曝光的正式 Test。 |
 | 联调 Pilot | C `6e3c5e9` | [40 ID × 三种条件](MEMBER_C_20261115_16_HANDOFF.md)。使用真实 Executor 与 Mock 模型。 |
 | 历史联调 | B `64c49da` | [Day 13](member_b_day13_delivery.md)。8 条往返样例和历史日志，由原分支复现。 |
 | 历史 Pilot | A legacy A-4 / Nov14 | `data/samples/legacy_a4_pilot/` 和 `data/samples/nov14_pilot/`。用途和限制见对应 manifest 与交接。 |

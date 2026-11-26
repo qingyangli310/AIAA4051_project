@@ -1,0 +1,130 @@
+{
+  "formal_part1_run": true,
+  "diagnostic_overfit_probe": false,
+  "experiment_label": "repair_v5_suffix_dev_only",
+  "task": "repair",
+  "model_key": "flan-t5-base",
+  "model_name": "google/flan-t5-base",
+  "model_revision": "7bcac572ce56db69c1ea7c8af255c5d7c9672fc2",
+  "model_load_source": "/data/liqingyang/hf_cache_project6/hub/models--google--flan-t5-base/snapshots/7bcac572ce56db69c1ea7c8af255c5d7c9672fc2",
+  "model_load_dtype": "float32",
+  "base_model_weights_sha256": "1dfb70afdcedceb9f9fae2f9b68e004ad934361fb35b9b2bd50b45ea90790fc8",
+  "checkpoint": "results/flan_repair_v5_suffix/checkpoint-final",
+  "seed": 42,
+  "train_count": 500,
+  "dev_count": 50,
+  "epochs": 3,
+  "completed_steps": 375,
+  "learning_rate": 0.0002,
+  "batch_size": 4,
+  "gradient_accumulation": 1,
+  "gradient_checkpointing": false,
+  "optimizer": "adamw_torch",
+  "device": "cuda",
+  "bf16": true,
+  "train_seconds": 57.153266528621316,
+  "train_sha256": "90e39f15eeb680f4a7afdaf8926ac530573ec4b09c5aa32e52625f13e4dd5917",
+  "dev_sha256": "804ed849904a7210df768af280b19759245f83a346f48354e02a9f15ddb4bc44",
+  "train_lengths": {
+    "max_input_tokens": 350,
+    "max_target_tokens": 24
+  },
+  "dev_lengths": {
+    "max_input_tokens": 338,
+    "max_target_tokens": 18
+  },
+  "parameter_signature_before": {
+    "parameter": "shared.weight",
+    "sum": 440601.75,
+    "norm": 54485.609375
+  },
+  "parameter_signature_after": {
+    "parameter": "shared.weight",
+    "sum": 440268.375,
+    "norm": 54513.73828125
+  },
+  "train_metrics": {
+    "train_runtime": 56.9891,
+    "train_samples_per_second": 26.321,
+    "train_steps_per_second": 6.58,
+    "total_flos": 661186720456704.0,
+    "train_loss": 0.4248672879934311,
+    "epoch": 3.0
+  },
+  "dev_metrics": {
+    "eval_loss": 0.3243180811405182,
+    "eval_runtime": 0.4414,
+    "eval_samples_per_second": 113.264,
+    "eval_steps_per_second": 29.449,
+    "epoch": 3.0
+  },
+  "conditioning_probe": {
+    "matched_loss": 0.3308812068216503,
+    "mismatched_loss": 1.3571059341728686,
+    "mismatched_minus_matched": 1.0262247273512184,
+    "matched_better_count": 48,
+    "examples": 50
+  },
+  "dev_scoring": {
+    "task": "repair",
+    "examples": 50,
+    "parse_rate": 0.98,
+    "exact_match_rate": 0.2,
+    "unique_predictions": 38,
+    "most_common_predictions": [
+      [
+        "Suffix: right",
+        4
+      ],
+      [
+        "Suffix: left",
+        4
+      ],
+      [
+        "Suffix: left, up, up, up, up, up",
+        3
+      ],
+      [
+        "Suffix: down, down, down, down, right",
+        2
+      ],
+      [
+        "Suffix: up, right, right, down, right",
+        2
+      ]
+    ],
+    "most_common_share": 0.08,
+    "metrics": {
+      "examples": 50,
+      "success_rate": 0.2,
+      "feasibility": 0.38,
+      "verification_macro_f1": null,
+      "first_error_accuracy": null,
+      "repair_success_rate": 0.2,
+      "end_to_end_success_rate": 0.2,
+      "mean_optimality": 0.9266666666666665,
+      "counts": {
+        "success": [
+          10,
+          50
+        ],
+        "feasible": [
+          19,
+          50
+        ],
+        "repair_success": [
+          10,
+          50
+        ],
+        "optimality_scored": 10,
+        "verification_scored": 0
+      }
+    }
+  },
+  "decoding": {
+    "do_sample": false,
+    "num_beams": 1,
+    "no_repeat_ngram_size": 0,
+    "early_stopping": false
+  }
+}

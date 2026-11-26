@@ -214,3 +214,33 @@ def build_feedback_localized_repair_prompt(
         "and its resulting coordinate. Use coordinates formatted (row,col). Stop at "
         "the goal.\nAnswer:"
     )
+
+
+def build_suffix_repair_prompt(
+    grid: dict[str, Any], candidate_plan: list[str],
+    feedback_source: str, verifier_feedback: dict[str, Any] | None,
+) -> str:
+    """Ask for only the route from the last valid state to the goal."""
+    if feedback_source == "no_feedback" or not isinstance(verifier_feedback, dict):
+        raise ValueError("suffix repair requires feedback")
+    step = verifier_feedback.get("first_error_step")
+    reason = verifier_feedback.get("reason")
+    if type(step) is not int or not 0 <= step <= len(candidate_plan):
+        raise ValueError("invalid feedback step")
+    if not isinstance(reason, str) or not reason:
+        raise ValueError("invalid feedback reason")
+    position = _position_after_prefix(grid, candidate_plan, step)
+    return (
+        "Task: repair the candidate path. Coordinates and action steps are zero-based.\n"
+        + grid_text(grid)
+        + f"Candidate path: {', '.join(candidate_plan)}\n"
+        + f"Feedback source: {feedback_source}\n"
+        + f"Verifier feedback: invalid | step={step} | reason={reason}\n"
+        + f"Valid prefix to keep: {', '.join(candidate_plan[:step]) or '<empty>'}\n"
+        + f"Last valid position: ({position[0]},{position[1]})\n"
+        + "Produce only the actions from the last valid position to the goal. "
+        "The pipeline will prepend the valid prefix.\n"
+        + "Output exactly Suffix: followed by comma-separated actions from up, down, left, right. "
+        "If already at the goal, output Suffix: <done>.\n"
+        + "Answer:"
+    )

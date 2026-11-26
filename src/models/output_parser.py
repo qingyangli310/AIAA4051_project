@@ -41,6 +41,25 @@ def parse_plan(raw_output: Any) -> dict[str, Any]:
     return result
 
 
+def parse_suffix(raw_output: Any) -> dict[str, Any]:
+    """Parse the v5 suffix contract without accepting arbitrary prose."""
+    result = {"raw_output": raw_output, "plan": [], "parse_success": False}
+    if not isinstance(raw_output, str):
+        return result
+    if raw_output.strip().lower() == "suffix: <done>":
+        result.update(plan=[], parse_success=True)
+        return result
+    match = re.fullmatch(
+        r"Suffix:\s*(up|down|left|right)(?:\s*,\s*(?:up|down|left|right))*",
+        raw_output.strip(), flags=re.IGNORECASE,
+    )
+    if match is None:
+        return result
+    actions = [action.strip().lower() for action in raw_output.strip()[7:].split(",")]
+    result.update(plan=actions, parse_success=True)
+    return result
+
+
 def parse_trace(raw_output: Any, grid: dict[str, Any]) -> dict[str, Any]:
     """Parse one coordinate/action Trace and verify its internal transitions."""
     result = {"raw_output": raw_output, "plan": [], "parse_success": False}

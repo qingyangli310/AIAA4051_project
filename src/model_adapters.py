@@ -12,9 +12,10 @@ from pathlib import Path
 from typing import Any
 
 from generation_trace_v9.state_format import build_trace_prompt
-from src.models.output_parser import parse_plan, parse_trace, parse_verification
+from src.models.output_parser import parse_plan, parse_suffix, parse_trace, parse_verification
 from src.models.prompts import (
     build_feedback_localized_repair_prompt,
+    build_suffix_repair_prompt,
     build_generation_prompt,
     build_repair_prompt,
     build_verification_prompt,
@@ -150,7 +151,7 @@ class Seq2SeqRepairerAdapter:
     ) -> None:
         self.infer_text = infer_text
         self.output_format = output_format
-        if prompt_protocol not in {"standard", "feedback_localized_v1"}:
+        if prompt_protocol not in {"standard", "feedback_localized_v1", "suffix_v1"}:
             raise ValueError(f"unsupported Repair prompt protocol: {prompt_protocol!r}")
         self.prompt_protocol = prompt_protocol
         self.max_new_tokens = max_new_tokens
@@ -165,7 +166,13 @@ class Seq2SeqRepairerAdapter:
         verifier_feedback: dict[str, Any] | None,
     ) -> dict[str, Any]:
         del environment_id
-        if self.prompt_protocol == "feedback_localized_v1":
+        if self.prompt_protocol == "suffix_v1":
+            if self.output_format != "suffix_v1":
+                raise ValueError("suffix_v1 prompt requires suffix_v1 output")
+            prompt = build_suffix_repair_prompt(
+                grid, candidate_plan, feedback_source, verifier_feedback
+            )
+        elif self.prompt_protocol == "feedback_localized_v1":
             if self.output_format != "trace_only":
                 raise ValueError("feedback_localized_v1 requires trace_only output")
             prompt = build_feedback_localized_repair_prompt(
@@ -181,10 +188,19 @@ class Seq2SeqRepairerAdapter:
         if self.output_format == "trace_only" and self.prompt_protocol == "standard":
             prompt = format_repair_trace_prompt(prompt)
         raw_output = self.infer_text(prompt, self.max_new_tokens)
-        parsed = _parse_path(raw_output, grid, self.output_format)
+        parsed = (
+            parse_suffix(raw_output)
+            if self.output_format == "suffix_v1"
+            else _parse_path(raw_output, grid, self.output_format)
+        )
+        repaired_plan = (
+            candidate_plan[:verifier_feedback["first_error_step"]] + parsed["plan"]
+            if self.output_format == "suffix_v1" and parsed["parse_success"]
+            else parsed["plan"]
+        )
         return {
             "raw_output": raw_output,
-            "repaired_plan": parsed["plan"],
+            "repaired_plan": repaired_plan,
             "parse_success": parsed["parse_success"],
             "trace_positions": parsed.get("trace_positions"),
             "prompt": prompt,

@@ -147,3 +147,22 @@ def test_condition_routing_repairer_uses_separate_no_feedback_model() -> None:
         ("feedback", "self_feedback"),
     ]
 
+
+def test_suffix_repair_appends_only_to_feedback_valid_prefix() -> None:
+    def infer(prompt: str, limit: int) -> str:
+        assert "Last valid position: (1,1)" in prompt
+        assert "Valid prefix to keep: down, right" in prompt
+        return "Suffix: down, right"
+
+    adapter = Seq2SeqRepairerAdapter(
+        infer, output_format="suffix_v1", prompt_protocol="suffix_v1"
+    )
+    result = adapter.repair(
+        environment_id=GRID["environment_id"], grid=GRID,
+        candidate_plan=["down", "right", "right"],
+        feedback_source="executor_feedback",
+        verifier_feedback={"first_error_step": 2, "reason": "obstacle_collision"},
+    )
+    assert result["parse_success"] is True
+    assert result["repaired_plan"] == ["down", "right", "down", "right"]
+

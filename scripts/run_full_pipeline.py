@@ -187,8 +187,8 @@ def build_components(args: argparse.Namespace) -> tuple[Any, Any, Any, Any]:
         ConditionRoutingRepairer(
             Seq2SeqRepairerAdapter(
                 no_feedback_repair_runner,
-                output_format=args.repair_output_format,
-                prompt_protocol=args.repair_prompt_protocol,
+                output_format=args.no_feedback_repair_output_format or args.repair_output_format,
+                prompt_protocol=args.no_feedback_repair_prompt_protocol or args.repair_prompt_protocol,
                 max_new_tokens=args.repair_max_new_tokens,
                 checkpoint_id=str(args.no_feedback_repair_checkpoint),
             ),
@@ -266,13 +266,15 @@ def main() -> int:
         "--generator-output-format", choices=("plan", "trace_only"), default="trace_only"
     )
     parser.add_argument(
-        "--repair-output-format", choices=("plan", "trace_only"), default="trace_only"
+        "--repair-output-format", choices=("plan", "trace_only", "suffix_v1"), default="trace_only"
     )
     parser.add_argument(
         "--repair-prompt-protocol",
-        choices=("standard", "feedback_localized_v1"),
+        choices=("standard", "feedback_localized_v1", "suffix_v1"),
         default="standard",
     )
+    parser.add_argument("--no-feedback-repair-output-format", choices=("plan", "trace_only"))
+    parser.add_argument("--no-feedback-repair-prompt-protocol", choices=("standard", "feedback_localized_v1"))
     parser.add_argument("--generator-max-new-tokens", type=int, default=128)
     parser.add_argument("--verifier-max-new-tokens", type=int, default=128)
     parser.add_argument("--repair-max-new-tokens", type=int, default=128)
@@ -350,6 +352,7 @@ def main() -> int:
             "verifier_max_new_tokens": args.verifier_max_new_tokens,
             "repair_max_new_tokens": args.repair_max_new_tokens,
             "repair_prompt_protocol": args.repair_prompt_protocol,
+            "no_feedback_repair_prompt_protocol": args.no_feedback_repair_prompt_protocol,
         },
         "elapsed_seconds": elapsed,
         "summary": summarize(records, conditions),

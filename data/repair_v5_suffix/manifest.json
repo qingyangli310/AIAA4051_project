@@ -1,0 +1,27 @@
+{
+  "seed": 42,
+  "train_count": 500,
+  "dev_count": 50,
+  "combined_with_existing_no_feedback_baseline_train_count": 1000,
+  "train_reasons": {
+    "obstacle_collision": 236,
+    "out_of_bounds": 88,
+    "goal_not_reached": 88,
+    "invalid_action_token": 88
+  },
+  "dev_reasons": {
+    "obstacle_collision": 32,
+    "invalid_action_token": 6,
+    "out_of_bounds": 6,
+    "goal_not_reached": 6
+  },
+  "train_families": {
+    "generation_like_collision": 199,
+    "controlled_error": 264,
+    "generator_train_failure": 37
+  },
+  "train_dev_environment_overlap": 0,
+  "train_sha256": "90e39f15eeb680f4a7afdaf8926ac530573ec4b09c5aa32e52625f13e4dd5917",
+  "dev_sha256": "804ed849904a7210df768af280b19759245f83a346f48354e02a9f15ddb4bc44",
+  "data_policy": "Only Train environments build Train examples; archived Generator Train monitor only; no Test tuning."
+}
