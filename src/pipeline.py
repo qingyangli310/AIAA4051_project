@@ -7,6 +7,7 @@ import hashlib
 import json
 from typing import Any
 
+from src.data.candidate_source import _optimal_length, validate_candidate_grid, validate_candidate_ids
 from src.repair_schema import build_repair_request, validate_repair_output
 
 
@@ -74,6 +75,7 @@ def run_pipeline_batch(
     if candidate_source == "dataset":
         if candidate_records is None or len(candidate_records) != len(grids):
             raise ValueError("dataset mode requires one candidate record per grid")
+        validate_candidate_ids(candidate_records)
     elif candidate_records is not None:
         raise ValueError("candidate_records may only be supplied in dataset mode")
 
@@ -285,6 +287,8 @@ def run_pipeline_comparison_batch(
     candidate_source: str = "generator",
 ) -> list[dict[str, Any]]:
     """Run paired comparisons and isolate individual sample failures."""
+    if candidate_source == "dataset":
+        validate_candidate_ids(rows)
     include_shuffled = "shuffled_executor_feedback" in conditions
     base_conditions = tuple(
         condition for condition in conditions if condition != "shuffled_executor_feedback"
@@ -311,7 +315,8 @@ def run_pipeline_comparison_batch(
                     "sample_id": row.get("sample_id"),
                     "corruption_type": row.get("corruption_type"),
                     "test_condition": row.get("condition"),
-                    "optimal_length": _row_optimal_length(row),
+                    "optimal_length": (_optimal_length(row) if candidate_source == "dataset"
+                                       else _row_optimal_length(row)),
                     **result,
                 }
             )
@@ -415,6 +420,8 @@ def _resolve_candidate(
         not isinstance(action, str) for action in candidate_plan
     ):
         raise ValueError("dataset record requires candidate_plan or corrupted_plan")
+    validate_candidate_grid(candidate_record, grid)
+    _optimal_length(candidate_record)
     return None, deepcopy(candidate_plan)
 
 

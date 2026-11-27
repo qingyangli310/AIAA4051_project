@@ -6,6 +6,8 @@ from copy import deepcopy
 from pathlib import Path
 from typing import Any
 
+from src.data.build_nov14_dataset import shortest_path
+from src.data.environment import environment_id as canonical_environment_id
 from src.data.ppnl_io import load_records
 
 
@@ -25,30 +27,15 @@ def load_candidate_records(
     if limit is not None:
         if limit < 1:
             raise ValueError("limit must be positive")
-        rows = rows[:limit]
 
     output: list[dict[str, Any]] = []
-    seen_sample_ids: set[str] = set()
-    for index, row in enumerate(rows):
-        if not isinstance(row, dict):
-            raise ValueError(f"row {index} must be an object")
+    validate_candidate_ids(rows)
+    for row in rows:
         grid = _normalize_grid(row)
         candidate = _candidate_plan(row)
-        sample_id = row.get("sample_id", row.get("example_id", row.get("id")))
-        base_sample_id = row.get("base_sample_id")
-        environment_id = row.get("environment_id", grid["environment_id"])
-        if not sample_id or not base_sample_id or not environment_id:
-            raise ValueError(
-                f"row {index} requires sample, base-sample, and environment IDs"
-            )
-        sample_id, base_sample_id, environment_id = (
-            str(sample_id),
-            str(base_sample_id),
-            str(environment_id),
-        )
-        if sample_id in seen_sample_ids:
-            raise ValueError(f"duplicate sample_id: {sample_id}")
-        seen_sample_ids.add(sample_id)
+        sample_id = _sample_id(row)
+        base_sample_id = row["base_sample_id"]
+        environment_id = grid["environment_id"]
 
         corruption = deepcopy(row.get("corruption_type"))
         if condition == "id_single_error":
@@ -72,7 +59,7 @@ def load_candidate_records(
                 "optimal_length": _optimal_length(row),
             }
         )
-    return output
+    return output[:limit]
 
 
 def _candidate_plan(row: dict[str, Any]) -> list[str]:
@@ -115,15 +102,66 @@ def _normalize_grid(row: dict[str, Any]) -> dict[str, Any]:
     missing = [field for field in required if grid.get(field) is None]
     if missing:
         raise ValueError(f"grid is missing required fields: {missing}")
-    return {field: deepcopy(grid[field]) for field in required}
+    rows, cols = grid["rows"], grid["cols"]
+    if any(type(n) is not int or n <= 0 for n in (rows, cols)):
+        raise ValueError("grid dimensions must be positive integers")
+    for alias in ("grid_size", "size"):
+        if alias in grid and grid[alias] not in ([rows, cols], (rows, cols)):
+            raise ValueError("grid dimensions disagree with size alias")
+    if not isinstance(grid["obstacles"], (list, tuple)):
+        raise ValueError("obstacles must be a coordinate sequence")
+    for point in (grid["start"], grid["goal"], *grid["obstacles"]):
+        if (not isinstance(point, (list, tuple)) or len(point) != 2
+                or any(type(n) is not int for n in point)
+                or not (0 <= point[0] < rows and 0 <= point[1] < cols)):
+            raise ValueError("invalid grid coordinate")
+    obstacles = sorted([list(point) for point in grid["obstacles"]])
+    if len(set(map(tuple, obstacles))) != len(obstacles):
+        raise ValueError("duplicate obstacles")
+    for key in ("start", "goal"):
+        grid[key] = list(grid[key])
+        if grid[key] in obstacles:
+            raise ValueError(f"{key} is blocked")
+    grid["obstacles"] = obstacles
+    eid = grid["environment_id"]
+    if row.get("environment_id", eid) != eid:
+        raise ValueError("row and grid environment_id disagree")
+    if eid != canonical_environment_id(rows, cols, obstacles):
+        raise ValueError("environment_id does not match canonical grid")
+    return {field: grid[field] for field in required}
+
+
+def _sample_id(row):
+    return row.get("sample_id", row.get("example_id", row.get("id")))
+
+
+def validate_candidate_ids(rows):
+    """Check identity across the entire condition, including rows beyond a limit."""
+    seen = {"sample_id": set(), "base_sample_id": set()}
+    for row in rows:
+        if not isinstance(row, dict):
+            raise ValueError("candidate row must be an object")
+        for key, value in (("sample_id", _sample_id(row)),
+                           ("base_sample_id", row.get("base_sample_id"))):
+            if not isinstance(value, str) or not value or value != value.strip():
+                raise ValueError(f"invalid {key}")
+            if value in seen[key]:
+                raise ValueError(f"duplicate {key}: {value}")
+            seen[key].add(value)
+
+
+def validate_candidate_grid(record, runtime_grid):
+    validate_candidate_ids([record])
+    if _normalize_grid(record) != _normalize_grid({"grid": runtime_grid}):
+        raise ValueError("candidate grid differs from runtime grid")
 
 
 def _optimal_length(row: dict[str, Any]) -> int | None:
-    explicit = row.get("optimal_length")
-    if isinstance(explicit, int) and explicit >= 0:
-        return explicit
-    for field in ("shortest_plan", "target_plan", "reference_actions", "original_plan"):
-        plan = row.get(field)
-        if isinstance(plan, list):
-            return len(plan)
-    return None
+    explicit = [row[key] for key in ("shortest_length", "optimal_length")
+                if row.get(key) is not None]
+    if not explicit:
+        return None
+    shortest = shortest_path(_normalize_grid(row))
+    if shortest is None or any(type(n) is not int or n != len(shortest) for n in explicit):
+        raise ValueError("declared optimal length disagrees with BFS")
+    return explicit[0]

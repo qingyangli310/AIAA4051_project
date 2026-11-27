@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 
 from src.data.candidate_source import load_candidate_records
+from src.data.environment import environment_id
 from src.pipeline import (
     run_pipeline,
     run_pipeline_batch,
@@ -21,7 +22,7 @@ from src.smoke_integration import (
 
 
 GRID = {
-    "environment_id": "env-1",
+    "environment_id": environment_id(3, 3, []),
     "rows": 3,
     "cols": 3,
     "start": [0, 0],
@@ -70,7 +71,7 @@ def candidate_row(plan=None):
     return {
         "sample_id": "sample-1",
         "base_sample_id": "base-1",
-        "environment_id": "env-1",
+        "environment_id": environment_id(3, 3, []),
         "grid": GRID,
         "candidate_plan": list(plan if plan is not None else ["right"]),
         "corruption_type": "premature_stopping",
@@ -220,3 +221,54 @@ def test_dataset_mode_rejects_missing_candidate_and_misaligned_batch():
             candidate_source="dataset",
             candidate_records=[],
         )
+
+
+@pytest.mark.parametrize("change", [
+    {"environment_id": "mismatch"},
+    {"grid": {**GRID, "obstacles": [[1, 1]]}},
+    {"grid": {**GRID, "rows": True}},
+])
+def test_loader_rejects_inconsistent_grid(tmp_path, change):
+    path = tmp_path / "rows.jsonl"
+    path.write_text(json.dumps({**candidate_row(), **change}) + "\n")
+    with pytest.raises(ValueError):
+        load_candidate_records(path, condition="id_single_error")
+
+
+def test_dataset_rejects_same_layout_with_different_goal():
+    with pytest.raises(ValueError, match="differs from runtime grid"):
+        run_pipeline_comparison(
+            {**GRID, "goal": [1, 2]}, None, None, None, None,
+            candidate_source="dataset", candidate_record=candidate_row(),
+        )
+
+
+@pytest.mark.parametrize("duplicate", ["sample_id", "base_sample_id"])
+def test_duplicate_ids_rejected_even_beyond_limit(tmp_path, duplicate):
+    first = candidate_row()
+    second = {**first, "sample_id": "s2", "base_sample_id": "b2"}
+    second[duplicate] = first[duplicate]
+    path = tmp_path / "rows.jsonl"
+    path.write_text("".join(json.dumps(row) + "\n" for row in (first, second)))
+    with pytest.raises(ValueError, match=f"duplicate {duplicate}"):
+        load_candidate_records(path, condition="id_single_error", limit=1)
+
+
+@pytest.mark.parametrize("length", [True, 3, -1])
+def test_rejects_unverified_explicit_optimal_length(tmp_path, length):
+    path = tmp_path / "rows.jsonl"
+    path.write_text(json.dumps({**candidate_row(), "optimal_length": length}) + "\n")
+    with pytest.raises(ValueError, match="disagrees with BFS"):
+        load_candidate_records(path, condition="id_single_error")
+
+
+def test_reference_plan_alone_does_not_set_optimal_length(tmp_path):
+    row = candidate_row()
+    del row["optimal_length"]
+    row["original_plan"] = ["down", "up", "right", "right"]
+    path = tmp_path / "rows.jsonl"
+    path.write_text(json.dumps(row) + "\n")
+    assert load_candidate_records(path, condition="id_single_error")[0]["optimal_length"] is None
+    row["shortest_length"] = 2
+    path.write_text(json.dumps(row) + "\n")
+    assert load_candidate_records(path, condition="id_single_error")[0]["optimal_length"] == 2
